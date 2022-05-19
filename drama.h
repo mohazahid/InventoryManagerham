@@ -14,7 +14,7 @@
 
 #include "movie.h"
 
-class Classic : public Movie {
+class Drama : public Movie {
 
 private:
 
@@ -25,7 +25,7 @@ private:
 
 public: 
 
-    bool operator<(const Classic&);
-    bool operator==(const Classic&);
+    bool operator<(const Drama&);
+    bool operator==(const Drama&);
 
 };
