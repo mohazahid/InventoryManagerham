@@ -10,6 +10,8 @@
  * 
  */
 
+#pragma once
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -56,12 +58,12 @@ private:
      * @brief Prints a sorted inventory
      * @details prints in the order of #TODO 
      */
-    void printInventory();
+    void printInventory() const;
     /**
      * @brief Prints the transactions of a customer
      * @param custID custID of customer
      */
-    void printTransactions(int);
+    void printTransactions(int) const;
 
 public:
 
