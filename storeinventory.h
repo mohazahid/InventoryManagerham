@@ -13,14 +13,27 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <string>
-#include "movie.h"
+#include <set>
+#include <limits>
 #include "hashtable.tpp"
+#include "movie.h"
+#include "classic.h"
+#include "comedy.h"
+#include "drama.h"
+
 
 class StoreInventory{
 
 private:
+
+    enum MovieTypes {
+        Comedy = 'F',
+        Classic = 'C',
+        Drama = 'D'
+    };
 
     /**
      * @brief Operations StoreInventory can make
@@ -31,16 +44,23 @@ private:
         Inventory = 'I',
         History = 'H'
     };
+
+    struct Customer {
+        int custID; // 4 digit ID
+        std::string custFirst; // Customer first name
+        std::string custLast; // Customer last nane    
+    };
+
     /**
      * @brief Contains information about a given transaction
      */
     struct Log {
-        int custID; // 4 digit ID
-        std::string custFirst; // Customer first name
-        std::string custLast; // Customer last nane
         Operation type; // 'B' or 'R'
+        Customer customer; // Contains information about the customer
         Movie movie; // Contains information about the movie 
     };
+
+    std::set<Customer> customers; // stores customers
     HashTable<Log*> transactions; // key is custID
     HashTable<Movie*> inventory; // key is #TODO
 
