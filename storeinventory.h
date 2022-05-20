@@ -16,7 +16,7 @@
 #include <list>
 #include <string>
 #include "movie.h"
-#include "hashtable.h"
+#include "hashtable.tpp"
 
 class StoreInventory{
 
