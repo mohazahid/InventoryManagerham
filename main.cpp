@@ -11,7 +11,7 @@ int main() {
 
 	#if 1
 
-	HashTable<int> ht(15); 
+	HashTable<int> ht(5); 
 	ht.put("one", 1);
 	ht.put("two", 2);
 	ht.put("three", 3);
