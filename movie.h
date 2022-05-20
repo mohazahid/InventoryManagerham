@@ -33,7 +33,14 @@ protected:
 public:
 
     virtual ~Movie();
-    Movie();
+    /**
+     * @brief Construct a new Movie object
+     * @param stock // quantity of movie in stock
+     * @param director // director of movie
+     * @param title // title of movie
+     * @param year // year released of movie
+     */
+    Movie(int, std::string, std::string, int);
 
     virtual bool operator<(const Movie&);
     virtual bool operator==(const Movie&);

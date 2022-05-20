@@ -1,7 +1,7 @@
 /**
  * @file comedy.h
  * @author 
- * your name (you@domain.com)
+ * Hayden Lauritzen (haydenlauritzen@gmail.com)
  * your name (you@domain.com)
  * your name (you@domain.com)
  * @brief Header for Comedy which implements Movie
@@ -25,7 +25,16 @@ private:
 
 public: 
 
+    /**
+     * @brief Construct a new Movie object
+     * @param stock // quantity of movie in stock
+     * @param director // director of movie
+     * @param title // title of movie
+     * @param year // year released of movie
+     */
+    Comedy(int, std::string, std::string, int);
+    ~Comedy();
+
     bool operator<(const Comedy&);
-    bool operator==(const Comedy&);
 
 };
