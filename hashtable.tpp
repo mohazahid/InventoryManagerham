@@ -4,9 +4,8 @@
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
  * your name (you@domain.com)
  * your name (you@domain.com)
- * @brief Header file for HashTable
+ * @brief Template file for HashTable
  * @date 2022-05-18
- * 
  * @copyright Copyright (c) 2022
  * 
  */
@@ -16,6 +15,16 @@
 #include <vector>
 #include <memory>
 
+/**
+ * @brief 
+ * Prevents hash conflicts by storing new values as a list
+ * @tparam T 
+ */
+template <typename T>
+struct TableCell {
+    std::unique_ptr<T> value; // value storted in hash table
+    std::unique_ptr<TableCell> next; // 
+};
 
 /**
  * @brief 
@@ -29,20 +38,8 @@ private:
 
     static const int DEFAULT_SIZE = 100; // if no size is given, a vector of 100 values is defined
 
-    /**
-     * @brief 
-     * Prevents hash conflicts by storing new values as a list
-     * @tparam T 
-     */
-    template <typename T>
-    struct TableCell {
-        std::unique_ptr<T> value; // value storted in hash table
-        std::unique_ptr<TableCell> next; // 
-        
-    };
-
     int size; // size of vector
-    std::vector<std::unique_ptr<TableCell>> table;
+    std::vector<std::unique_ptr<TableCell<T>>> table;
 
     /**
      * @brief Hashs the key and returns the corresponding table index
@@ -59,17 +56,72 @@ private:
      * @param key value to hash
      * @return index in table
      */
-    int hash(std::string key) {
+    int stringToKey(std::string key) {
         int sum = 0;
         for(char c : key) {
             sum += c;
         }
-        return hash(sum);
+        return sum;
     }
 
 public:
+    
+    HashTable<T>() : size(DEFAULT_SIZE) {
+        for(int i = 0; i < this->size; ++i) {
+            this->table.push_back(std::make_unique<TableCell<T>>());
+        }
+    }
+    HashTable<T>(int size) : size(size) {
+        for(int i = 0; i < this->size; ++i) {
+            this->table.push_back(std::make_unique<TableCell<T>>());
+        }
+    }
 
-    HashTable<T>() : size(DEFAULT_SIZE), table(100){}
-    HashTable<T>(int size) : size(size), table(this->size){}
+    /**
+     * @brief Inserts the value at the key's location
+     * @param key Key to hash
+     * @param value Value to insert into table
+     */
+    void put(int key, const T& val) {
+        int idx = hash(key);
+        // Insert cell at head
+        if(table.at(idx)->value == nullptr) {
+            std::unique_ptr<TableCell<T>> cell = std::make_unique<TableCell<T>>();
+            cell->value = std::make_unique<T>(val);
+            table.at(idx) = cell;
+        }
+        // Hash conflict
+        else {
+            std::unique_ptr<TableCell<T>> cell = std::make_unique<TableCell>();
+            cell->value = std::make_unique<T>(val);
+            auto cur = table.at(idx);
+            while(!cur->next == nullptr) {
+                cur = cur->next;
+            }
+            cur->next = cell;
+        }
+    }
+    /**
+     * @brief Inserts the value at the key's location
+     * @details Converts std::string into an int value 
+     * @param key Key to hash
+     * @param value Value to insert into table
+     */
+    void put(std::string key, const T& value) { put(stringToKey(key), value); }
+ 
+    // std::list<T> get(int key) {
+    //     std::list<T> out;
+    //     auto cur = table.at(hash(key))->value;
+    //     while(cur != nullptr) {
+    //         out.push_back(cur->value);
+    //         cur = cur->next;
+    //     }
+    //     return out;
+    // }
+    // std::list<T> get(std::string key) { return get(stringToKey(key)); }
+ 
+    // bool remove(int key, T) {
+
+    // }
 
 };
