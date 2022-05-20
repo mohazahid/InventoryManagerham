@@ -86,20 +86,19 @@ public:
         int idx = hash(key);
         // Insert cell at head
         if(table.at(idx)->value == nullptr) {
-            std::unique_ptr<TableCell<T>> cell = std::make_unique<TableCell<T>>();
-            cell->value = std::make_unique<T>(val);
-            table.at(idx) = cell;
+            table.at(idx)->value = std::make_unique<T>(val);
+            table.at(idx)->next = std::make_unique<TableCell<T>>();
         }
         // Hash conflict
-        else {
-            std::unique_ptr<TableCell<T>> cell = std::make_unique<TableCell>();
-            cell->value = std::make_unique<T>(val);
-            auto cur = table.at(idx);
-            while(!cur->next == nullptr) {
-                cur = cur->next;
-            }
-            cur->next = cell;
-        }
+        // else {
+        //     std::unique_ptr<TableCell<T>> cell = std::make_unique<TableCell<T>>();
+        //     cell->value = std::make_unique<T>(val);
+        //     TableCell<T>* cur = table.at(idx).get();
+        //     while(!cur->next == nullptr) {
+        //         cur = cur->next;
+        //     }
+        //     cur->next = cell;
+        // }
     }
     /**
      * @brief Inserts the value at the key's location
