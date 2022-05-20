@@ -13,18 +13,7 @@
 #pragma once
 
 #include <vector>
-#include <memory>
-
-/**
- * @brief 
- * Prevents hash conflicts by storing new values as a list
- * @tparam T 
- */
-template <typename T>
-struct TableCell {
-    std::unique_ptr<T> value; // value storted in hash table
-    std::unique_ptr<TableCell> next; // 
-};
+#include <list>
 
 /**
  * @brief Stores values according to a hash function
@@ -39,14 +28,14 @@ private:
     static const int DEFAULT_SIZE = 100; // if no size is given, a vector of 100 values is defined
 
     int size; // size of vector
-    std::vector<std::unique_ptr<TableCell<T>>> table; // vector of points
+    std::vector<std::list<T>> table; // vector of points
 
     /**
      * @brief Hashs the key and returns the corresponding table index
      * @param key value to hash
      * @return index in table
      */
-    int hash(int key) {
+    int hash(int key) const {
         return key % this->size;
     }
     /**
@@ -55,7 +44,7 @@ private:
      * @param key value to hash
      * @return index in table
      */
-    int stringToKey(std::string key) {
+    int stringToKey(std::string key) const {
         int sum = 0;
         for(char c : key) {
             sum += c;
@@ -65,16 +54,8 @@ private:
 
 public:
     
-    HashTable<T>() : size(DEFAULT_SIZE) {
-        for(int i = 0; i < this->size; ++i) {
-            this->table.push_back(std::make_unique<TableCell<T>>());
-        }
-    }
-    HashTable<T>(int size) : size(size) {
-        for(int i = 0; i < this->size; ++i) {
-            this->table.push_back(std::make_unique<TableCell<T>>());
-        }
-    }
+    HashTable<T>() : size(DEFAULT_SIZE), table(this->size){}
+    HashTable<T>(int size) : size(size), table(this->size){}
 
     /**
      * @brief Inserts the value at the key's location
@@ -83,15 +64,7 @@ public:
      */
     void put(int key, const T& val) {
         int idx = hash(key);
-        TableCell<T>* cur = table.at(idx).get();
-        // Insert cell end of list
-        while(!(cur->next == nullptr)) {
-            cur = cur->next.get();
-        }
-        if(cur->value == nullptr) {
-            cur->value = std::make_unique<T>(val);
-            cur->next = std::make_unique<TableCell<T>>();
-        }
+        table.at(idx).push_back(val);
     }
     /**
      * @brief Inserts the value at the key's location
@@ -108,14 +81,8 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    std::list<T> get(int key) {
-        std::list<T> out;
-        TableCell<T>* cur = table.at(hash(key)).get();
-        while(cur->value != nullptr) {
-            out.push_back(T(*cur->value));
-            cur = cur->next.get();
-        }
-        return out;
+    std::list<T> get(int key) const {
+        return table.at(hash(key));
     }
     /**
      * @brief Returns a list of all values stored at the given key
@@ -123,7 +90,7 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    std::list<T> get(std::string key) {
+    std::list<T> get(std::string key) const {
         return get(stringToKey(key));
     }
 
@@ -132,9 +99,7 @@ public:
      * @param key Key to hash
      */
     void remove(int key) {
-        int idx = hash(key);
-        this->table.at(idx).reset();
-        this->table.at(idx) = std::make_unique<TableCell<T>>();
+        this->table.at(hash(key)).clear();        
     }
     /**
      * @brief Removes all values stored with the given key
@@ -144,32 +109,13 @@ public:
         remove(stringToKey(key));
     }
 
-    #if 0 // #TODO
-
     /**
      * @brief Removes the given value with the given key
      * @param key Key to hash
      * @param val Value to remove
      */
     void remove(int key, T& val) {
-        TableCell<T>* cur = this->table.at(hash(key)).get(); 
-        // returns if no values are stored at the given key
-        if(cur->value == nullptr) return;
-        auto prev = cur;
-        // value at head
-        if(*(cur->value) == val) { 
-            this->table.at(hash(key)).reset(cur->next.get());
-        }
-        else {
-            cur = cur->next.get();
-        }
-        // value not at head
-        while(cur->value != nullptr && *(cur->value) != val) {
-            cur = cur->next.get();
-            prev = prev->next.get();   
-        }
-        // remove node
-        prev->next.reset(cur->next.get());
+        this->table.at(hash(key)).remove(val);
     }
     /**
      * @brief Removes the given value with the given key
@@ -179,8 +125,5 @@ public:
     void remove(std::string key, T& val) {
         remove(stringToKey(key), val);
     }
-
-    #endif
-
 
 };

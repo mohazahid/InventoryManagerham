@@ -42,8 +42,7 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
                 year = std::stoi(output.front());
                 output.pop();
                 Comedy movie(stock, director, title, year);
-                Comedy* ptr = &movie;
-                this->inventory.put((director + title), ptr);
+                this->inventory.put((director + title), movie);
             }
             case 'C': {
                 int month;
@@ -63,8 +62,7 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
                 year = std::stoi(output.front());
                 output.pop();
                 Classic movie(stock, director, title, year, lastName, firstName, month);
-                Classic* ptr = &movie;
-                this->inventory.put((director + title), ptr);
+                this->inventory.put((director + title), movie);
             }
             case 'D': {
                 stock = std::stoi(output.front());
@@ -76,8 +74,7 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
                 year = std::stoi(output.front());
                 output.pop();
                 Drama movie(stock, director, title, year);
-                Drama* ptr = &movie;
-                this->inventory.put((director + title), ptr);
+                this->inventory.put((director + title), movie);
             }
             default: 
                 // Skips to next line on invalid input

@@ -61,8 +61,8 @@ private:
     };
 
     std::set<Customer> customers; // stores customers
-    HashTable<Log*> transactions; // key is custID
-    HashTable<Movie*> inventory; // key is director + title
+    HashTable<Log> transactions; // key is custID
+    HashTable<Movie> inventory; // key is director + title
 
     /**
      * @brief Inserts a Log into transactions and modifies the corresponding stock  
