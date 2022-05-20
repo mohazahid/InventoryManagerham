@@ -17,7 +17,9 @@
 #include <list>
 #include <string>
 #include <set>
-#include <limits>
+#include <limits> // used for fstream numeric limit
+#include <sstream>
+#include <queue>
 #include "hashtable.tpp"
 #include "movie.h"
 #include "classic.h"
@@ -44,7 +46,7 @@ private:
         int custID; // 4 digit ID
         std::string custFirst; // Customer first name
         std::string custLast; // Customer last name
-        bool operator<(Customer& rhs) const {
+        bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
         }    
     };

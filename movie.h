@@ -21,7 +21,7 @@
 class Movie{
 protected:
 
-    const static char genre; // type of movie
+    const static char genre = '0'; // type of movie
     int stock; // quanty of movie in stock
     std::string director; // director of movie
     std::string title; // title of movie

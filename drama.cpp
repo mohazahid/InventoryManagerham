@@ -15,6 +15,8 @@
 Drama::Drama(int stock, std::string director, std::string title, int year) : 
     Movie(stock, director, title, year) {}
 
+Drama::~Drama(){};
+
 bool Drama::operator<(const Drama& rhs) {
     if(this->director == rhs.director) {
         return this->title < rhs.title;

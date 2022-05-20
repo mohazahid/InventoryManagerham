@@ -19,13 +19,28 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
         this->customers.insert(c);
     }
     while(!movies.eof()) {
-        char type; 
+        char type = movies.get();
+        std::string input;
+        std::getline(customers, input);
+        std::queue<std::string> output;
+        std::stringstream ss(input);
+        while (ss.good()) {
+            std::string str;
+            std::getline(ss, str, ',');
+            output.push(str);
+        }
         int stock, year;
         std::string director, title;
-        customers >> type;
         switch(type) {
             case 'F': {
-                customers >> stock >> director >> title >> year;
+                stock = std::stoi(output.front());
+                output.pop();
+                director = output.front();
+                output.pop();
+                title = output.front();
+                output.pop();
+                year = std::stoi(output.front());
+                output.pop();
                 Comedy movie(stock, director, title, year);
                 Comedy* ptr = &movie;
                 this->inventory.put((director + title), ptr);
@@ -33,13 +48,33 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
             case 'C': {
                 int month;
                 std::string lastName, firstName;
-                customers >> stock >> director >> title >> firstName >> lastName >> month >> year;
+                stock = std::stoi(output.front());
+                output.pop();
+                director = output.front();
+                output.pop();
+                title = output.front();
+                output.pop();
+                firstName = output.front();
+                output.pop();
+                lastName = output.front();
+                output.pop();
+                month = std::stoi(output.front());
+                output.pop();
+                year = std::stoi(output.front());
+                output.pop();
                 Classic movie(stock, director, title, year, lastName, firstName, month);
                 Classic* ptr = &movie;
                 this->inventory.put((director + title), ptr);
             }
             case 'D': {
-                customers >> stock >> director >> title >> year;
+                stock = std::stoi(output.front());
+                output.pop();
+                director = output.front();
+                output.pop();
+                title = output.front();
+                output.pop();
+                year = std::stoi(output.front());
+                output.pop();
                 Drama movie(stock, director, title, year);
                 Drama* ptr = &movie;
                 this->inventory.put((director + title), ptr);
