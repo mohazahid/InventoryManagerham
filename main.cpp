@@ -16,9 +16,12 @@ int main() {
 	ht.put("two", 2);
 	ht.put("three", 3);
 	ht.put("one", 1);
-	// for(auto val : ht.get("one")) {
-	// 	cout << val << endl;
-	// }
+	for(auto val : ht.get("one")) {
+		cout << val << endl;
+	}
+	int a = 1;
+	ht.remove("two");
+	ht.remove("one", a);
 
 	#endif
 
