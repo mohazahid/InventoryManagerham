@@ -9,7 +9,7 @@ int main() {
 
 	/* Test HashTable */
 
-	#if 1
+	#if 0
 
 	HashTable<int> ht(5); 
 	ht.put("one", 1);
@@ -21,13 +21,12 @@ int main() {
 	}
 	int a = 1;
 	ht.remove("two");
-	ht.remove("one", a);
 
 	#endif
 
 	/* Test StoreInventory */
 
-	#if 0
+	#if 1
 
     ifstream customers("data4customers.txt");
 	if (!customers) {

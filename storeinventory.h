@@ -29,11 +29,6 @@ class StoreInventory{
 
 private:
 
-    enum MovieTypes {
-        Comedy = 'F',
-        Classic = 'C',
-        Drama = 'D'
-    };
 
     /**
      * @brief Operations StoreInventory can make
@@ -48,7 +43,10 @@ private:
     struct Customer {
         int custID; // 4 digit ID
         std::string custFirst; // Customer first name
-        std::string custLast; // Customer last nane    
+        std::string custLast; // Customer last name
+        bool operator<(Customer& rhs) const {
+            return this->custID < rhs.custID;
+        }    
     };
 
     /**
@@ -62,7 +60,7 @@ private:
 
     std::set<Customer> customers; // stores customers
     HashTable<Log*> transactions; // key is custID
-    HashTable<Movie*> inventory; // key is #TODO
+    HashTable<Movie*> inventory; // key is director + title
 
     /**
      * @brief Inserts a Log into transactions and modifies the corresponding stock  
