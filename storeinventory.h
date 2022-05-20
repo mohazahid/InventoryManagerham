@@ -53,7 +53,7 @@ private:
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
      * @return false If 'movie' does not 
      */
-    bool transact(Log);
+    bool transact(Log&);
     /**
      * @brief Prints a sorted inventory
      * @details prints in the order of #TODO 
@@ -72,12 +72,12 @@ public:
      * @param customers std::ifstream of customers to insert into transactions
      * @param movies std::ifstream of movies to insert into inventory
      */
-    StoreInventory(std::ifstream, std::ifstream);
+    StoreInventory(std::ifstream&, std::ifstream&);
     /**
      * @brief Runs all the provided commands
      * @details Invalid commands will be skipped
      * @param filename std::ifstream of commands to run
      */
-    void operate(std::ifstream);
+    void operate(std::ifstream&);
 
 };
