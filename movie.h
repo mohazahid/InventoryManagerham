@@ -30,6 +30,8 @@ protected:
     // simulate virtual const static behavior
     virtual char type() { return genre; }
 
+    virtual std::ofstream& print(std::ofstream&, Movie&);
+
 public:
 
     virtual ~Movie();
@@ -44,5 +46,10 @@ public:
 
     virtual bool operator<(const Movie&);
     virtual bool operator==(const Movie&);
+
+    friend std::ofstream& operator<<(std::ofstream&, Movie&);
+
+    int Borrow();
+    int Return();
 
 };

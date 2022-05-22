@@ -25,3 +25,20 @@ bool Movie::operator==(const Movie& rhs) {
 bool Movie::operator<(const Movie& rhs) {
     return this->year < rhs.year;
 }
+
+std::ofstream& operator<<(std::ofstream& output, Movie& m) {
+    return m.print(output, m);
+}
+
+std::ofstream& Movie::print(std::ofstream& output, Movie& m) {
+    // #TODO
+}
+
+int Movie::Borrow() {
+    if(this->stock < 0) return -1;
+    return --this->stock;
+}
+
+int Movie::Return() {
+    return ++this->stock;
+}
