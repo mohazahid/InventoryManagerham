@@ -20,13 +20,17 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
     }
     while(!movies.eof()) {
         char type = movies.get();
+        movies.ignore(1);
         std::string input;
-        std::getline(customers, input);
+        std::getline(movies, input);
+        if(input == "") continue;
         std::queue<std::string> output;
         std::stringstream ss(input);
-        while (ss.good()) {
+        while(ss.good()) {
             std::string str;
             std::getline(ss, str, ',');
+            str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
+            str = str.substr(1);
             output.push(str);
         }
         int stock, year;
@@ -92,20 +96,27 @@ void StoreInventory::printInventory() const {
 }
 
 void StoreInventory::printTransactions(int id) const {
-    std::list<Log> logList;
-    for(auto cust: customers){
-        if(cust.custID == id){
-            logList = transactions.get(id);
-            auto log_front = logList.begin();
-            for(int i = 0; i < logList.size(); i++){
-                std::advance(log_front, i);
-                std::cout << *log_front << std::endl;
-            }
-        }
-
+    if(!isValid(id)) return; // if 'id' does not exist in customer list, return
+    std::list<Log> logList = transactions.get(id);
+    for(auto const& log : logList) {
+        std::cout << log << '\n';
     }
+    std::cout << std::endl;
+    // auto log_front = logList.begin();
+    // for (int i = 0; i < logList.size(); i++)
+    // {
+    //     std::advance(log_front, i);
+    //     std::cout << *log_front << std::endl;
+    // }
 }
 
 void StoreInventory::operate(std::ifstream&) {
     
+}
+
+bool StoreInventory::isValid(int id) const {
+    for(auto const& cust : this->customers) {
+        if(cust.custID == id) return true;
+    }
+    return false;
 }

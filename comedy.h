@@ -23,7 +23,7 @@ private:
     // simulate virtual const static behavior
     virtual char type() { return genre; }
 
-    virtual std::ofstream& print(std::ofstream&, Movie&);
+    virtual std::ofstream& print(std::ofstream&, Comedy&);
 
 public: 
 
@@ -35,7 +35,7 @@ public:
      * @param year // year released of movie
      */
     Comedy(int, std::string, std::string, int);
-    ~Comedy();
+    virtual ~Comedy();
 
     bool operator<(const Comedy&);
 

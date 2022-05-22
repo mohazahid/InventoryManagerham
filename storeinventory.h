@@ -20,6 +20,7 @@
 #include <limits> // used for fstream numeric limit
 #include <sstream>
 #include <queue>
+#include <algorithm>
 #include "hashtable.tpp"
 #include "movie.h"
 #include "classic.h"
@@ -58,11 +59,13 @@ private:
         Operation type; // 'B' or 'R'
         Customer customer; // Contains information about the customer
         Movie movie; // Contains information about the movie 
+        
+        friend std::ostream& operator<<(std::ostream& os, const Log& log){
+            return os<< log.type << std::endl;
+        }
     };
 
-    friend std::ostream& operator<<(std::ostream& os, const Log& log){
-        return os<< log.type << std::endl;
-    }
+    
     std::set<Customer> customers; // stores customers
     HashTable<Log> transactions; // key is custID
     HashTable<Movie> inventory; // key is director + title
@@ -87,6 +90,8 @@ private:
      * @param custID custID of customer
      */
     void printTransactions(int) const;
+
+    bool isValid(int) const;
 
 public:
 

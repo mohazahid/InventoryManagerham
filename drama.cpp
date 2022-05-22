@@ -25,3 +25,7 @@ bool Drama::operator<(const Drama& rhs) {
         return this->director < rhs.director;
     }
 }
+
+std::ofstream& Drama::print(std::ofstream& output, Drama& d) {
+
+}

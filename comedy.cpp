@@ -25,4 +25,7 @@ bool Comedy::operator<(const Comedy& rhs) {
         return this->title < rhs.title;
     }
 }
-// shh he wont know
+
+std::ofstream& Comedy::print(std::ofstream&, Comedy&) {
+
+}

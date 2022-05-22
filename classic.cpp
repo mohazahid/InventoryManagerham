@@ -39,4 +39,6 @@ bool Classic::operator==(const Classic& rhs) {
     && (this->firstName == rhs.lastName) && (this->month == rhs.month)); 
 }
 
-// shh he wont know
+std::ofstream& Classic::print(std::ofstream&, Classic&) {
+    
+}
