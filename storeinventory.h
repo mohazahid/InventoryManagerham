@@ -60,6 +60,9 @@ private:
         Movie movie; // Contains information about the movie 
     };
 
+    friend std::ostream& operator<<(std::ostream& os, const Log& log){
+        return os<< log.type << std::endl;
+    }
     std::set<Customer> customers; // stores customers
     HashTable<Log> transactions; // key is custID
     HashTable<Movie> inventory; // key is director + title

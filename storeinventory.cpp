@@ -7,7 +7,7 @@
  * @brief Implementation file for StoreInventory 
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
- * 
+ * import java.util.ArrayList;*
  */
 
 #include "storeinventory.h"
@@ -91,8 +91,19 @@ void StoreInventory::printInventory() const {
     
 }
 
-void StoreInventory::printTransactions(int) const {
-    
+void StoreInventory::printTransactions(int id) const {
+    std::list<Log> logList;
+    for(auto cust: customers){
+        if(cust.custID == id){
+            logList = transactions.get(id);
+            auto log_front = logList.begin();
+            for(int i = 0; i < logList.size(); i++){
+                std::advance(log_front, i);
+                std::cout << *log_front << std::endl;
+            }
+        }
+
+    }
 }
 
 void StoreInventory::operate(std::ifstream&) {
