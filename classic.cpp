@@ -22,16 +22,16 @@ Classic::Classic(int stock, std::string director, std::string title, int year,
 Classic::~Classic(){}
 
 bool Classic::operator<(const Classic& rhs) {
-    if(this->year == rhs.year) {
-        if(this->month == rhs.month) {
-            if(this->lastName == rhs.lastName) {
-                return this->firstName < rhs.firstName;
-            }
-            return this->lastName < rhs.lastName;
-        }
+    if(this->year != rhs.year) {
+        return this->year < rhs.year;
+    }
+    if(this->month != rhs.month) {
         return this->month < rhs.month;
     }
-    return this->year < rhs.year;
+    if(this->lastName != rhs.lastName) {
+        return this->lastName < rhs.lastName;
+    }
+    return this->firstName < rhs.firstName;
 }
 
 bool Classic::operator==(const Classic& rhs) {
