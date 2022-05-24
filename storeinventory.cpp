@@ -7,17 +7,25 @@
  * @brief Implementation file for StoreInventory 
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
- * import java.util.ArrayList;*
+ * import java.util.ArrayList;
  */
 
 #include "storeinventory.h"
 
 StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) {
+    setCustomers(customers);
+    setMovies(movies);
+}
+
+void StoreInventory::setCustomers(std::ifstream& customers) {
     while(!customers.eof()) {
         Customer c;
         customers >> c.custID >> c.custLast >> c.custFirst;
         this->customers.insert(c);
     }
+}
+
+void StoreInventory::setMovies(std::ifstream& movies) {
     while(!movies.eof()) {
         char type = movies.get();
         movies.ignore(1);
@@ -82,7 +90,7 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
             }
             default: 
                 // Skips to next line on invalid input
-                customers.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                movies.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
 }

@@ -93,6 +93,9 @@ private:
 
     bool isValid(int) const;
 
+    void setCustomers(std::ifstream&);
+    void setMovies(std::ifstream&);
+
 public:
 
     /**
