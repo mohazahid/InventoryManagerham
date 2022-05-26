@@ -23,7 +23,7 @@ private:
     // simulate virtual const static behavior
     virtual char type() { return genre; }
 
-    virtual std::ofstream& print(std::ofstream&, Drama&);
+    virtual std::ostream& print(std::ostream&);
 
 public: 
 

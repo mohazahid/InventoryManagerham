@@ -41,6 +41,6 @@ bool Classic::operator==(const Classic& rhs) {
     && (this->month == rhs.month)); 
 }
 
-std::ofstream& Classic::print(std::ofstream&, Classic&) {
-    
+std::ostream& Classic::print(std::ostream& out) {
+    return out;
 }

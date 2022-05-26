@@ -47,6 +47,8 @@ int main() {
 
     StoreInventory inv(customers, movies);
 
+	std::cout << inv << std::endl;
+
 	#endif
 
 }

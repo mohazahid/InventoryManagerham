@@ -20,14 +20,14 @@ private:
 
     const static char genre = 'C';
 
-    std::string lastName;
     std::string firstName;
+    std::string lastName;
     int month;
 
     // simulate virtual const static behavior
     virtual char type() { return genre; }
 
-    virtual std::ofstream& print(std::ofstream&, Classic&);
+    virtual std::ostream& print(std::ostream&);
 
 public:
     /**

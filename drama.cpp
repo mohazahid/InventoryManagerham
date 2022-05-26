@@ -26,6 +26,6 @@ bool Drama::operator<(const Drama& rhs) {
     }
 }
 
-std::ofstream& Drama::print(std::ofstream& output, Drama& d) {
-
+std::ostream& Drama::print(std::ostream& out) {
+    return out;
 }

@@ -27,70 +27,69 @@ void StoreInventory::setCustomers(std::ifstream& customers) {
 
 void StoreInventory::setMovies(std::ifstream& movies) {
     while(!movies.eof()) {
-        char type = movies.get();
-        movies.ignore(1);
-        std::string input;
-        std::getline(movies, input);
-        if(input == "") continue;
-        std::queue<std::string> output;
-        std::stringstream ss(input);
-        while(ss.good()) {
-            std::string str;
-            std::getline(ss, str, ',');
-            str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
-            str = str.substr(1);
-            output.push(str);
+        // parse line 
+        std::string line;
+        std::getline(movies, line);
+        if(line == "") continue; // empty line was read
+        std::istringstream iss(line);
+        std::vector<std::string> tokens;
+        char delim = ',';
+        std::string token;
+        while(std::getline(iss, token, delim)) {
+            token.erase(0, token.find_first_not_of(' '));
+            token.erase(token.find_last_not_of("\r")+1);
+            tokens.push_back(token);
         }
-        int stock, year;
-        std::string director, title;
+        if(tokens.at(0).size() > 1) continue; // invalid movie type
+        char type = tokens.at(0).at(0); // string should only be 1 char
         switch(type) {
             case 'F': {
-                stock = std::stoi(output.front());
-                output.pop();
-                director = output.front();
-                output.pop();
-                title = output.front();
-                output.pop();
-                year = std::stoi(output.front());
-                output.pop();
-                Comedy movie(stock, director, title, year);
-                this->inventory.put((director + title), movie);
+                /*  Tokens.at()
+                 *  0     1      2         3      4  
+                 *  type, stock, director, title, year
+                 */
+                if(tokens.size() != 5) continue; // invalid arguements
+                Comedy movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
+                this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
+                break;
             }
             case 'C': {
-                int month;
-                std::string lastName, firstName;
-                stock = std::stoi(output.front());
-                output.pop();
-                director = output.front();
-                output.pop();
-                title = output.front();
-                output.pop();
-                firstName = output.front();
-                output.pop();
-                lastName = output.front();
-                output.pop();
-                month = std::stoi(output.front());
-                output.pop();
-                year = std::stoi(output.front());
-                output.pop();
-                Classic movie(stock, director, title, year, lastName, firstName, month);
-                this->inventory.put((director + title), movie);
+                /*  Tokens.at()
+                 *  0     1      2         3      4  
+                 *  type, stock, director, title, firstName lastName month year
+                 */
+                // Finish specialized string parsing
+                if(tokens.size() != 5) continue; // invalid arguements
+                std::istringstream issClassic(tokens.at(4));
+                tokens.pop_back();
+                while(!issClassic.eof()) {
+                    std::string temp;
+                    if(issClassic >> temp) {
+                        tokens.push_back(temp);
+                    }
+                }
+                /*  Tokens.at()
+                 *  0     1      2         3      4        5         6     7
+                 *  type, stock, director, title, firstName lastName month year
+                 */
+                if(tokens.size() != 8) continue; // invalid arguements
+                Classic movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
+                this->inventory.put((tokens.at(2)+tokens.at(3)), movie);
+                break;
             }
             case 'D': {
-                stock = std::stoi(output.front());
-                output.pop();
-                director = output.front();
-                output.pop();
-                title = output.front();
-                output.pop();
-                year = std::stoi(output.front());
-                output.pop();
-                Drama movie(stock, director, title, year);
-                this->inventory.put((director + title), movie);
+                /*  Tokens.at()
+                 *  0     1      2         3      4  
+                 *  type, stock, director, title, year
+                 */
+                if(tokens.size() != 5) continue; // invalid arguements
+                Comedy movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
+                this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
+                break;
             }
-            default: 
-                // Skips to next line on invalid input
-                movies.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            default: {
+                continue;
+            }
         }
     }
 }
@@ -127,4 +126,15 @@ bool StoreInventory::isValid(int id) const {
         if(cust.custID == id) return true;
     }
     return false;
+}
+
+std::ostream& operator<<(std::ostream& out, StoreInventory& inv) {
+    // Print Customers 
+    for(auto customer : inv.customers) {
+        out << customer;
+    }
+    out << std::endl;
+    // Print Inventory
+    out << inv.inventory;
+    return out;
 }

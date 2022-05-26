@@ -14,13 +14,15 @@
 
 #include <iostream>
 #include <fstream>
-#include <list>
-#include <string>
-#include <set>
-#include <limits> // used for fstream numeric limit
 #include <sstream>
-#include <queue>
+#include <iomanip>
+
+#include <string>
+#include <list>
+#include <set>
+
 #include <algorithm>
+
 #include "hashtable.tpp"
 #include "movie.h"
 #include "classic.h"
@@ -31,7 +33,6 @@
 class StoreInventory{
 
 private:
-
 
     /**
      * @brief Operations StoreInventory can make
@@ -50,6 +51,9 @@ private:
         bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
         }    
+        friend std::ostream& operator<<(std::ostream& out, const Customer& c){
+            return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast << '\n';
+        }
     };
 
     /**
@@ -110,5 +114,7 @@ public:
      * @param filename std::ifstream of commands to run
      */
     void operate(std::ifstream&);
+
+    friend std::ostream& operator<<(std::ostream&, StoreInventory&);
 
 };

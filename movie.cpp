@@ -26,12 +26,13 @@ bool Movie::operator<(const Movie& rhs) {
     return this->year < rhs.year;
 }
 
-std::ofstream& operator<<(std::ofstream& output, Movie& m) {
-    return m.print(output, m);
+std::ostream& operator<<(std::ostream& out, Movie& m) {
+    return m.print(out);
 }
 
-std::ofstream& Movie::print(std::ofstream& output, Movie& m) {
-    // #TODO
+std::ostream& Movie::print(std::ostream& out) {
+    out << "Invalid genre: " << type();
+    return out;
 }
 
 int Movie::Borrow() {

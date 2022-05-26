@@ -126,4 +126,13 @@ public:
         remove(stringToKey(key), val);
     }
 
+    friend std::ostream& operator<<(std::ostream& out, HashTable<T>& ht) {
+        for(int i = 0; i < ht.size; ++i) {
+            for(T obj : ht.get(i)) {
+                out << obj << 'n';
+            }
+        }
+        out << std::endl;
+        return out;
+    }
 };

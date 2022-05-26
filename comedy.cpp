@@ -26,6 +26,6 @@ bool Comedy::operator<(const Comedy& rhs) {
     }
 }
 
-std::ofstream& Comedy::print(std::ofstream&, Comedy&) {
-
+std::ostream& Comedy::print(std::ostream& out) {
+    return out;
 }
