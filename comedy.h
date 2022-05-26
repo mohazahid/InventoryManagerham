@@ -1,9 +1,9 @@
 /**
  * @file comedy.h
  * @author 
- * your name (you@domain.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (oahmed@uw.edu)
  * @brief Header for Comedy which implements Movie
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -20,12 +20,28 @@ private:
 
     const static char genre = 'F';
 
-    // simulate virtual const static behavior
-    virtual char type() { return genre; }
+protected:
+
+    virtual std::ostream& print(std::ostream&) const;
 
 public: 
 
-    bool operator<(const Comedy&);
-    bool operator==(const Comedy&);
+    /**
+     * @brief Construct a new Movie object
+     * @param stock // quantity of movie in stock
+     * @param director // director of movie
+     * @param title // title of movie
+     * @param year // year released of movie
+     */
+    Comedy(int, std::string, std::string, int);
+    Comedy(const Comedy&);
+    virtual ~Comedy();
+
+    // simulate virtual const static behavior
+    virtual char type() const { return Comedy::genre; }
+
+    virtual std::string getKey() const;
+
+    bool operator<(const Comedy&) const;
 
 };

@@ -1,9 +1,9 @@
 /**
  * @file movie.h
  * @author
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (oahmed@uw.edu)
  * @brief Header file for Movie
  * @date 2022-05-18
  * 
@@ -16,26 +16,51 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
 
 class Movie{
+
+private:
+
+    const static char genre = '0'; // type of movie
+    
 protected:
 
-    const static char genre; // type of movie
+
     int stock; // quanty of movie in stock
     std::string director; // director of movie
     std::string title; // title of movie
     int year; // year released of movie
 
     // simulate virtual const static behavior
-    virtual char type() { return genre; }
+
+    virtual std::ostream& print(std::ostream&) const;
 
 public:
 
     virtual ~Movie();
+    /**
+     * @brief Construct a new Movie object
+     * @param stock // quantity of movie in stock
+     * @param director // director of movie
+     * @param title // title of movie
+     * @param year // year released of movie
+     */
+    Movie(int, std::string, std::string, int);
+    Movie(const Movie&);
     Movie();
 
-    virtual bool operator<(const Movie&);
-    virtual bool operator==(const Movie&);
+    virtual char type() const { return genre; }
+
+    virtual bool operator<(const Movie&) const;
+    virtual bool operator==(const Movie&) const;
+
+    friend std::ostream& operator<<(std::ostream&, Movie&);
+
+    virtual std::string getKey() const;
+
+    int Borrow();
+    int Return();
 
 };

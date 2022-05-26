@@ -1,9 +1,9 @@
 /**
  * @file storeinventory.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (oahmed@uw.edu)
  * @brief Header file for StoreInventory
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -13,10 +13,23 @@
 #pragma once
 
 #include <iostream>
-#include <list>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
 #include <string>
-#include "movie.h"
+#include <list>
+#include <set>
+
+#include <algorithm>
+#include <memory>
+
 #include "hashtable.tpp"
+#include "movie.h"
+#include "classic.h"
+#include "comedy.h"
+#include "drama.h"
+
 
 class StoreInventory{
 
@@ -31,18 +44,36 @@ private:
         Inventory = 'I',
         History = 'H'
     };
+
+    struct Customer {
+        int custID; // 4 digit ID
+        std::string custFirst; // Customer first name
+        std::string custLast; // Customer last name
+        bool operator<(const Customer& rhs) const {
+            return this->custID < rhs.custID;
+        }    
+        friend std::ostream& operator<<(std::ostream& out, const Customer& c){
+            return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast << '\n';
+        }
+    };
+
     /**
      * @brief Contains information about a given transaction
      */
     struct Log {
-        int custID; // 4 digit ID
-        std::string custFirst; // Customer first name
-        std::string custLast; // Customer last nane
         Operation type; // 'B' or 'R'
+        Customer customer; // Contains information about the customer
         Movie movie; // Contains information about the movie 
+        
+        friend std::ostream& operator<<(std::ostream& os, const Log& log){
+            return os<< log.type << std::endl;
+        }
     };
-    HashTable<Log*> transactions; // key is custID
-    HashTable<Movie*> inventory; // key is #TODO
+
+    
+    std::set<Customer> customers; // stores customers
+    HashTable<Log> transactions; // key depends on movie type
+    HashTable<std::shared_ptr<Movie>> inventory; // key is director + title
 
     /**
      * @brief Inserts a Log into transactions and modifies the corresponding stock  
@@ -51,19 +82,27 @@ private:
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
-     * @return false If 'movie' does not 
+     * @return false If 'movie' does not exist in inventory
      */
     bool transact(Log&);
+
+    void printCustomers(std::ostream&) const;
     /**
      * @brief Prints a sorted inventory
      * @details prints in the order of #TODO 
      */
-    void printInventory() const;
+    void printInventory(std::ostream&) const;
     /**
      * @brief Prints the transactions of a customer
      * @param custID custID of customer
      */
-    void printTransactions(int) const;
+    void printTransactions(std::ostream&, int) const;
+    void printTransactions(std::ostream&) const;
+
+    bool isValid(int) const;
+
+    void setCustomers(std::ifstream&);
+    void setMovies(std::ifstream&);
 
 public:
 
@@ -79,5 +118,7 @@ public:
      * @param filename std::ifstream of commands to run
      */
     void operate(std::ifstream&);
+
+    friend std::ostream& operator<<(std::ostream&, StoreInventory&);
 
 };
