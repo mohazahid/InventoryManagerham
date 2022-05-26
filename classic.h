@@ -40,6 +40,7 @@ public:
      * @param month // month released of movie
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
+    Classic(const Classic&);
     virtual ~Classic();
 
     // simulate virtual const static behavior

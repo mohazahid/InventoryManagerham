@@ -14,6 +14,8 @@
 Movie::Movie(int stock, std::string director, std::string title, int year) : 
     stock(stock), director(director), title(title), year(year) {}
 
+Movie::Movie(const Movie& m) : stock(m.stock), director(m.director), title(m.title), year(m.year) {}
+
 Movie::~Movie() {}
 
 bool Movie::operator==(const Movie& rhs) const {

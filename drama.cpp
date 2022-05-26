@@ -15,6 +15,8 @@
 Drama::Drama(int stock, std::string director, std::string title, int year) : 
     Movie(stock, director, title, year) {}
 
+Drama::Drama(const Drama& d) : Movie(d.stock, d.director, d.title, d.year) {}
+
 Drama::~Drama(){};
 
 bool Drama::operator<(const Drama& rhs) const {
@@ -27,5 +29,6 @@ bool Drama::operator<(const Drama& rhs) const {
 }
 
 std::ostream& Drama::print(std::ostream& out) const {
+    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year;
     return out;
 }

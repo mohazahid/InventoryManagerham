@@ -15,6 +15,8 @@
 Comedy::Comedy(int stock, std::string director, std::string title, int year) : 
     Movie(stock, director, title, year) {}
 
+Comedy::Comedy(const Comedy& c) : Movie(c.stock, c.director, c.title, c.year) {}
+
 Comedy::~Comedy(){}
 
 bool Comedy::operator<(const Comedy& rhs) const {
@@ -27,5 +29,6 @@ bool Comedy::operator<(const Comedy& rhs) const {
 }
 
 std::ostream& Comedy::print(std::ostream& out) const {
+    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year; 
     return out;
 }

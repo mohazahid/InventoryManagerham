@@ -19,6 +19,9 @@ Classic::Classic(int stock, std::string director, std::string title, int year,
     Movie(stock, director, title, year), firstName(firstName), 
     lastName(lastName), month(month) {}
 
+Classic::Classic(const Classic& c) : Movie(c.stock, c.director, c.title, c.year), 
+    firstName(c.firstName), lastName(c.lastName), month(c.month) {}
+
 Classic::~Classic(){}
 
 bool Classic::operator<(const Classic& rhs) const {
@@ -42,5 +45,6 @@ bool Classic::operator==(const Classic& rhs) const {
 }
 
 std::ostream& Classic::print(std::ostream& out) const {
+    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year;
     return out;
 }

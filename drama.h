@@ -34,6 +34,7 @@ public:
      * @param year // year released of movie
      */
     Drama(int, std::string, std::string, int);
+    Drama(const Drama&);
     virtual ~Drama();
 
     // simulate virtual const static behavior

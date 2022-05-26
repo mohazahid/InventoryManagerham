@@ -51,7 +51,8 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  */
                 if(tokens.size() != 5) continue; // invalid arguements
                 // # TODO output invalid command to console
-                Comedy movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
+                // Comedy* movie = new Comedy(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
+                std::shared_ptr<Movie> movie = std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
                 break;
             }
@@ -78,7 +79,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  */
                 if(tokens.size() != 8) continue; // invalid arguements
                 // # TODO output invalid command to console
-                Classic movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
+                std::shared_ptr<Movie> movie = std::make_shared<Classic>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
                 this->inventory.put((tokens.at(2)+tokens.at(3)), movie);
                 break;
             }
@@ -89,7 +90,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  */
                 if(tokens.size() != 5) continue; // invalid arguements 
                 // # TODO output invalid command to console
-                Comedy movie(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
+                std::shared_ptr<Movie> movie = std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
                 break;
             }
@@ -113,29 +114,29 @@ void StoreInventory::printCustomers(std::ostream& out) const {
 }
 
 void StoreInventory::printInventory(std::ostream& out) const {
-    std::vector<Movie> comedys;
-    std::vector<Movie> dramas;
-    std::vector<Movie> classics;
+    std::vector<Movie*> comedys;
+    std::vector<Movie*> dramas;
+    std::vector<Movie*> classics;
     // filter movies into vectors to be sorted
     for(int i = 0; i < this->inventory.getSize(); ++i) {
-        for(auto movie : this->inventory.get(i)) {
-            char type = movie.type();
+        for(const auto& movie : this->inventory.get(i)) {
+            char type = movie->type();
             switch(type) {
                 case 'F': {
-                    comedys.push_back(movie);
+                    comedys.push_back(movie.get());
                     break;
                 }   
                 case 'D': {
-                    dramas.push_back(movie);
+                    dramas.push_back(movie.get());
                     break;
                 }
                 case 'C': {
-                    classics.push_back(movie);
+                    classics.push_back(movie.get());
                     break;
                 }
                 default: {
                     // All defined movies are either 'F', 'D', or 'C' 
-                    std::cerr << movie << std::endl; 
+                    std::cerr << *movie << std::endl; 
                 }
             }
         }
@@ -145,13 +146,13 @@ void StoreInventory::printInventory(std::ostream& out) const {
     std::sort(dramas.begin(), dramas.end());
     std::sort(classics.begin(), classics.end());
     for(auto comedy : comedys) {
-        out << comedy << '\n';
+        out << *comedy << '\n';
     }
     for(auto drama : dramas) {
-        out << drama << '\n';
+        out << *drama << '\n';
     }
     for(auto classic : classics) {
-        out << classic << '\n';
+        out << *classic << '\n';
     }
 }
 

@@ -48,6 +48,8 @@ public:
      * @param year // year released of movie
      */
     Movie(int, std::string, std::string, int);
+    Movie(const Movie&);
+    Movie();
 
     virtual char type() const { return genre; }
 

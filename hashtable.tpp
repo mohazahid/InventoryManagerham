@@ -56,7 +56,7 @@ public:
     
     HashTable<T>() : size(DEFAULT_SIZE), table(this->size){}
     HashTable<T>(int size) : size(size), table(this->size){}
-
+    
     int getSize() const {
         return size;
     } 
@@ -85,7 +85,7 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    std::list<T> get(int key) const {
+    const std::list<T>& get(int key) const {
         return table.at(hash(key));
     }
     /**
@@ -94,7 +94,7 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    std::list<T> get(std::string key) const {
+    const std::list<T>& get(std::string key) const {
         return get(stringToKey(key));
     }
 
@@ -130,14 +130,8 @@ public:
         remove(stringToKey(key), val);
     }
 
-    T returnAll(){
-        int limit = 0; 
-        for(T: table){
-            if(limit != size){
-                return table.at(hash(limit));
-                limit++;
-            }
-        }
+    const std::vector<std::list<T>>& returnAll() const {
+        return table;
     }
 
 };
