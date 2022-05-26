@@ -15,9 +15,9 @@
 // #TODO figure how to format this to not look like a pyschopath
 
 Classic::Classic(int stock, std::string director, std::string title, int year, 
-    std::string lastName, std::string firstName, int month) : 
-    Movie(stock, director, title, year), lastName(lastName), 
-    firstName(firstName), month(month) {}
+    std::string firstName, std::string lastName, int month) : 
+    Movie(stock, director, title, year), firstName(firstName), 
+    lastName(lastName), month(month) {}
 
 Classic::~Classic(){}
 
@@ -35,8 +35,10 @@ bool Classic::operator<(const Classic& rhs) {
 }
 
 bool Classic::operator==(const Classic& rhs) {
-    return (Movie::operator==(rhs) && (this->lastName == rhs.lastName) 
-    && (this->firstName == rhs.lastName) && (this->month == rhs.month)); 
+    return (Movie::operator==(rhs) 
+    && (this->lastName == rhs.lastName) 
+    && (this->firstName == rhs.lastName) 
+    && (this->month == rhs.month)); 
 }
 
 std::ofstream& Classic::print(std::ofstream&, Classic&) {

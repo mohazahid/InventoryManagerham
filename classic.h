@@ -29,16 +29,15 @@ private:
 
     virtual std::ofstream& print(std::ofstream&, Classic&);
 
-public: 
-
+public:
     /**
      * @brief Construct a new Movie object
      * @param stock // quantity of movie in stock
      * @param director // director of movie
      * @param title // title of movie
      * @param year // year released of movie
-     * @param lastName // last name of primary actor
      * @param firstName // first name of primary actor
+     * @param lastName // last name of primary actor
      * @param month // month released of movie
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
