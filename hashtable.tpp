@@ -57,6 +57,10 @@ public:
     HashTable<T>() : size(DEFAULT_SIZE), table(this->size){}
     HashTable<T>(int size) : size(size), table(this->size){}
 
+    int getSize() const {
+        return size;
+    } 
+
     /**
      * @brief Inserts the value at the key's location
      * @param key Key to hash

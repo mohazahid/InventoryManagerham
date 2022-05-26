@@ -9,7 +9,7 @@ int main() {
 
 	/* Test HashTable */
 
-	#if 1
+	#if 0
 
 	HashTable<int> ht(10); 
 	ht.put("one", 1);
@@ -28,7 +28,7 @@ int main() {
 
 	/* Test StoreInventory */
 
-	#if 0
+	#if 1
 
     ifstream customers("data4customers.txt");
 	if (!customers) {
@@ -47,6 +47,8 @@ int main() {
 	}
 
     StoreInventory inv(customers, movies);
+
+	std::cout << inv << std::endl;
 
 	#endif
 

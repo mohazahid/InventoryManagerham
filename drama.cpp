@@ -17,11 +17,15 @@ Drama::Drama(int stock, std::string director, std::string title, int year) :
 
 Drama::~Drama(){};
 
-bool Drama::operator<(const Drama& rhs) {
+bool Drama::operator<(const Drama& rhs) const {
     if(this->director == rhs.director) {
         return this->title < rhs.title;
     }
     else {
         return this->director < rhs.director;
     }
+}
+
+std::ostream& Drama::print(std::ostream& out) const {
+    return out;
 }

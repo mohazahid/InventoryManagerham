@@ -14,12 +14,15 @@
 
 #include <iostream>
 #include <fstream>
-#include <list>
-#include <string>
-#include <set>
-#include <limits> // used for fstream numeric limit
 #include <sstream>
-#include <queue>
+#include <iomanip>
+
+#include <string>
+#include <list>
+#include <set>
+
+#include <algorithm>
+
 #include "hashtable.tpp"
 #include "movie.h"
 #include "classic.h"
@@ -30,7 +33,6 @@
 class StoreInventory{
 
 private:
-
 
     /**
      * @brief Operations StoreInventory can make
@@ -49,6 +51,9 @@ private:
         bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
         }    
+        friend std::ostream& operator<<(std::ostream& out, const Customer& c){
+            return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast << '\n';
+        }
     };
 
     /**
@@ -58,11 +63,13 @@ private:
         Operation type; // 'B' or 'R'
         Customer customer; // Contains information about the customer
         Movie movie; // Contains information about the movie 
+        
+        friend std::ostream& operator<<(std::ostream& os, const Log& log){
+            return os<< log.type << std::endl;
+        }
     };
 
-    friend std::ostream& operator<<(std::ostream& os, const Log& log){
-        return os<< log.type << std::endl;
-    }
+    
     std::set<Customer> customers; // stores customers
     HashTable<Log> transactions; // key is custID
     HashTable<Movie> inventory; // key is director + title
@@ -77,16 +84,24 @@ private:
      * @return false If 'movie' does not 
      */
     bool transact(Log&);
+
+    void printCustomers(std::ostream&) const;
     /**
      * @brief Prints a sorted inventory
      * @details prints in the order of #TODO 
      */
-    void printInventory() const;
+    void printInventory(std::ostream&) const;
     /**
      * @brief Prints the transactions of a customer
      * @param custID custID of customer
      */
-    void printTransactions(int) const;
+    void printTransactions(std::ostream&, int) const;
+    void printTransactions(std::ostream&) const;
+
+    bool isValid(int) const;
+
+    void setCustomers(std::ifstream&);
+    void setMovies(std::ifstream&);
 
 public:
 
@@ -102,5 +117,7 @@ public:
      * @param filename std::ifstream of commands to run
      */
     void operate(std::ifstream&);
+
+    friend std::ostream& operator<<(std::ostream&, StoreInventory&);
 
 };

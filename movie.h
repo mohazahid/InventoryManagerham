@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
 
 class Movie{
@@ -28,7 +29,8 @@ protected:
     int year; // year released of movie
 
     // simulate virtual const static behavior
-    virtual char type() { return genre; }
+
+    virtual std::ostream& print(std::ostream&) const;
 
 public:
 
@@ -42,7 +44,14 @@ public:
      */
     Movie(int, std::string, std::string, int);
 
-    virtual bool operator<(const Movie&);
-    virtual bool operator==(const Movie&);
+    virtual char type() const { return genre; }
+
+    virtual bool operator<(const Movie&) const;
+    virtual bool operator==(const Movie&) const;
+
+    friend std::ostream& operator<<(std::ostream&, Movie&);
+
+    int Borrow();
+    int Return();
 
 };

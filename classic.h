@@ -20,29 +20,30 @@ private:
 
     const static char genre = 'C';
 
-    std::string lastName;
     std::string firstName;
+    std::string lastName;
     int month;
 
-    // simulate virtual const static behavior
-    virtual char type() { return genre; }
+    virtual std::ostream& print(std::ostream&) const;
 
-public: 
-
+public:
     /**
      * @brief Construct a new Movie object
      * @param stock // quantity of movie in stock
      * @param director // director of movie
      * @param title // title of movie
      * @param year // year released of movie
-     * @param lastName // last name of primary actor
      * @param firstName // first name of primary actor
+     * @param lastName // last name of primary actor
      * @param month // month released of movie
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
-    ~Classic();
+    virtual ~Classic();
 
-    bool operator<(const Classic&);
-    bool operator==(const Classic&);
+    // simulate virtual const static behavior
+    virtual char type() const { return Classic::genre; }
+
+    bool operator<(const Classic&) const;
+    bool operator==(const Classic&) const;
 
 };

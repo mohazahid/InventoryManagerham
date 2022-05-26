@@ -16,12 +16,30 @@ Movie::Movie(int stock, std::string director, std::string title, int year) :
 
 Movie::~Movie() {}
 
-bool Movie::operator==(const Movie& rhs) {
+bool Movie::operator==(const Movie& rhs) const {
     return ((this->director == rhs.director) 
     && (this->title == rhs.title) 
     && (this->year == rhs.year)); 
 }
 
-bool Movie::operator<(const Movie& rhs) {
+bool Movie::operator<(const Movie& rhs) const {
     return this->year < rhs.year;
+}
+
+std::ostream& operator<<(std::ostream& out, Movie& m) {
+    return m.print(out);
+}
+
+std::ostream& Movie::print(std::ostream& out) const {
+    out << "Invalid genre: " << this->type();
+    return out;
+}
+
+int Movie::Borrow() {
+    if(this->stock < 0) return -1;
+    return --this->stock;
+}
+
+int Movie::Return() {
+    return ++this->stock;
 }
