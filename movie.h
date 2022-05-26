@@ -20,9 +20,14 @@
 #include <string>
 
 class Movie{
-protected:
+
+private:
 
     const static char genre = '0'; // type of movie
+    
+protected:
+
+
     int stock; // quanty of movie in stock
     std::string director; // director of movie
     std::string title; // title of movie

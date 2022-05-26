@@ -20,6 +20,8 @@ private:
 
     const static char genre = 'C';
 
+protected:
+
     std::string firstName;
     std::string lastName;
     int month;

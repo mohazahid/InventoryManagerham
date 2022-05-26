@@ -45,6 +45,15 @@ int main() {
 		return 1;
 	}
 
+	Comedy c(10, "Guy Guy", "Title", 2032);
+	std::cout << c << '\n';
+
+	std::vector<Movie> m;
+	m.push_back(c);
+	for(auto i : m) {
+		std::cout << i << '\n';
+	}
+
     StoreInventory inv(customers, movies);
 
 	std::cout << inv << std::endl;

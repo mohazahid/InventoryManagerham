@@ -20,6 +20,8 @@ private:
 
     const static char genre = 'F';
 
+protected:
+
     virtual std::ostream& print(std::ostream&) const;
 
 public: 
