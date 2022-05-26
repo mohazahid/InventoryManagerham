@@ -24,10 +24,7 @@ private:
     std::string lastName;
     int month;
 
-    // simulate virtual const static behavior
-    virtual char type() { return genre; }
-
-    virtual std::ostream& print(std::ostream&);
+    virtual std::ostream& print(std::ostream&) const;
 
 public:
     /**
@@ -43,7 +40,10 @@ public:
     Classic(int, std::string, std::string, int, std::string, std::string, int);
     virtual ~Classic();
 
-    bool operator<(const Classic&);
-    bool operator==(const Classic&);
+    // simulate virtual const static behavior
+    virtual char type() const { return Classic::genre; }
+
+    bool operator<(const Classic&) const;
+    bool operator==(const Classic&) const;
 
 };

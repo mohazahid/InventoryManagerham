@@ -17,7 +17,7 @@ Drama::Drama(int stock, std::string director, std::string title, int year) :
 
 Drama::~Drama(){};
 
-bool Drama::operator<(const Drama& rhs) {
+bool Drama::operator<(const Drama& rhs) const {
     if(this->director == rhs.director) {
         return this->title < rhs.title;
     }
@@ -26,6 +26,6 @@ bool Drama::operator<(const Drama& rhs) {
     }
 }
 
-std::ostream& Drama::print(std::ostream& out) {
+std::ostream& Drama::print(std::ostream& out) const {
     return out;
 }

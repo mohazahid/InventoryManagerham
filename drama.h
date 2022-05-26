@@ -20,10 +20,7 @@ private:
 
     const static char genre = 'D';
 
-    // simulate virtual const static behavior
-    virtual char type() { return genre; }
-
-    virtual std::ostream& print(std::ostream&);
+    virtual std::ostream& print(std::ostream&) const;
 
 public: 
 
@@ -37,6 +34,9 @@ public:
     Drama(int, std::string, std::string, int);
     virtual ~Drama();
 
-    bool operator<(const Drama&);
+    // simulate virtual const static behavior
+    virtual char type() const { return Drama::genre; }
+
+    bool operator<(const Drama&) const;
 
 };

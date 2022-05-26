@@ -84,16 +84,19 @@ private:
      * @return false If 'movie' does not 
      */
     bool transact(Log&);
+
+    void printCustomers(std::ostream&) const;
     /**
      * @brief Prints a sorted inventory
      * @details prints in the order of #TODO 
      */
-    void printInventory() const;
+    void printInventory(std::ostream&) const;
     /**
      * @brief Prints the transactions of a customer
      * @param custID custID of customer
      */
-    void printTransactions(int) const;
+    void printTransactions(std::ostream&, int) const;
+    void printTransactions(std::ostream&) const;
 
     bool isValid(int) const;
 

@@ -17,7 +17,7 @@ Comedy::Comedy(int stock, std::string director, std::string title, int year) :
 
 Comedy::~Comedy(){}
 
-bool Comedy::operator<(const Comedy& rhs) {
+bool Comedy::operator<(const Comedy& rhs) const {
     if(this->title == rhs.title) {
         return this->year < rhs.year;
     }
@@ -26,6 +26,6 @@ bool Comedy::operator<(const Comedy& rhs) {
     }
 }
 
-std::ostream& Comedy::print(std::ostream& out) {
+std::ostream& Comedy::print(std::ostream& out) const {
     return out;
 }

@@ -21,7 +21,7 @@ Classic::Classic(int stock, std::string director, std::string title, int year,
 
 Classic::~Classic(){}
 
-bool Classic::operator<(const Classic& rhs) {
+bool Classic::operator<(const Classic& rhs) const {
     if(this->year != rhs.year) {
         return this->year < rhs.year;
     }
@@ -34,13 +34,13 @@ bool Classic::operator<(const Classic& rhs) {
     return this->firstName < rhs.firstName;
 }
 
-bool Classic::operator==(const Classic& rhs) {
+bool Classic::operator==(const Classic& rhs) const {
     return (Movie::operator==(rhs) 
     && (this->lastName == rhs.lastName) 
     && (this->firstName == rhs.lastName) 
     && (this->month == rhs.month)); 
 }
 
-std::ostream& Classic::print(std::ostream& out) {
+std::ostream& Classic::print(std::ostream& out) const {
     return out;
 }
