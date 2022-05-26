@@ -11,6 +11,7 @@
  */
 
 #include "storeinventory.h"
+#include "movie.h"
 
 StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) {
     while(!customers.eof()) {
@@ -88,7 +89,9 @@ bool StoreInventory::transact(Log&) {
 }
 
 void StoreInventory::printInventory() const {
+    std::vector<Movie> mlist;
     
+
 }
 
 void StoreInventory::printTransactions(int id) const {

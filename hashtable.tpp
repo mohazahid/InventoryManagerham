@@ -126,4 +126,14 @@ public:
         remove(stringToKey(key), val);
     }
 
+    T returnAll(){
+        int limit = 0; 
+        for(T: table){
+            if(limit != size){
+                return table.at(hash(limit));
+                limit++;
+            }
+        }
+    }
+
 };
