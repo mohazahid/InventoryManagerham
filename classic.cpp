@@ -45,6 +45,6 @@ bool Classic::operator==(const Classic& rhs) const {
 }
 
 std::ostream& Classic::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year;
+    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->month << ' ' << this->year;
     return out;
 }

@@ -102,7 +102,48 @@ void StoreInventory::setMovies(std::ifstream& movies) {
     }
 }
 
-bool StoreInventory::transact(Log&) {
+void StoreInventory::operate(std::ifstream& commands) {
+    while(!commands.eof()) {
+        std::string line;
+        std::getline(commands, line);
+        std::istringstream iss(line);
+        std::vector<std::string> tokens;
+        while(!iss.eof()) {
+            std::string temp;
+            if(iss >> temp) { 
+                tokens.push_back(temp);
+            }
+        }
+        if (tokens.at(0).size() > 1) continue; // invalid movie type
+        char operation = tokens.at(0).at(0);
+        switch(operation) {
+            case Borrow: {
+                break;
+            }
+            case Return: {
+                break;
+            }
+            case Inventory: {
+                printInventory(std::cout);
+                break;
+            }
+            case History: {
+                if (tokens.size() != 2) continue; // invalid arguements
+                int id = std::stoi(tokens.at(2));
+                if(!isValid(id)) continue; // invalid ID
+                printTransactions(std::cout, id);
+                break;
+            }
+            default: {
+                // invalid command
+                break;
+            }
+        }
+    }
+}
+
+bool StoreInventory::transact(Log& l) {
+
     return -1;
 }
 
@@ -177,10 +218,6 @@ void StoreInventory::printTransactions(std::ostream& out) const {
         }
     }
 }    
-
-void StoreInventory::operate(std::ifstream&) {
-
-}
 
 bool StoreInventory::isValid(int id) const {
     for(auto const& cust : this->customers) {
