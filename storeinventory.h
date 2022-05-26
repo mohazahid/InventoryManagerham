@@ -1,9 +1,9 @@
 /**
  * @file storeinventory.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (oahmed@uw.edu)
  * @brief Header file for StoreInventory
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
