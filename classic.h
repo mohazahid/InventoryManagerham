@@ -46,6 +46,8 @@ public:
     // simulate virtual const static behavior
     virtual char type() const { return Classic::genre; }
 
+    virtual std::string getKey() const;
+
     bool operator<(const Classic&) const;
     bool operator==(const Classic&) const;
 

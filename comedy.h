@@ -40,6 +40,8 @@ public:
     // simulate virtual const static behavior
     virtual char type() const { return Comedy::genre; }
 
+    virtual std::string getKey() const;
+
     bool operator<(const Comedy&) const;
 
 };

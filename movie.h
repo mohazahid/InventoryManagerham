@@ -58,6 +58,8 @@ public:
 
     friend std::ostream& operator<<(std::ostream&, Movie&);
 
+    virtual std::string getKey() const;
+
     int Borrow();
     int Return();
 

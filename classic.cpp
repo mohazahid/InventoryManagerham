@@ -44,7 +44,12 @@ bool Classic::operator==(const Classic& rhs) const {
     && (this->month == rhs.month)); 
 }
 
+std::string Classic::getKey() const {
+    return std::to_string(this->month) + std::to_string(this->year) + this->firstName + this->lastName;
+}
+
+
 std::ostream& Classic::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->month << ' ' << this->year;
+    out << this->stock << " of " << this->type() << ' ' << this->month << ' ' << this->year << ' ' << this->firstName << ' ' << this->lastName;
     return out;
 }

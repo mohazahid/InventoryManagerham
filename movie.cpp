@@ -37,6 +37,10 @@ std::ostream& Movie::print(std::ostream& out) const {
     return out;
 }
 
+std::string Movie::getKey() const {
+    return this->title + this->director;
+}
+
 int Movie::Borrow() {
     if(this->stock < 0) return -1;
     return --this->stock;

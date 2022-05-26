@@ -28,7 +28,11 @@ bool Drama::operator<(const Drama& rhs) const {
     }
 }
 
+std::string Drama::getKey() const {
+    return this->director + std::to_string(this->year);
+}
+
 std::ostream& Drama::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year;
+    out << this->stock << " of " << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
     return out;
 }

@@ -72,7 +72,7 @@ private:
 
     
     std::set<Customer> customers; // stores customers
-    HashTable<Log> transactions; // key is custID
+    HashTable<Log> transactions; // key depends on movie type
     HashTable<std::shared_ptr<Movie>> inventory; // key is director + title
 
     /**
@@ -82,7 +82,7 @@ private:
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
-     * @return false If 'movie' does not 
+     * @return false If 'movie' does not exist in inventory
      */
     bool transact(Log&);
 
