@@ -22,6 +22,7 @@ int main() {
 	int a = 1;
 	ht.remove("two");
 	ht.remove("one", a);
+	ht.returnAll();
 
 	#endif
 

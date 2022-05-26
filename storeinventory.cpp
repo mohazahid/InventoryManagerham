@@ -11,6 +11,7 @@
  */
 
 #include "storeinventory.h"
+#include "movie.h"
 
 StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) {
     setCustomers(customers);

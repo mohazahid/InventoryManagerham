@@ -130,13 +130,14 @@ public:
         remove(stringToKey(key), val);
     }
 
-    friend std::ostream& operator<<(std::ostream& out, HashTable<T>& ht) {
-        for(int i = 0; i < ht.size; ++i) {
-            for(auto obj : ht.get(i)) {
-                out << obj << 'n';
+    T returnAll(){
+        int limit = 0; 
+        for(T: table){
+            if(limit != size){
+                return table.at(hash(limit));
+                limit++;
             }
         }
-        out << std::endl;
-        return out;
     }
+
 };
