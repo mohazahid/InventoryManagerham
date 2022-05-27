@@ -2,8 +2,8 @@
  * @file storeinventory.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation file for StoreInventory 
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -53,7 +53,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                 // # TODO output invalid command to console
                 // Comedy* movie = new Comedy(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 std::shared_ptr<Movie> movie = std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-                this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
+                this->inventory.put(movie->getKey(), movie);
                 break;
             }
             case 'C': {
@@ -80,7 +80,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                 if(tokens.size() != 8) continue; // invalid arguements
                 // # TODO output invalid command to console
                 std::shared_ptr<Movie> movie = std::make_shared<Classic>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
-                this->inventory.put((tokens.at(2)+tokens.at(3)), movie);
+                this->inventory.put(movie->getKey(), movie);
                 break;
             }
             case 'D': {
@@ -91,7 +91,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                 if(tokens.size() != 5) continue; // invalid arguements 
                 // # TODO output invalid command to console
                 std::shared_ptr<Movie> movie = std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-                this->inventory.put((tokens.at(2) + tokens.at(3)), movie);
+                this->inventory.put(movie->getKey(), movie);
                 break;
             }
             default: {
@@ -148,9 +148,9 @@ bool StoreInventory::transact(Log& l) {
     if(isValid(l.customer.custID)){
         auto movList = inventory.get(dir);
         for(auto mov: movList){
-            if(mov == l.movie){
+            //if(mov == l.movie){
                 
-            }
+            //}
         }
     }
     return -1;
@@ -208,7 +208,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
 
 void StoreInventory::printTransactions(std::ostream& out, int id) const {
     if(!isValid(id)) return; // if 'id' does not exist in customer list, return
-    for(auto log : transactions.get(id)) {
+    for(const auto& log : transactions.get(id)) {
         out << log << '\n';
     }
     out << std::endl;
@@ -222,7 +222,7 @@ void StoreInventory::printTransactions(std::ostream& out, int id) const {
 
 void StoreInventory::printTransactions(std::ostream& out) const {
     for(int i = 0; i < this->transactions.getSize(); ++i) {
-        for(auto log : transactions.get(i)) {
+        for(const auto& log : transactions.get(i)) {
             out << log << '\n';
         }
     }

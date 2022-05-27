@@ -1,9 +1,9 @@
 /**
  * @file drama.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header for Drama which implements Movie
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -39,6 +39,8 @@ public:
 
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }
+
+    virtual std::string getKey() const;
 
     bool operator<(const Drama&) const;
 

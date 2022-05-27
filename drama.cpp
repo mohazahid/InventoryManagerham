@@ -2,8 +2,8 @@
  * @file drama.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief 
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -28,7 +28,11 @@ bool Drama::operator<(const Drama& rhs) const {
     }
 }
 
+std::string Drama::getKey() const {
+    return this->director + std::to_string(this->year);
+}
+
 std::ostream& Drama::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year;
+    out << this->stock << " of " << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
     return out;
 }

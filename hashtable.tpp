@@ -2,8 +2,8 @@
  * @file hashtable.h
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Template file for HashTable
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -96,6 +96,24 @@ public:
      */
     std::list<T>& get(std::string key) const {
         return get(stringToKey(key));
+    }
+
+    /**
+     * @brief Returns a non-const list of all values stored at the given key
+     * @param key Key to hash
+     * @return std::list<T> 
+     */
+    std::list<T>& set(int key) {
+        return table.at(hash(key));
+    }
+    /**
+     * @brief Returns a non-const list of all values stored at the given key
+     * @details Converts the key into an int
+     * @param key Key to hash
+     * @return std::list<T> 
+     */
+    std::list<T>& set(std::string key) {
+        return set(stringToKey(key));
     }
 
     /**

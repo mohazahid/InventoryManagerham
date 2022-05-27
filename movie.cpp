@@ -2,8 +2,8 @@
  * @file movie.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation file for Movie
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -43,6 +43,9 @@ std::string Movie::getDirector(){
 
 std::string Movie::getTitle(){
     return title;
+    
+std::string Movie::getKey() const {
+    return this->title + this->director;
 }
 
 int Movie::Borrow() {

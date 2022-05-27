@@ -2,8 +2,8 @@
  * @file classic.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation for Classic which implements Movie
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -44,7 +44,12 @@ bool Classic::operator==(const Classic& rhs) const {
     && (this->month == rhs.month)); 
 }
 
+std::string Classic::getKey() const {
+    return std::to_string(this->month) + std::to_string(this->year) + this->firstName + this->lastName;
+}
+
+
 std::ostream& Classic::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->month << ' ' << this->year;
+    out << this->stock << " of " << this->type() << ' ' << this->month << ' ' << this->year << ' ' << this->firstName << ' ' << this->lastName;
     return out;
 }

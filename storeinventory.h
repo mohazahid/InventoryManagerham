@@ -1,9 +1,9 @@
 /**
  * @file storeinventory.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Hayden Lauritzen (haylau@uw.edu)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for StoreInventory
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -72,7 +72,7 @@ private:
 
     
     std::set<Customer> customers; // stores customers
-    HashTable<Log> transactions; // key is custID
+    HashTable<Log> transactions; // key depends on movie type
     HashTable<std::shared_ptr<Movie>> inventory; // key is director + title
 
     /**
@@ -82,7 +82,7 @@ private:
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
-     * @return false If 'movie' does not 
+     * @return false If 'movie' does not exist in inventory
      */
     bool transact(Log&);
 

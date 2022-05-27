@@ -2,8 +2,8 @@
  * @file comedy.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation for Comedy which implements Movie
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -20,15 +20,17 @@ Comedy::Comedy(const Comedy& c) : Movie(c.stock, c.director, c.title, c.year) {}
 Comedy::~Comedy(){}
 
 bool Comedy::operator<(const Comedy& rhs) const {
-    if(this->title == rhs.title) {
+    if(!(this->title == rhs.title)) {
         return this->year < rhs.year;
     }
-    else {
-        return this->title < rhs.title;
-    }
+    return this->title < rhs.title;
+}
+
+std::string Comedy::getKey() const {
+    return this->title + std::to_string(this->year);
 }
 
 std::ostream& Comedy::print(std::ostream& out) const {
-    out << this->stock << " of " << this->title << " by " << this->director << " in " << this->year; 
+    out << this->stock << " of " << this->type() << ' ' << this->title << ' ' << this->year;
     return out;
 }
