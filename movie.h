@@ -3,7 +3,7 @@
  * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (oahmed@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for Movie
  * @date 2022-05-18
  * 
