@@ -51,6 +51,9 @@ public:
     Movie(const Movie&);
     Movie();
 
+    std::string getDirector();
+    std::string getTitle();
+
     virtual char type() const { return genre; }
 
     virtual bool operator<(const Movie&) const;

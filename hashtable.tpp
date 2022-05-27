@@ -85,7 +85,7 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    const std::list<T>& get(int key) const {
+    std::list<T>& get(int key) const {
         return table.at(hash(key));
     }
     /**
@@ -94,7 +94,7 @@ public:
      * @param key Key to hash
      * @return std::list<T> 
      */
-    const std::list<T>& get(std::string key) const {
+    std::list<T>& get(std::string key) const {
         return get(stringToKey(key));
     }
 
