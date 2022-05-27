@@ -82,7 +82,7 @@ private:
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
-     * @return false If 'movie' does not exist in inventory
+     * @return false If 'movie' does not if exist in inventory
      */
     bool transact(Log&);
 
