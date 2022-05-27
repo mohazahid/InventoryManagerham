@@ -31,7 +31,10 @@ void StoreInventory::setMovies(std::ifstream& movies) {
         // parse line 
         std::string line;
         std::getline(movies, line);
-        if(line == "") continue; // empty line was read
+        if(line == "") {
+            std::cout << " INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << '/n';
+            continue;
+        } 
         std::istringstream iss(line);
         std::vector<std::string> tokens;
         char delim = ',';
@@ -41,7 +44,10 @@ void StoreInventory::setMovies(std::ifstream& movies) {
             token.erase(token.find_last_not_of("\r")+1);
             tokens.push_back(token);
         }
-        if(tokens.at(0).size() > 1) continue; // invalid movie type
+        if(tokens.at(0).size() > 1) {// invalid movie type
+            std::cout << " INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << '/n';
+            continue; 
+        }
         char type = tokens.at(0).at(0); // string should only be 1 char
         switch(type) {
             case 'F': {
@@ -49,8 +55,10 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  *  0     1      2         3      4  
                  *  type, stock, director, title, year
                  */
-                if(tokens.size() != 5) continue; // invalid arguements
-                // # TODO output invalid command to console
+                if(tokens.size() != 5) { // invalid arguements
+                    std::cout << " INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << '/n';
+                    continue;
+                } 
                 // Comedy* movie = new Comedy(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 std::shared_ptr<Movie> movie = std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 this->inventory.put(movie->getKey(), movie);
@@ -62,8 +70,10 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  *  type, stock, director, title, firstName lastName month year
                  */
                 // Finish specialized string parsing
-                if(tokens.size() != 5) continue; // invalid arguements
-                // # TODO output invalid command to console
+                if(tokens.size() != 5) { // invalid arguements
+                    std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
+                    continue;
+                } 
                 std::istringstream issClassic(tokens.at(4));
                 tokens.pop_back();
                 while(!issClassic.eof()) {
@@ -77,8 +87,10 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  *  type, stock, director, title, firstName lastName month 
                  * 
                  */
-                if(tokens.size() != 8) continue; // invalid arguements
-                // # TODO output invalid command to console
+                if(tokens.size() != 8) { // invalid arguements
+                    std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
+                    continue;
+                } 
                 std::shared_ptr<Movie> movie = std::make_shared<Classic>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
                 this->inventory.put(movie->getKey(), movie);
                 break;
@@ -88,14 +100,16 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                  *  0     1      2         3      4  
                  *  type, stock, director, title, year
                  */
-                if(tokens.size() != 5) continue; // invalid arguements 
-                // # TODO output invalid command to console
+                if(tokens.size() != 5) {// invalid arguements 
+                    std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
+                    continue;
+                } 
                 std::shared_ptr<Movie> movie = std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
                 this->inventory.put(movie->getKey(), movie);
                 break;
             }
             default: {
-                // # TODO output invalid command to console
+                std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
                 continue;
             }
         }
@@ -115,7 +129,10 @@ void StoreInventory::operate(std::ifstream& commands) {
 
             }
         }
-        if (tokens.at(0).size() > 1) continue; // invalid movie type
+        if (tokens.at(0).size() > 1) { // invalid movie type
+            std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
+            continue;
+        }
         char operation = tokens.at(0).at(0);
         
         switch(operation) {
@@ -136,14 +153,20 @@ void StoreInventory::operate(std::ifstream& commands) {
                 break;
             }
             case History: {
-                if (tokens.size() != 2) continue; // invalid arguements
+                if (tokens.size() != 2) {
+                    std::cout << " INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << '/n';
+                    continue;
+                } // invalid arguements
                 int id = std::stoi(tokens.at(2));
-                if(!isValid(id)) continue; // invalid ID
+                if(!isValid(id)) {// invalid ID
+                    std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
+                    continue;
+                } 
                 printTransactions(std::cout, id);
                 break;
             }
             default: {
-                // invalid command
+                std::cout << " INVALID COMMAND "<< line.erase(line.find_last_not_of("\r")+1) << '/n' ;
                 break;
             }
         }
