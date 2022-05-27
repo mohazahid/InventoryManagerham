@@ -137,12 +137,15 @@ void StoreInventory::operate(std::ifstream& commands) {
         
         switch(operation) {
             case Borrow: {
+                char movType = tokens.at(9).at(9);
+                //if(movType = )
                 Log l;
                 l.type = Borrow;
                 transact(l);
                 break;
             }
             case Return: {
+                char movType = tokens.at(9).at(9);
                 Log l;
                 l.type = Return;
                 transact(l);
