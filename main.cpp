@@ -52,6 +52,7 @@ int main() {
 
 	std::cout << inv << std::endl;
 
+	
 	#endif
 
 }

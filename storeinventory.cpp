@@ -112,15 +112,23 @@ void StoreInventory::operate(std::ifstream& commands) {
             std::string temp;
             if(iss >> temp) { 
                 tokens.push_back(temp);
+
             }
         }
         if (tokens.at(0).size() > 1) continue; // invalid movie type
         char operation = tokens.at(0).at(0);
+        
         switch(operation) {
             case Borrow: {
+                Log l;
+                l.type = Borrow;
+                transact(l);
                 break;
             }
             case Return: {
+                Log l;
+                l.type = Return;
+                transact(l);
                 break;
             }
             case Inventory: {
