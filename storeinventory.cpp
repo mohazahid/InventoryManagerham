@@ -145,13 +145,16 @@ void StoreInventory::operate(std::ifstream& commands) {
 bool StoreInventory::transact(Log& l) {
     std::string dir = l.movie.getDirector();
     std::string title = l.movie.getTitle();
-    if(isValid(l.customer.custID)){
+    if(isValid(l.customer.custID) and l.type != 'B'){
         auto movList = inventory.get(dir);
         for(auto mov: movList){
-            //if(mov == l.movie){
-                
-            //}
+            if(*mov == l.movie){
+                transactions.put(l.movie.getKey(), l);
+                return true;
+            }
         }
+    } else {
+        return false;
     }
     return -1;
 }
