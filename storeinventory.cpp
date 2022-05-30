@@ -145,6 +145,7 @@ void StoreInventory::operate(std::ifstream &commands)
             if (iss >> temp)
             {
                 tokens.push_back(temp);
+
             }
         }
         if (tokens.at(0).size() > 1)
