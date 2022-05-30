@@ -4,9 +4,10 @@
 #include "hashtable.tpp"
 
 #include<memory>
-
+#include  "classic.h"
 using namespace std;
-
+#include<iostream>
+#include<vector>
 int main() {
 
 	/* Test HashTable */
@@ -47,8 +48,34 @@ int main() {
 		cout << "File could not be opened." << endl;
 		return 1;
 	}
-
-    StoreInventory inv(customers, movies);
+	//int stock, std::string director, std::string title, int year, 
+    //std::string firstName, std::string lastName, int month)
+	// Classic movie3(10, "hayden abhi", "mohammd is the best", 2020,"abhimanyu","kumar",9);
+	// Classic movie2(10, "abhi hayden", "your trash", 2021,"Hayden","Lauritzen",7);
+	// Classic movie1(10, "mohammad abhi", "I am the greatest", 2022, "Mohammad","Zahid",8);
+	// Comedy movie3(10, "hayden abhi", "mohammd is the best", 2020);
+	// Comedy movie2(10, "abhi hayden", "your trash", 2021);
+	// Comedy movie1(10, "mohammad abhi", "I am the greatest", 2022);
+	// Comedy movie4(10, "hayden abhi", "mohammde is the best", 1999);
+	// Comedy movie5(10, "abhi hayden", "your etrash", 1973);
+	// Comedy movie6(10, "mohammad abhi", "I ame the greatest", 1983);
+	// std::vector<Movie> classics;
+	// classics.push_back(dynamic_cast<Comedy *>(&movie1));
+	// classics.push_back(dynamic_cast<Comedy *>(&movie2));
+	// classics.push_back(dynamic_cast<Comedy *>(&movie3));
+	// classics.push_back(dynamic_cast<Comedy *>(&movie4));
+	// classics.push_back(dynamic_cast<Comedy *>(&movie5));
+	// classics.push_back(dynamic_cast<Comedy *>(&movie6));
+	// sort(classics.begin(), classics.end());
+   	// for(int i=0; i < classics.size(); i++) {
+   	// 	cout << classics.at(i) << ' ';
+	// }
+    // if(movie3 < movie2) {
+	// 	cout << "it failed \n";
+	// } else {
+	// 	cout <<"it worked \n";
+	// }
+	StoreInventory inv(customers, movies);
 
 	std::cout << inv << std::endl;
 

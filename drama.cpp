@@ -3,7 +3,7 @@
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (adyanzah@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.ed)
  * @brief 
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
