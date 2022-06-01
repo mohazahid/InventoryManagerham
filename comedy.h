@@ -35,7 +35,7 @@ public:
      */
     Comedy(int, std::string, std::string, int);
     Comedy(const Comedy&);
-    virtual ~Comedy();
+    ~Comedy();
 
     // simulate virtual const static behavior
     virtual char type() const { return Comedy::genre; }

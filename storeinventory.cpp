@@ -225,61 +225,59 @@ void StoreInventory::printCustomers(std::ostream &out) const
     }
     out << std::endl;
 }
-struct less_than_key {
-    inline bool operator() (const Movie* v1, const Movie* v2) {
-        return ((*v1) < (*v2));
-    }
-};
-void StoreInventory::printInventory(std::ostream &out) const
-{
-    std::vector<Movie *> comedys;
-    std::vector<Movie *> dramas;
-    std::vector<Movie *> classics;
+
+void StoreInventory::printInventory(std::ostream &out) const {
+    std::vector<std::shared_ptr<Comedy>> comedys;
+    std::vector<std::shared_ptr<Drama>> dramas;
+    std::vector<std::shared_ptr<Classic>> classics;
     // filter movies into vectors to be sorted
     for (int i = 0; i < this->inventory.getSize(); ++i)
     {
         for (const auto &movie : this->inventory.get(i))
         {
             char type = movie->type();
-            switch (type)
-            {
-            case 'F':
-            {
-                comedys.push_back(dynamic_cast<Comedy *>(movie.get()));
-                break;
-            }
-            case 'D':
-            {
-                dramas.push_back(dynamic_cast<Drama *>(movie.get()));
-                break;
-            }
-            case 'C':
-            {
-                classics.push_back(dynamic_cast<Classic *>(movie.get()));
-                break;
-            }
-            default:
-            {
-                // All defined movies are either 'F', 'D', or 'C'
-                std::cerr << *movie << std::endl;
-            }
+            switch(type) {
+                case 'F': {
+                    comedys.push_back(std::dynamic_pointer_cast<Comedy>(movie));
+                    break;
+                }
+                case 'D': {
+                    dramas.push_back(std::dynamic_pointer_cast<Drama>(movie));
+                    break;
+                }
+                case 'C': {
+                    classics.push_back(std::dynamic_pointer_cast<Classic>(movie));
+                    break;
+                }
+                default: {
+                    // All defined movies are either 'F', 'D', or 'C'
+                    std::cerr << *movie << std::endl;
+                }
             }
         }
-    }
-    // sort movies
-    std::sort(comedys.begin(), comedys.end(),less_than_key());
-    std::sort(dramas.begin(), dramas.end(),less_than_key());
-    std::sort(classics.begin(), classics.end(),less_than_key());
-    for (auto comedy : comedys)
-    {
+    }   
+
+    // Define std::sort predicates
+    auto sortComedys = [](std::shared_ptr<Comedy> lhs, std::shared_ptr<Comedy> rhs) {
+        return (*lhs) < (*rhs);
+    };
+    auto sortDramas = [](std::shared_ptr<Drama> lhs, std::shared_ptr<Drama> rhs) {
+        return (*lhs) < (*rhs);
+    };
+    auto sortClassics = [](std::shared_ptr<Classic> lhs, std::shared_ptr<Classic> rhs) {
+        return (*lhs) < (*rhs);
+    };
+    // Sort movies according to sorting behavior
+    std::sort(comedys.begin(), comedys.end(), sortComedys);
+    std::sort(dramas.begin(), dramas.end(), sortDramas);
+    std::sort(classics.begin(), classics.end(), sortClassics);
+    for (auto comedy : comedys) {
         out << *comedy << '\n';
     }
-    for (auto drama : dramas)
-    {
+    for (auto drama : dramas) {
         out << *drama << '\n';
     }
-    for (auto classic : classics)
-    {
+    for (auto classic : classics) {
         out << *classic << '\n';
     }
 }

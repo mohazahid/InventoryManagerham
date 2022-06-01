@@ -56,14 +56,43 @@ public:
 
     virtual char type() const { return genre; }
 
+    /**
+     * @brief Defines sort predicate
+     */
+    struct sortPredicate {
+        inline bool operator() (const Movie* v1, const Movie* v2) {
+            return ((*v1) < (*v2));
+        }
+    };
+
     virtual bool operator<(const Movie&) const;
     virtual bool operator==(const Movie&) const;
 
+    /**
+     * @brief Prints the movie
+     * @param out Stream to output to
+     * @return Stream to output to
+     */
     friend std::ostream& operator<<(std::ostream&, Movie&);
 
+    /**
+     * @brief Returns the movie's key
+     * @details Returns the defined sorting behavior of the movie
+     * @return HashTable key value 
+     */
     virtual std::string getKey() const;
 
+    /**
+     * @brief Decrements movie's stock
+     * @pre Stock must be greater than 1
+     * @return Postdecrement of movie's stock
+     */
     int Borrow();
+    /**
+     * @brief Decrements movie's stock
+     * @pre Stock must 
+     * @return Postincrement of movie's stock
+     */
     int Return();
 
 };

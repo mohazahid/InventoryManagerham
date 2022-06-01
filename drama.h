@@ -35,7 +35,7 @@ public:
      */
     Drama(int, std::string, std::string, int);
     Drama(const Drama&);
-    virtual ~Drama();
+    ~Drama();
 
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }

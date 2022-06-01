@@ -40,7 +40,7 @@ public:
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
     Classic(const Classic &);
-    virtual ~Classic();
+    ~Classic();
 
     // simulate virtual const static behavior
     virtual char type() const { return Classic::genre; }

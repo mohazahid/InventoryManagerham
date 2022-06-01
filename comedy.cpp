@@ -20,7 +20,7 @@ Comedy::Comedy(const Comedy& c) : Movie(c.stock, c.director, c.title, c.year) {}
 Comedy::~Comedy(){}
 
 bool Comedy::operator<(const Comedy& rhs) const {
-    if(!(this->title == rhs.title)) {
+    if(this->title == rhs.title) {
         return this->year < rhs.year;
     }
     return this->title < rhs.title;
