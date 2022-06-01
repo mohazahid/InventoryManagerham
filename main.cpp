@@ -1,7 +1,7 @@
-#include <iostream>
 #include <fstream>
-#include <string>
+#include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "storeinventory.h"
@@ -10,9 +10,9 @@ using namespace std;
 
 int main() {
 
-	/* Test HashTable */
+    /* Test HashTable */
 
-	#if 0
+#if 0
 
 	HashTable<int> ht(10); 
 	ht.put("one", 1);
@@ -27,10 +27,10 @@ int main() {
 	ht.remove("one", a);
 	ht.returnAll();
 
-	#endif
+#endif
 
-	/* Test Sorting */
-	#if 0
+/* Test Sorting */
+#if 0
 	Classic classic1(10, "hayden abhi", "mohammd is the best", 2020,"abhimanyu","kumar",9);
 	Classic classic2(10, "abhi hayden", "your trash", 2021,"Hayden","Lauritzen",7);
 	Classic classic3(10, "mohammad abhi", "I am the greatest", 2022, "Mohammad","Zahid",8);
@@ -60,34 +60,32 @@ int main() {
 	} else {
 		cout <<"it worked \n";
 	}
-	
-	#endif
 
-	/* Test StoreInventory */
+#endif
 
-	#if 1
+    /* Test StoreInventory */
+
+#if 1
 
     ifstream customers("data4customers.txt");
-	if (!customers) {
-		cout << "File could not be opened." << endl;
-		return 1;
-	}
+    if(!customers) {
+        cout << "File could not be opened." << endl;
+        return 1;
+    }
     ifstream movies("data4movies.txt");
-	if (!movies) {
-		cout << "File could not be opened." << endl;
-		return 1;
-	}
+    if(!movies) {
+        cout << "File could not be opened." << endl;
+        return 1;
+    }
     ifstream commands("data4commands.txt");
-	if (!commands) {
-		cout << "File could not be opened." << endl;
-		return 1;
-	}
+    if(!commands) {
+        cout << "File could not be opened." << endl;
+        return 1;
+    }
 
-	StoreInventory inv(customers, movies);
+    StoreInventory inv(customers, movies);
 
-	std::cout << inv << std::endl;
+    std::cout << inv << std::endl;
 
-	
-	#endif
-
+#endif
 }

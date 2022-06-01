@@ -12,8 +12,8 @@
 
 #pragma once
 
-#include <vector>
 #include <list>
+#include <vector>
 
 /**
  * @brief Stores values according to a hash function
@@ -24,10 +24,9 @@ template <typename T>
 class HashTable {
 
 private:
-
     static const int DEFAULT_SIZE = 100; // if no size is given, a vector of 100 values is defined
 
-    int size; // size of vector
+    int size;                        // size of vector
     std::vector<std::list<T>> table; // vector of points
 
     /**
@@ -53,13 +52,12 @@ private:
     }
 
 public:
-    
-    HashTable<T>() : size(DEFAULT_SIZE), table(this->size){}
-    HashTable<T>(int size) : size(size), table(this->size){}
-    
+    HashTable<T>() : size(DEFAULT_SIZE), table(this->size) {}
+    HashTable<T>(int size) : size(size), table(this->size) {}
+
     int getSize() const {
         return size;
-    } 
+    }
 
     /**
      * @brief Inserts the value at the key's location
@@ -79,7 +77,7 @@ public:
     void put(std::string key, const T& value) {
         put(stringToKey(key), value);
     }
- 
+
     /**
      * @brief Returns a list of all values stored at the given key
      * @param key Key to hash
@@ -121,7 +119,7 @@ public:
      * @param key Key to hash
      */
     void remove(int key) {
-        this->table.at(hash(key)).clear();        
+        this->table.at(hash(key)).clear();
     }
     /**
      * @brief Removes all values stored with the given key
@@ -151,5 +149,4 @@ public:
     const std::vector<std::list<T>>& returnAll() const {
         return table;
     }
-
 };

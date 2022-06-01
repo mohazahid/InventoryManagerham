@@ -14,8 +14,7 @@
 
 #include "movie.h"
 
-class Classic : public Movie
-{
+class Classic : public Movie {
 
 private:
     const static char genre = 'C';
@@ -25,7 +24,7 @@ protected:
     std::string lastName;
     int month;
 
-    virtual std::ostream &print(std::ostream &) const;
+    virtual std::ostream& print(std::ostream&) const;
 
 public:
     /**
@@ -39,7 +38,7 @@ public:
      * @param month // month released of movie
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
-    Classic(const Classic &);
+    Classic(const Classic&);
     ~Classic();
 
     // simulate virtual const static behavior
@@ -47,6 +46,6 @@ public:
 
     virtual std::string getKey() const;
 
-    bool operator<(const Classic &) const;
-    bool operator==(const Classic &) const;
+    bool operator<(const Classic&) const;
+    bool operator==(const Classic&) const;
 };

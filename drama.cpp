@@ -12,8 +12,7 @@
 
 #include "drama.h"
 
-Drama::Drama(int stock, std::string director, std::string title, int year) : 
-    Movie(stock, director, title, year) {}
+Drama::Drama(int stock, std::string director, std::string title, int year) : Movie(stock, director, title, year) {}
 
 Drama::Drama(const Drama& d) : Movie(d.stock, d.director, d.title, d.year) {}
 
@@ -22,8 +21,7 @@ Drama::~Drama(){};
 bool Drama::operator<(const Drama& rhs) const {
     if(this->director == rhs.director) {
         return this->title < rhs.title;
-    }
-    else {
+    } else {
         return this->director < rhs.director;
     }
 }

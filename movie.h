@@ -11,34 +11,30 @@
  * 
  */
 
- // #TODO figure out how to make pure virtual? 
- // cant instaniate movie object in a log if its pure virtual see storeinventory.h:40
+// #TODO figure out how to make pure virtual?
+// cant instaniate movie object in a log if its pure virtual see storeinventory.h:40
 
 #pragma once
 
 #include <iostream>
 #include <string>
 
-class Movie{
+class Movie {
 
 private:
-
     const static char genre = '0'; // type of movie
-    
+
 protected:
-
-
-    int stock; // quanty of movie in stock
+    int stock;            // quanty of movie in stock
     std::string director; // director of movie
-    std::string title; // title of movie
-    int year; // year released of movie
+    std::string title;    // title of movie
+    int year;             // year released of movie
 
     // simulate virtual const static behavior
 
     virtual std::ostream& print(std::ostream&) const;
 
 public:
-
     virtual ~Movie();
     /**
      * @brief Construct a new Movie object
@@ -60,7 +56,7 @@ public:
      * @brief Defines sort predicate
      */
     struct sortPredicate {
-        inline bool operator() (const Movie* v1, const Movie* v2) {
+        inline bool operator()(const Movie* v1, const Movie* v2) {
             return ((*v1) < (*v2));
         }
     };
@@ -94,5 +90,4 @@ public:
      * @return Postincrement of movie's stock
      */
     int Return();
-
 };

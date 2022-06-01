@@ -17,15 +17,12 @@
 class Drama : public Movie {
 
 private:
-
     const static char genre = 'D';
 
 protected:
-
     virtual std::ostream& print(std::ostream&) const;
 
-public: 
-
+public:
     /**
      * @brief Construct a new Movie object
      * @param stock // quantity of movie in stock
@@ -43,5 +40,4 @@ public:
     virtual std::string getKey() const;
 
     bool operator<(const Drama&) const;
-
 };
