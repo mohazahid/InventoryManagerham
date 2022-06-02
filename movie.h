@@ -11,30 +11,35 @@
  * 
  */
 
- // #TODO figure out how to make pure virtual? 
- // cant instaniate movie object in a log if its pure virtual see storeinventory.h:40
-
 #pragma once
 
 #include <iostream>
 #include <string>
 
-class Movie{
+class Movie {
 
 private:
 
-    const static char genre = '0'; // type of movie
+    /**
+     * @details 
+     * valid movies must extend Movie
+     * genre = '0' is treated as an error code
+     */
+    const static char genre = '0'; 
     
 protected:
-
 
     int stock; // quanty of movie in stock
     std::string director; // director of movie
     std::string title; // title of movie
     int year; // year released of movie
 
-    // simulate virtual const static behavior
-
+    /**
+     * @brief Prints the movie
+     * @details polymorphic function
+     * @param out Stream to output to
+     * @return out
+     */
     virtual std::ostream& print(std::ostream&) const;
 
 public:
@@ -48,9 +53,22 @@ public:
      * @param year // year released of movie
      */
     Movie(int, std::string, std::string, int);
+    /**
+     * @brief Copy constructor
+     * @details Makes a deep copy
+     */
     Movie(const Movie&);
+    /**
+     * @brief Default constructor 
+     * @details Member fields are not defined
+     */
     Movie();
 
+    /**
+     * @brief Returns the genre of the movie
+     * @details Simulates static const virtual behavior 
+     * @return genre
+     */
     virtual char type() const { return genre; }
 
     virtual bool operator<(const Movie&) const;

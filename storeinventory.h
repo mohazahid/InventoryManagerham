@@ -30,8 +30,13 @@
 #include "comedy.h"
 #include "drama.h"
 
-
-class StoreInventory{
+/**
+ * @brief Manages the inventory for a movie store
+ * Contains a set of valid customers
+ * Contains a hashtable of movies
+ * Contains a hashtable of previous transactions
+ */
+class StoreInventory {
 
 private:
 
@@ -45,6 +50,9 @@ private:
         History = 'H'
     };
 
+    /**
+     * @brief Contains information about a customer
+     */
     struct Customer {
         int custID; // 4 digit ID
         std::string custFirst; // Customer first name
@@ -58,7 +66,7 @@ private:
     };
 
     /**
-     * @brief Contains information about a given transaction
+     * @brief Contains information about a transaction
      */
     struct Log {
         Operation type; // 'B' or 'R'
@@ -86,22 +94,45 @@ private:
      */
     bool transact(Log&);
 
+    /**
+     * @brief Prints all valid customers and their IDs
+     * @param out Stream to output to.
+     */
     void printCustomers(std::ostream&) const;
     /**
      * @brief Prints a sorted inventory
-     * @details prints in the order of #TODO 
+     * @details prints in the order depending on Movie's sorting attributes 
+     * @param out Stream to output to.
      */
     void printInventory(std::ostream&) const;
     /**
      * @brief Prints the transactions of a customer
+     * @param out Stream to output to.
      * @param custID custID of customer
      */
     void printTransactions(std::ostream&, int) const;
+    /**
+     * @brief Prints all transatcions
+     * @param out Stream to output to.
+     */
     void printTransactions(std::ostream&) const;
 
+    /**
+     * @brief Determines if a customer ID is valid.
+     * @return true if ID exists in 'customers'
+     * @return false if ID does not exist in 'customers'
+     */
     bool isValid(int) const;
 
+    /**
+     * @brief Inputs all valid customers from a file stream.
+     * @param in File stream to input from
+     */
     void setCustomers(std::ifstream&);
+    /**
+     * @brief Inputs all movies in stock from a file stream
+     * @param in FIle stream to input from
+     */
     void setMovies(std::ifstream&);
 
 public:
@@ -119,6 +150,12 @@ public:
      */
     void operate(std::ifstream&);
 
+    /**
+     * @brief Prints all customers, movies, and transactions
+     * @param out Stream to output to
+     * @param si StoreInventory to print
+     * @return out 
+     */
     friend std::ostream& operator<<(std::ostream&, StoreInventory&);
 
 };
