@@ -1,13 +1,13 @@
 /**
  * @file classic.h
- * @author 
+ * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (oahmed@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header for Classic which implements Movie
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #pragma once
@@ -17,11 +17,9 @@
 class Classic : public Movie {
 
 private:
-
     const static char genre = 'C';
 
 protected:
-
     std::string firstName;
     std::string lastName;
     int month;
@@ -41,7 +39,7 @@ public:
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
     Classic(const Classic&);
-    virtual ~Classic();
+    ~Classic();
 
     // simulate virtual const static behavior
     virtual char type() const { return Classic::genre; }
@@ -50,5 +48,4 @@ public:
 
     bool operator<(const Classic&) const;
     bool operator==(const Classic&) const;
-
 };

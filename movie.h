@@ -3,7 +3,7 @@
  * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (oahmed@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for Movie
  * @date 2022-05-18
  * 
@@ -31,8 +31,8 @@ protected:
 
     int stock; // quanty of movie in stock
     std::string director; // director of movie
-    std::string title; // title of movie
-    int year; // year released of movie
+    std::string title;    // title of movie
+    int year;             // year released of movie
 
     /**
      * @brief Prints the movie
@@ -43,7 +43,6 @@ protected:
     virtual std::ostream& print(std::ostream&) const;
 
 public:
-
     virtual ~Movie();
     /**
      * @brief Construct a new Movie object
@@ -64,6 +63,9 @@ public:
      */
     Movie();
 
+    std::string getDirector();
+    std::string getTitle();
+
     /**
      * @brief Returns the genre of the movie
      * @details Simulates static const virtual behavior 
@@ -71,14 +73,42 @@ public:
      */
     virtual char type() const { return genre; }
 
+    /**
+     * @brief Defines sort predicate
+     */
+    struct sortPredicate {
+        inline bool operator()(const Movie* v1, const Movie* v2) {
+            return ((*v1) < (*v2));
+        }
+    };
+
     virtual bool operator<(const Movie&) const;
     virtual bool operator==(const Movie&) const;
 
+    /**
+     * @brief Prints the movie
+     * @param out Stream to output to
+     * @return Stream to output to
+     */
     friend std::ostream& operator<<(std::ostream&, Movie&);
 
+    /**
+     * @brief Returns the movie's key
+     * @details Returns the defined sorting behavior of the movie
+     * @return HashTable key value 
+     */
     virtual std::string getKey() const;
 
+    /**
+     * @brief Decrements movie's stock
+     * @pre Stock must be greater than 1
+     * @return Postdecrement of movie's stock
+     */
     int Borrow();
+    /**
+     * @brief Decrements movie's stock
+     * @pre Stock must 
+     * @return Postincrement of movie's stock
+     */
     int Return();
-
 };

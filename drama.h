@@ -3,7 +3,7 @@
  * @author 
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (oahmed@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header for Drama which implements Movie
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -17,15 +17,12 @@
 class Drama : public Movie {
 
 private:
-
     const static char genre = 'D';
 
 protected:
-
     virtual std::ostream& print(std::ostream&) const;
 
-public: 
-
+public:
     /**
      * @brief Construct a new Movie object
      * @param stock // quantity of movie in stock
@@ -35,7 +32,7 @@ public:
      */
     Drama(int, std::string, std::string, int);
     Drama(const Drama&);
-    virtual ~Drama();
+    ~Drama();
 
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }
@@ -43,5 +40,4 @@ public:
     virtual std::string getKey() const;
 
     bool operator<(const Drama&) const;
-
 };

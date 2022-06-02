@@ -3,7 +3,7 @@
  * @author 
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
- * Mohammad Zahid (oahmed@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for StoreInventory
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -12,23 +12,23 @@
 
 #pragma once
 
-#include <iostream>
 #include <fstream>
-#include <sstream>
 #include <iomanip>
+#include <iostream>
+#include <sstream>
 
-#include <string>
 #include <list>
 #include <set>
+#include <string>
 
 #include <algorithm>
 #include <memory>
 
-#include "hashtable.tpp"
-#include "movie.h"
 #include "classic.h"
 #include "comedy.h"
 #include "drama.h"
+#include "hashtable.tpp"
+#include "movie.h"
 
 /**
  * @brief Manages the inventory for a movie store
@@ -39,7 +39,6 @@
 class StoreInventory {
 
 private:
-
     /**
      * @brief Operations StoreInventory can make
      */
@@ -54,13 +53,13 @@ private:
      * @brief Contains information about a customer
      */
     struct Customer {
-        int custID; // 4 digit ID
+        int custID;            // 4 digit ID
         std::string custFirst; // Customer first name
-        std::string custLast; // Customer last name
+        std::string custLast;  // Customer last name
         bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
-        }    
-        friend std::ostream& operator<<(std::ostream& out, const Customer& c){
+        }
+        friend std::ostream& operator<<(std::ostream& out, const Customer& c) {
             return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast << '\n';
         }
     };
@@ -69,18 +68,17 @@ private:
      * @brief Contains information about a transaction
      */
     struct Log {
-        Operation type; // 'B' or 'R'
+        Operation type;    // 'B' or 'R'
         Customer customer; // Contains information about the customer
-        Movie movie; // Contains information about the movie 
-        
-        friend std::ostream& operator<<(std::ostream& os, const Log& log){
-            return os<< log.type << std::endl;
+        Movie movie;       // Contains information about the movie
+
+        friend std::ostream& operator<<(std::ostream& os, const Log& log) {
+            return os << log.type << std::endl;
         }
     };
 
-    
-    std::set<Customer> customers; // stores customers
-    HashTable<Log> transactions; // key depends on movie type
+    std::set<Customer> customers;                // stores customers
+    HashTable<Log> transactions;                 // key depends on movie type
     HashTable<std::shared_ptr<Movie>> inventory; // key is director + title
 
     /**
@@ -90,7 +88,7 @@ private:
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
-     * @return false If 'movie' does not exist in inventory
+     * @return false If 'movie' does not if exist in inventory
      */
     bool transact(Log&);
 
@@ -136,7 +134,6 @@ private:
     void setMovies(std::ifstream&);
 
 public:
-
     /**
      * @brief Construct a new Store Inventory object
      * @param customers std::ifstream of customers to insert into transactions
@@ -157,5 +154,4 @@ public:
      * @return out 
      */
     friend std::ostream& operator<<(std::ostream&, StoreInventory&);
-
 };
