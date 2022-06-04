@@ -150,7 +150,7 @@ void StoreInventory::operate(std::ifstream& commands) {
             break;
         }
         case Return: {  
-            Log bLog;
+            Log bLog; 
             int id = 0; // remove later
             for(const auto &custard : customers){
                 if(custard.custID == id){
