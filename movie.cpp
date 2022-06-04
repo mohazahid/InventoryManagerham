@@ -49,7 +49,6 @@ std::string Movie::getDirector() {
 std::string Movie::getTitle() {
     return title;
 }
-
 std::string Movie::getKey() const {
     return this->title + this->director;
 }

@@ -122,5 +122,4 @@ public:
      * @return Postincrement of movie's stock
      */
     int Return();
-    
 };
