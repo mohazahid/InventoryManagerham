@@ -232,7 +232,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
         return (*lhs) < (*rhs);
     };
     // Sort movies according to sorting behavior
-    std::sort(comedys.begin(), comedys.end(), sortComedys);
+    std::sort(comedys.begin(), comedys.end(), sortComedys); // lhs < rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
     for (auto comedy : comedys) {

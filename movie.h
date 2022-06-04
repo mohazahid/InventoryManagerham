@@ -16,6 +16,9 @@
 #include <iostream>
 #include <string>
 
+/**
+ * @brief Stores information about a movie.
+ */
 class Movie {
 
 private:
@@ -63,7 +66,15 @@ public:
      */
     Movie();
 
+    /**
+     * @brief Returns the director of the movie
+     * @return std::string 
+     */
     std::string getDirector();
+    /**
+     * @brief Returns the title of the movie
+     * @return std::string 
+     */
     std::string getTitle();
 
     /**
@@ -82,7 +93,17 @@ public:
         }
     };
 
+    /**
+     * @brief Compares two movie objects
+     * @return true if the year is smaller than the rhs
+     * @return false if the year is larger than the rhs
+     */
     virtual bool operator<(const Movie&) const;
+    /**
+     * @brief Compares two movie objects
+     * @return true if the years are equal
+     * @return false if the years are not equal
+     */
     virtual bool operator==(const Movie&) const;
 
     /**
