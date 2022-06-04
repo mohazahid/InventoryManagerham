@@ -1,5 +1,13 @@
 # InventoryManagerham
-
+## Design
+ Work in group of at most 3 students – setup your group on Canvas using “Self Sign-Up”. 
+ List your group members’ names on the paper.
+ Submit a pdf to Canvas (30 points). Print a hardcopy to be peer evaluated in class.
+## Implementation 
+ Work individually or in group. If in group, teammates’ grades should be within 10 points 
+difference.
+ Submit to Canvas (70 points).
+ List each group member’s contribution explicitly.
 ## Description:
 A local movie rental store wishes to automate their inventory tracking system. Currently there are 
 three types of movies/videos (in DVD media) to be tracked:
