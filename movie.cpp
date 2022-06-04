@@ -11,6 +11,10 @@
 
 #include "movie.h"
 
+Movie::Movie(){
+    
+}
+
 Movie::Movie(int stock, std::string director, std::string title, int year) :
     stock(stock), director(director), title(title), year(year) {}
 

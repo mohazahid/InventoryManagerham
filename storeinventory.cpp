@@ -146,7 +146,6 @@ void StoreInventory::operate(std::ifstream& commands) {
                 }
             }
             bLog.type = Borrow; 
-
             
             break;
         }
