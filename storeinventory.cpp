@@ -138,11 +138,29 @@ void StoreInventory::operate(std::ifstream &commands) {
         char operation = tokens.at(0).at(0);
         switch(operation) {
         case Borrow: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow; 
+
+            
             break;
         }
         case Return: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow;
+
+            
             break;
         }
         case Inventory: {
@@ -182,7 +200,7 @@ bool StoreInventory::transact(Log &l) {
             }
         }
     } 
-    return;
+    return false;
 }
 
 void StoreInventory::printCustomers(std::ostream &out) const {
