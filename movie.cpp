@@ -2,8 +2,8 @@
  * @file movie.cpp
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation file for Movie
  * @date 2022-05-20
  * @copyright Copyright (c) 2022
@@ -11,17 +11,18 @@
 
 #include "movie.h"
 
-Movie::Movie(int stock, std::string director, std::string title, int year) : 
+Movie::Movie(int stock, std::string director, std::string title, int year) :
     stock(stock), director(director), title(title), year(year) {}
 
-Movie::Movie(const Movie& m) : stock(m.stock), director(m.director), title(m.title), year(m.year) {}
+Movie::Movie(const Movie& m) : 
+    stock(m.stock), director(m.director), title(m.title), year(m.year) {}
 
 Movie::~Movie() {}
 
 bool Movie::operator==(const Movie& rhs) const {
-    return ((this->director == rhs.director) 
-    && (this->title == rhs.title) 
-    && (this->year == rhs.year)); 
+    return ((this->director == rhs.director)
+           && (this->title == rhs.title) 
+           && (this->year == rhs.year));
 }
 
 bool Movie::operator<(const Movie& rhs) const {
@@ -35,6 +36,14 @@ std::ostream& operator<<(std::ostream& out, Movie& m) {
 std::ostream& Movie::print(std::ostream& out) const {
     out << "Invalid genre: " << this->type();
     return out;
+}
+
+std::string Movie::getDirector() {
+    return director;
+}
+
+std::string Movie::getTitle() {
+    return title;
 }
 
 std::string Movie::getKey() const {

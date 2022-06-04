@@ -2,8 +2,8 @@
  * @file hashtable.h
  * @author 
  * Hayden Lauritzen (haydenlauritzen@gmail.com)
- * your name (you@domain.com)
- * your name (you@domain.com)
+ * Abhimanyu Kumar (akumar28@uw.edu)
+ * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Template file for HashTable
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
@@ -12,8 +12,8 @@
 
 #pragma once
 
-#include <vector>
 #include <list>
+#include <vector>
 
 /**
  * @brief Stores values according to a hash function
@@ -24,10 +24,9 @@ template <typename T>
 class HashTable {
 
 private:
-
     static const int DEFAULT_SIZE = 100; // if no size is given, a vector of 100 values is defined
 
-    int size; // size of vector
+    int size;                        // size of vector
     std::vector<std::list<T>> table; // vector of points
 
     /**
@@ -53,13 +52,12 @@ private:
     }
 
 public:
-    
-    HashTable<T>() : size(DEFAULT_SIZE), table(this->size){}
-    HashTable<T>(int size) : size(size), table(this->size){}
-    
+    HashTable<T>() : size(DEFAULT_SIZE), table(this->size) {}
+    HashTable<T>(int size) : size(size), table(this->size) {}
+
     int getSize() const {
         return size;
-    } 
+    }
 
     /**
      * @brief Inserts the value at the key's location
@@ -79,7 +77,7 @@ public:
     void put(std::string key, const T& value) {
         put(stringToKey(key), value);
     }
- 
+
     /**
      * @brief Returns a list of all values stored at the given key
      * @param key Key to hash
@@ -99,11 +97,29 @@ public:
     }
 
     /**
+     * @brief Returns a non-const list of all values stored at the given key
+     * @param key Key to hash
+     * @return std::list<T> 
+     */
+    std::list<T>& set(int key) {
+        return table.at(hash(key));
+    }
+    /**
+     * @brief Returns a non-const list of all values stored at the given key
+     * @details Converts the key into an int
+     * @param key Key to hash
+     * @return std::list<T> 
+     */
+    std::list<T>& set(std::string key) {
+        return set(stringToKey(key));
+    }
+
+    /**
      * @brief Removes all values stored with the given key
      * @param key Key to hash
      */
     void remove(int key) {
-        this->table.at(hash(key)).clear();        
+        this->table.at(hash(key)).clear();
     }
     /**
      * @brief Removes all values stored with the given key
@@ -133,5 +149,4 @@ public:
     const std::vector<std::list<T>>& returnAll() const {
         return table;
     }
-
 };
