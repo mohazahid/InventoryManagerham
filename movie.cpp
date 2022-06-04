@@ -11,6 +11,10 @@
 
 #include "movie.h"
 
+Movie::Movie(){
+    
+}
+
 Movie::Movie(int stock, std::string director, std::string title, int year) :
     stock(stock), director(director), title(title), year(year) {}
 
@@ -45,11 +49,15 @@ std::string Movie::getDirector() {
 std::string Movie::getTitle() {
     return title;
 }
-
 std::string Movie::getKey() const {
     return this->title + this->director;
 }
-
+int Movie::getStock() const {
+    return this->stock;
+}
+void Movie::setStock(int nStock) {
+    this->stock = nStock;
+}
 int Movie::Borrow() {
     if(this->stock < 0) return -1;
     return --this->stock;

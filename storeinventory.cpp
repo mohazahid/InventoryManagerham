@@ -27,7 +27,6 @@ void StoreInventory::setCustomers(std::ifstream& customers) {
         this->customers.insert(c);
     }
 }
-
 void StoreInventory::setMovies(std::ifstream& movies) {
     while (!movies.eof()) {
         // parse line
@@ -60,7 +59,9 @@ void StoreInventory::setMovies(std::ifstream& movies) {
             }
             std::shared_ptr<Movie> movie =
                 std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-            this->inventory.put(movie->getKey(), movie);
+            if (checkDuplicate(movie)) {
+                this->inventory.put(movie->getKey(), movie);
+            }
             break;
         }
         case 'C': {
@@ -94,7 +95,9 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                 std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3),
                 std::stoi(tokens.at(7)), tokens.at(4), tokens.at(5),
                 std::stoi(tokens.at(6)));
-            this->inventory.put(movie->getKey(), movie);
+            if (checkDuplicate(movie)) {
+                this->inventory.put(movie->getKey(), movie);
+            }
             break;
         }
         case 'D': {
@@ -108,7 +111,9 @@ void StoreInventory::setMovies(std::ifstream& movies) {
             }
             std::shared_ptr<Movie> movie =
                 std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-            this->inventory.put(movie->getKey(), movie);
+            if (checkDuplicate(movie)) {
+                this->inventory.put(movie->getKey(), movie);
+            }
             break;
         }
         default: {
@@ -118,10 +123,18 @@ void StoreInventory::setMovies(std::ifstream& movies) {
         }
     }
 }
-
+bool StoreInventory::checkDuplicate(std::shared_ptr<Movie> movie) {
+    for (auto i : inventory.get(movie->getKey())) {
+        if (*i == *movie) {
+            i->setStock(i->getStock() + movie->getStock());
+            return false;
+        }
+    }
+    return true;
+}
 void StoreInventory::operate(std::ifstream& commands) {
     while (!commands.eof()) {
-        std::string line;
+        std::string line; //set line 
         std::getline(commands, line);
         std::istringstream iss(line);
         std::vector<std::string> tokens;
@@ -138,11 +151,28 @@ void StoreInventory::operate(std::ifstream& commands) {
         char operation = tokens.at(0).at(0);
         switch (operation) {
         case Borrow: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow; 
+            
             break;
         }
         case Return: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow;
+
+            
             break;
         }
         case Inventory: {

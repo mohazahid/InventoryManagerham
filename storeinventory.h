@@ -91,7 +91,13 @@ private:
      * @return false If 'movie' does not if exist in inventory
      */
     bool transact(Log&);
-
+    /*
+     * @brief Checks for duplicates
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool checkDuplicate(std::shared_ptr<Movie> Movie);
     /**
      * @brief Prints all valid customers and their IDs
      * @param out Stream to output to.
