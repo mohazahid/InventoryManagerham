@@ -60,7 +60,13 @@ void StoreInventory::setMovies(std::ifstream& movies) {
             }
             std::shared_ptr<Movie> movie =
                 std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-            this->inventory.put(movie->getKey(), movie);
+            for (auto i : inventory.get(movie->getKey())) {
+                if (i->operator==(*movie)) {
+                    
+                }
+                this->inventory.put(movie->getKey(), movie);
+            }
+            
             break;
         }
         case 'C': {

@@ -98,7 +98,18 @@ public:
      * @return HashTable key value 
      */
     virtual std::string getKey() const;
-
+    /**
+     * @brief Get the Stock object
+     * 
+     * @return int 
+     */
+    int getStock() const;
+    /**
+     * @brief Set the Stock object
+     * 
+     * @param stockToAdd 
+     */
+    void setStock(int stockToAdd); 
     /**
      * @brief Decrements movie's stock
      * @pre Stock must be greater than 1
@@ -111,4 +122,5 @@ public:
      * @return Postincrement of movie's stock
      */
     int Return();
+    
 };

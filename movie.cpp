@@ -53,7 +53,12 @@ std::string Movie::getTitle() {
 std::string Movie::getKey() const {
     return this->title + this->director;
 }
-
+int Movie::getStock() const {
+    return this->stock;
+}
+void Movie::setStock(int nStock) {
+    this->stock = nStock;
+}
 int Movie::Borrow() {
     if(this->stock < 0) return -1;
     return --this->stock;
