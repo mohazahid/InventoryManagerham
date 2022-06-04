@@ -149,7 +149,7 @@ void StoreInventory::operate(std::ifstream& commands) {
             
             break;
         }
-        case Return: {
+        case Return: {  
             Log bLog;
             int id = 0; // remove later
             for(const auto &custard : customers){
