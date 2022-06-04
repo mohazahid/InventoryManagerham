@@ -121,7 +121,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
 
 void StoreInventory::operate(std::ifstream& commands) {
     while (!commands.eof()) {
-        std::string line;
+        std::string line; //set line 
         std::getline(commands, line);
         std::istringstream iss(line);
         std::vector<std::string> tokens;
@@ -138,11 +138,28 @@ void StoreInventory::operate(std::ifstream& commands) {
         char operation = tokens.at(0).at(0);
         switch (operation) {
         case Borrow: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow; 
+            
             break;
         }
         case Return: {
-            // # TODO
+            Log bLog;
+            int id = 0; // remove later
+            for(const auto &custard : customers){
+                if(custard.custID == id){
+                    bLog.customer = custard;
+                }
+            }
+            bLog.type = Borrow;
+
+            
             break;
         }
         case Inventory: {
