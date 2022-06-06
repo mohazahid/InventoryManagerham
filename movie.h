@@ -30,7 +30,8 @@ private:
     const static char genre = '0';
 
 protected:
-    int stock;            // quanty of movie in stock
+    int inventory;        // quantity of movie in total inventory
+    int stock;            // quantity of movie in stock
     std::string director; // director of movie
     std::string title;    // title of movie
     int year;             // year released of movie
@@ -114,16 +115,14 @@ public:
     virtual std::string getKey() const;
     /**
      * @brief Get the Stock object
-     *
-     * @return int
+     * @return stock
      */
     int getStock() const;
     /**
-     * @brief Set the Stock object
-     *
-     * @param stockToAdd
+     * @brief Set the stock and inventory
+     * @param stock
      */
-    void setStock(int stockToAdd);
+    void setStock(int);
     /**
      * @brief Decrements movie's stock
      * @pre Stock must be greater than 1

@@ -16,7 +16,7 @@ Drama::Drama(int stock, std::string director, std::string title, int year) : Mov
 
 Drama::Drama(const Drama& d) : Movie(d.stock, d.director, d.title, d.year) {}
 
-Drama::~Drama(){};
+Drama::~Drama() {};
 
 Drama& Drama::operator=(const Drama& rhs) {
     if(this == &rhs) return *this; // Check for self-assignment
@@ -35,7 +35,9 @@ bool Drama::operator<(const Drama& rhs) const {
     }
 }
 
-std::string Drama::getKey() const { return this->director + std::to_string(this->year); }
+std::string Drama::getKey() const {
+    return this->director + std::to_string(this->year);
+}
 
 std::ostream& Drama::print(std::ostream& out) const {
     out << this->stock << " of " << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;

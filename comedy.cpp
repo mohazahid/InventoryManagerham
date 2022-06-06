@@ -34,7 +34,9 @@ bool Comedy::operator<(const Comedy& rhs) const {
     return this->title < rhs.title;
 }
 
-std::string Comedy::getKey() const { return this->title + std::to_string(this->year); }
+std::string Comedy::getKey() const {
+    return this->title + std::to_string(this->year);
+}
 
 std::ostream& Comedy::print(std::ostream& out) const {
     out << this->stock << " of " << this->type() << ' ' << this->title << ' ' << this->year;

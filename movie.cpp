@@ -1,6 +1,6 @@
 /**
  * @file movie.cpp
- * @author 
+ * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
@@ -11,21 +11,18 @@
 
 #include "movie.h"
 
-Movie::Movie() {
-}
+Movie::Movie() {}
 
-Movie::Movie(int stock, std::string director, std::string title, int year) 
-            : stock(stock), director(director), title(title), year(year) {}
+Movie::Movie(int stock, std::string director, std::string title, int year)
+    : inventory(stock), stock(stock), director(director), title(title), year(year) {}
 
-Movie::Movie(const Movie& m)
-            : stock(m.stock), director(m.director), title(m.title), year(m.year) {
-}
+Movie::Movie(const Movie& m) : inventory(m.stock), stock(m.stock), director(m.director), title(m.title), year(m.year) {}
 
-Movie::~Movie() {
-}
+Movie::~Movie() {}
 
 Movie& Movie::operator=(const Movie& rhs) {
     if(this == &rhs) return *this; // Check for self-assignment
+    this->inventory = rhs.inventory;
     this->stock = rhs.stock;
     this->director = rhs.director;
     this->title = rhs.title;
@@ -53,7 +50,6 @@ std::ostream& Movie::print(std::ostream& out) const {
 std::string Movie::getDirector() {
     return director;
 }
-
 std::string Movie::getTitle() {
     return title;
 }
@@ -65,13 +61,13 @@ int Movie::getStock() const {
 }
 void Movie::setStock(int stock) {
     this->stock = stock;
+    this->inventory = stock;
 }
 int Movie::Borrow() {
-    if(this->stock < 0) return -1;
+    if(this->stock < 0) return -1; // All movies have been borrowed
     return --this->stock;
 }
-
 int Movie::Return() {
-    // #TODO only allow returns if they have been borrowed
+    if(this->stock == this->inventory) return -1; // No movies have been borrowed
     return ++this->stock;
 }

@@ -113,6 +113,9 @@ void StoreInventory::setMovies(std::ifstream& movies) {
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
             }
+            else {
+
+            }
             break;
         }
         default: {
@@ -125,6 +128,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
 bool StoreInventory::checkDuplicate(std::shared_ptr<Movie> movie) {
     for(auto i : inventory.get(movie->getKey())) {
         if(*i == *movie) {
+            // Increments stock and inventory by the duplicate's stock
             i->setStock(i->getStock() + movie->getStock());
             return false;
         }
