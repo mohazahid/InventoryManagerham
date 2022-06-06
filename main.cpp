@@ -84,6 +84,7 @@ int main() {
     }
 
     StoreInventory inv(customers, movies);
+	inv.operate(commands);
 
     std::cout << inv << std::endl;
 
