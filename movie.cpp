@@ -1,7 +1,7 @@
 /**
  * @file movie.cpp
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
+ * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation file for Movie
@@ -11,22 +11,30 @@
 
 #include "movie.h"
 
-Movie::Movie(){
-    
+Movie::Movie() {
 }
 
-Movie::Movie(int stock, std::string director, std::string title, int year) :
-    stock(stock), director(director), title(title), year(year) {}
+Movie::Movie(int stock, std::string director, std::string title, int year) 
+            : stock(stock), director(director), title(title), year(year) {}
 
-Movie::Movie(const Movie& m) : 
-    stock(m.stock), director(m.director), title(m.title), year(m.year) {}
+Movie::Movie(const Movie& m)
+            : stock(m.stock), director(m.director), title(m.title), year(m.year) {
+}
 
-Movie::~Movie() {}
+Movie::~Movie() {
+}
+
+Movie& Movie::operator=(const Movie& rhs) {
+    if(this == &rhs) return *this; // Check for self-assignment
+    this->stock = rhs.stock;
+    this->director = rhs.director;
+    this->title = rhs.title;
+    this->year = rhs.year;
+    return *this;
+}
 
 bool Movie::operator==(const Movie& rhs) const {
-    return ((this->director == rhs.director)
-           && (this->title == rhs.title) 
-           && (this->year == rhs.year));
+    return ((this->director == rhs.director) && (this->title == rhs.title) && (this->year == rhs.year));
 }
 
 bool Movie::operator<(const Movie& rhs) const {
@@ -55,8 +63,8 @@ std::string Movie::getKey() const {
 int Movie::getStock() const {
     return this->stock;
 }
-void Movie::setStock(int nStock) {
-    this->stock = nStock;
+void Movie::setStock(int stock) {
+    this->stock = stock;
 }
 int Movie::Borrow() {
     if(this->stock < 0) return -1;
@@ -64,5 +72,6 @@ int Movie::Borrow() {
 }
 
 int Movie::Return() {
+    // #TODO only allow returns if they have been borrowed
     return ++this->stock;
 }

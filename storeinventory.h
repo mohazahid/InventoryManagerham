@@ -56,6 +56,7 @@ private:
         int custID;            // 4 digit ID
         std::string custFirst; // Customer first name
         std::string custLast;  // Customer last name
+        
         bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
         }

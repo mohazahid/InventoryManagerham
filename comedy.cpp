@@ -1,7 +1,7 @@
 /**
  * @file comedy.cpp
  * @author
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
+ * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation for Comedy which implements Movie
@@ -17,6 +17,15 @@ Comedy::Comedy(int stock, std::string director, std::string title, int year) : M
 Comedy::Comedy(const Comedy& c) : Movie(c.stock, c.director, c.title, c.year) {}
 
 Comedy::~Comedy() {}
+
+Comedy& Comedy::operator=(const Comedy& rhs) {
+    if(this == &rhs) return *this; // Check for self-assignment
+    this->stock = rhs.stock;
+    this->director = rhs.director;
+    this->title = rhs.title;
+    this->year = rhs.year;
+    return *this;
+}
 
 bool Comedy::operator<(const Comedy& rhs) const {
     if(this->title == rhs.title) {

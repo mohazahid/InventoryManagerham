@@ -1,13 +1,13 @@
 /**
  * @file drama.h
- * @author 
+ * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header for Drama which implements Movie
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #pragma once
@@ -20,6 +20,10 @@ private:
     const static char genre = 'D';
 
 protected:
+    /**
+     * @brief Prints the classic
+     * @return std::ostream&
+     */
     virtual std::ostream& print(std::ostream&) const;
 
 public:
@@ -31,8 +35,19 @@ public:
      * @param year // year released of movie
      */
     Drama(int, std::string, std::string, int);
+    /**
+     * @brief Creates a deep copy
+     */
     Drama(const Drama&);
+    /**
+     * @brief Default deconstructor
+     */
     ~Drama();
+
+    /**
+     * @brief Creates a deep copy
+     */
+    Drama& operator=(const Drama&);
 
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }

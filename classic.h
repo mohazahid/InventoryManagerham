@@ -17,16 +17,16 @@
 class Classic : public Movie {
 
 private:
-    const static char genre = 'C'; 
+    const static char genre = 'C';
 
 protected:
     std::string firstName; // first name of the major actor
-    std::string lastName; // last name of the major actor
-    int month; // month the movie was released
+    std::string lastName;  // last name of the major actor
+    int month;             // month the movie was released
 
     /**
      * @brief Prints the classic
-     * @return std::ostream& 
+     * @return std::ostream&
      */
     virtual std::ostream& print(std::ostream&) const;
 
@@ -51,19 +51,24 @@ public:
      */
     ~Classic();
 
+    /**
+     * @brief Creates a deep copy
+     */
+    Classic& operator=(const Classic&);
+
     // simulate virtual const static behavior
     virtual char type() const { return Classic::genre; }
 
     /**
      * @brief Returns the classics's key
-     * @details Key is major actor and release date 
-     * @return std::string 
+     * @details Key is major actor and release date
+     * @return std::string
      */
     virtual std::string getKey() const;
 
     /**
      * @brief Compares two classic objects
-     * @details 
+     * @details
      * Compares by:
      * firstName
      * lastName

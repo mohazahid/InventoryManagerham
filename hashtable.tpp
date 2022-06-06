@@ -1,7 +1,7 @@
 /**
  * @file hashtable.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
+ * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Template file for HashTable
