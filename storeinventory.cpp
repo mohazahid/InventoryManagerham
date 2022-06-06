@@ -179,7 +179,7 @@ void StoreInventory::operate(std::ifstream& commands) {
                 for(const auto &mov :inventory.get(keytom)){
                     if(mov->getDirector() == name){
                         Movie mov2(*mov);
-                        bLog.movie = mov2;
+                        bLog.movie = mov2; 
                     }
                 }
 
