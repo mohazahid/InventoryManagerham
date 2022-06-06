@@ -139,19 +139,60 @@ void StoreInventory::operate(std::ifstream& commands) {
         switch (operation) {
         case Borrow: {
             Log bLog;
-            int id = 0; // remove later
+            int id = stoi(tokens[1]);
+            std::string typem = tokens[3];
+            char ty = tokens.at(4).at(4);
             for(const auto &custard : customers){
                 if(custard.custID == id){
                     bLog.customer = custard;
                 }
             }
             bLog.type = Borrow; 
-            
+            switch (ty){
+            case 'F':{
+                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                for(const auto &mov :inventory.get(keytom)){
+                    if(mov->getDirector() == name){
+                        Movie mov2 =(*mov);
+                        bLog.movie = mov2;
+                    }
+                }
+                break;
+            }
+            case 'C':{
+                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                for(const auto &mov :inventory.get(keytom)){
+                    if(mov->getDirector() == name){
+                        Movie mov2(*mov);
+                        bLog.movie = mov2;
+                    }
+                }
+
+                break;
+            }
+            case 'D':{ 
+                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                for(const auto &mov :inventory.get(keytom)){
+                    if(mov->getDirector() == name){
+                        Movie mov2(*mov);
+                        bLog.movie = mov2;
+                    }
+                }
+                break;
+            }
+            default:{
+                std::cout<<"no no. no movie for you" << std::endl;
+                break;
+            }
+            }
             break;
         }
         case Return: {
             Log bLog;
-            int id = 0; // remove later
+            int id = stoi(tokens[4]);
             for(const auto &custard : customers){
                 if(custard.custID == id){
                     bLog.customer = custard;
