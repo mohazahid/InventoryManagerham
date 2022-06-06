@@ -128,12 +128,12 @@ private:
      * @brief Inputs all valid customers from a file stream.
      * @param in File stream to input from
      */
-    void setCustomers(std::ifstream&);
+    void setCustomers(std::istream&);
     /**
      * @brief Inputs all movies in stock from a file stream
      * @param in FIle stream to input from
      */
-    void setMovies(std::ifstream&);
+    void setMovies(std::istream&);
 
 public:
     /**
@@ -141,20 +141,20 @@ public:
      * @param customers std::ifstream of customers to insert into transactions
      * @param movies std::ifstream of movies to insert into inventory
      */
-    StoreInventory(std::ifstream&, std::ifstream&);
+    StoreInventory(std::istream&, std::istream&);
     /**
      * @brief Construct a new Store Inventory object
-     * @param customers std::ifstream of customers to insert into transactions
-     * @param movies std::ifstream of movies to insert into inventory
-     * @param commands std::ifstream& of commands to operate on
+     * @param customers std::istream of customers to insert into transactions
+     * @param movies std::istream of movies to insert into inventory
+     * @param commands std::istream& of commands to operate on
      */
-    StoreInventory(std::ifstream&, std::ifstream&, std::ifstream&);
+    StoreInventory(std::istream&, std::istream&, std::istream&);
     /**
      * @brief Runs all the provided commands
      * @details Invalid commands will be skipped
      * @param filename std::ifstream of commands to run
      */
-    void operate(std::ifstream&);
+    void operate(std::istream&);
 
     /**
      * @brief Prints all customers, movies, and transactions

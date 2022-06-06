@@ -15,25 +15,25 @@
 #include "movie.h"
 #include "storeinventory.h"
 
-StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) {
+StoreInventory::StoreInventory(std::istream& customers, std::istream& movies) {
     setCustomers(customers);
     setMovies(movies);
 }
 
-StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies, std::ifstream& commands) {
+StoreInventory::StoreInventory(std::istream& customers, std::istream& movies, std::istream& commands) {
     setCustomers(customers);
     setMovies(movies);
     this->operate(commands);
 }
 
-void StoreInventory::setCustomers(std::ifstream& customers) {
+void StoreInventory::setCustomers(std::istream& customers) {
     while(!customers.eof()) {
         Customer c;
         customers >> c.custID >> c.custLast >> c.custFirst;
         this->customers.insert(c);
     }
 }
-void StoreInventory::setMovies(std::ifstream& movies) {
+void StoreInventory::setMovies(std::istream& movies) {
     while(!movies.eof()) {
         // parse line
         std::string line;
@@ -139,7 +139,7 @@ bool StoreInventory::checkDuplicate(std::shared_ptr<Movie> movie) {
     }
     return true;
 }
-void StoreInventory::operate(std::ifstream& commands) {
+void StoreInventory::operate(std::istream& commands) {
     while(!commands.eof()) {
         std::string line; // set line
         std::getline(commands, line);
