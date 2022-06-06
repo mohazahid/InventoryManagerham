@@ -163,8 +163,8 @@ void StoreInventory::operate(std::ifstream& commands) {
             bLog.type = Borrow; 
             switch (ty){
             case 'F':{
-                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
-                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string name = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
+                std::string keytom = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
                 for(const auto &mov :inventory.get(keytom)){
                     if(mov->getDirector() == name){
                         Movie mov2 =(*mov);
@@ -174,8 +174,8 @@ void StoreInventory::operate(std::ifstream& commands) {
                 break;
             }
             case 'C':{
-                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
-                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string name = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
+                std::string keytom = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
                 for(const auto &mov :inventory.get(keytom)){
                     if(mov->getDirector() == name){
                         Movie mov2(*mov);
@@ -186,8 +186,8 @@ void StoreInventory::operate(std::ifstream& commands) {
                 break;
             }
             case 'D':{ 
-                std::string name = tokens[tokens.size()-1] + tokens[tokens.size()-2];
-                std::string keytom = tokens[tokens.size()-1] + tokens[tokens.size()-2];
+                std::string name = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
+                std::string keytom = tokens.at(tokens.size()-1)+ tokens.at(tokens.size()-1);
                 for(const auto &mov :inventory.get(keytom)){
                     if(mov->getDirector() == name){
                         Movie mov2(*mov);
