@@ -143,6 +143,13 @@ public:
      */
     StoreInventory(std::ifstream&, std::ifstream&);
     /**
+     * @brief Construct a new Store Inventory object
+     * @param customers std::ifstream of customers to insert into transactions
+     * @param movies std::ifstream of movies to insert into inventory
+     * @param commands std::ifstream& of commands to operate on
+     */
+    StoreInventory(std::ifstream&, std::ifstream&, std::ifstream&);
+    /**
      * @brief Runs all the provided commands
      * @details Invalid commands will be skipped
      * @param filename std::ifstream of commands to run

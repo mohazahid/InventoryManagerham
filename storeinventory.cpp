@@ -20,6 +20,12 @@ StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies) 
     setMovies(movies);
 }
 
+StoreInventory::StoreInventory(std::ifstream& customers, std::ifstream& movies, std::ifstream& commands) {
+    setCustomers(customers);
+    setMovies(movies);
+    this->operate(commands);
+}
+
 void StoreInventory::setCustomers(std::ifstream& customers) {
     while(!customers.eof()) {
         Customer c;
@@ -112,9 +118,7 @@ void StoreInventory::setMovies(std::ifstream& movies) {
                 std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
-            }
-            else {
-
+            } else {
             }
             break;
         }
