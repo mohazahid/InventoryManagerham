@@ -42,3 +42,7 @@ std::ostream& Comedy::print(std::ostream& out) const {
     out << this->stock << " of " << this->type() << ' ' << this->title << ' ' << this->year;
     return out;
 }
+
+std::ostream& Comedy::display(std::ostream& out) const {
+    out << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
+}

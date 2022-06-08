@@ -62,3 +62,7 @@ std::ostream& Classic::print(std::ostream& out) const {
         << ' ' << this->lastName;
     return out;
 }
+
+std::ostream& Classic::display(std::ostream& out) const {
+    out << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
+}

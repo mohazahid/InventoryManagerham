@@ -117,6 +117,11 @@ public:
      * @brief Get the Stock object
      * @return stock
      */
+    virtual std::ostream& display(std::ostream&) const;
+    /*
+    * Prints the movies idk 
+    *
+    */
     int getStock() const;
     /**
      * @brief Set the stock and inventory

@@ -82,4 +82,6 @@ public:
      * @return false any member field is not equal
      */
     bool operator==(const Classic&) const;
+
+    virtual std::ostream& display(std::ostream&) const;
 };

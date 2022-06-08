@@ -52,6 +52,8 @@ public:
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }
 
+    virtual std::ostream& display(std::ostream&) const;
+
     virtual std::string getKey() const;
 
     bool operator<(const Drama&) const;

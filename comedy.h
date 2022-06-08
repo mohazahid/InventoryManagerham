@@ -54,4 +54,6 @@ public:
     virtual std::string getKey() const;
 
     bool operator<(const Comedy&) const;
+
+    virtual std::ostream& display(std::ostream& out) const;
 };

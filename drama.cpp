@@ -43,3 +43,7 @@ std::ostream& Drama::print(std::ostream& out) const {
     out << this->stock << " of " << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
     return out;
 }
+
+std::ostream& Drama::display(std::ostream& out) const {
+    out << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
+}
