@@ -45,5 +45,5 @@ std::ostream& Drama::print(std::ostream& out) const {
 }
 
 std::ostream& Drama::display(std::ostream& out) const {
-    out << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
+    return out << this->type() << ' ' << this->director << ' ' << this->year << " " << this->title;
 }

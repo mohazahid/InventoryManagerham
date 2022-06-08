@@ -48,7 +48,7 @@ std::ostream& Movie::print(std::ostream& out) const {
 }
 
 std::ostream& Movie::display(std::ostream& out) const {
-    out << this->director << this->year << this->title;
+    return out << this->director << this->year << this->title;
 }
 
 std::string Movie::getDirector() {

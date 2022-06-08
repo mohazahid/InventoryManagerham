@@ -83,11 +83,8 @@ int main() {
     }
 
     StoreInventory inv(customers, movies);
-    cout << "Store inventory CONSTRUCTED" << endl;
     inv.operate(commands);
-    cout << "Store inventory OPERATED" << endl;
     std::cout << inv << std::endl;
-    cout << "Store inventory FINISHED" << endl;
 
 #endif
 }

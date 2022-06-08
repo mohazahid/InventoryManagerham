@@ -49,7 +49,7 @@ void StoreInventory::setMovies(std::istream& movies) {
             tokens.push_back(token);
         }
         if(tokens.at(0).size() > 1) { // invalid movie type
-            std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            std::cout << "INVALID MOVIE TYPE: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
             continue;
         }
         char type = tokens.at(0).at(0); // string should only be 1 char
@@ -59,8 +59,8 @@ void StoreInventory::setMovies(std::istream& movies) {
              *  0     1      2         3      4
              *  type, stock, director, title, year
              */
-            if(tokens.size() != 5) { // invalid arguements
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            if(tokens.size() != 5) { // invalid arguments
+                std::cout << "INVALID COMMAND ARGUMENTS: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
             std::shared_ptr<Movie> movie =
@@ -76,8 +76,8 @@ void StoreInventory::setMovies(std::istream& movies) {
              *  type, stock, director, title, firstName lastName month year
              */
             // Finish specialized string parsing
-            if(tokens.size() != 5) { // invalid arguements
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            if(tokens.size() != 5) { // invalid arguments
+                std::cout << "INVALID COMMAND ARGUMENTS: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
             std::istringstream issClassic(tokens.at(4));
@@ -93,8 +93,8 @@ void StoreInventory::setMovies(std::istream& movies) {
              *  type, stock, director, title, firstName lastName month
              *
              */
-            if(tokens.size() != 8) { // invalid arguements
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            if(tokens.size() != 8) { // invalid arguments
+                std::cout << "INVALID COMMAND ARGUMENTS: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
             std::shared_ptr<Movie> movie =
@@ -111,7 +111,7 @@ void StoreInventory::setMovies(std::istream& movies) {
              *  type, stock, director, title, year
              */
             if(tokens.size() != 5) { // invalid arguements
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+                std::cout << "INVALID COMMAND: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
             std::shared_ptr<Movie> movie =
@@ -123,7 +123,7 @@ void StoreInventory::setMovies(std::istream& movies) {
             break;
         }
         default: {
-            std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            std::cout << "INVALID MOVIE TYPE: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
             continue;
         }
         }
@@ -156,26 +156,24 @@ void StoreInventory::operate(std::istream& commands) {
             break;
         }
         case Inventory: {
-            std::cout << "Checking Inventory\n";
             printInventory(std::cout);
             break;
         }
         case History: {
             int id = std::stoi(line.substr(2, 4));
-            std::cout << "Checking History of customer " << id << '\n';
-            if(line.size() > 6) { // invalid arguements
-                std::cerr << "INVALID COMMAND " << line << "\n";
+            if(line.size() > 6) { // invalid arguments
+                std::cerr << "INVALID COMMAND ARGUMENTS: " << line << "\n";
                 continue;
             }
             if(!isValid(id)) { // invalid ID
-                std::cerr << "INVALID COMMAND " << line << "\n";
+                std::cerr << "INVALID CUSTID: " << line << "\n";
                 continue;
             }
             printTransactions(std::cout, id);
             break;
         }
         default: {
-            std::cerr << "INVALID COMMAND " << line << "\n";
+            std::cerr << "INVALID COMMAND: " << line << "\n";
             break;
         }
         }
@@ -186,14 +184,18 @@ void StoreInventory::transact(std::string line) {
     Log bLog;
     bLog.customer.custID = -1;
     int id = stoi(line.substr(2, 4)); // grab id from command
-    char movTyp = line.at(7);
+    char movTyp = line.at(9);
     for(const auto& customer : customers) {
         if(customer.custID == id) {
             bLog.customer = customer;
         }
     }
-    if(bLog.customer.custID == -1) {
-        std::cerr << "INVALID CUSTID " << line << "\n";
+    if(bLog.customer.custID == -1) { // invalid id
+        std::cerr << "INVALID CUSTID: " << line << "\n";
+        return;
+    }
+    if(line.at(7) != 'D') { // invalid media type
+        std::cerr << "INVALID MEDIA TYPE: " << line << "\n";
         return;
     }
     char op = line.at(0); // must be 'B' or 'R'
@@ -202,7 +204,7 @@ void StoreInventory::transact(std::string line) {
     } else if(op == Return) {
         bLog.type = Return;
     } else {
-        std::cerr << "INVALID COMMAND " << line << "\n";
+        std::cerr << "INVALID COMMAND: " << line << "\n";
         return;
     }
     std::string keytom = "";
@@ -227,7 +229,7 @@ void StoreInventory::transact(std::string line) {
         break;
     }
     default: {
-        std::cerr << "INVALID COMMAND " << line << "\n";
+        std::cerr << "INVALID MOVIE TYPE: " << line << "\n";
         return;
     }
     }
@@ -239,32 +241,34 @@ void StoreInventory::transact(std::string line) {
                 if(mov->Borrow() == -1) {
                     std::cerr << "MOVIE STOCK IS EMPTY: " << line << "\n";
                     return;
-                } else {
-                    this->transactions.put(bLog.customer.custID, bLog);
                 }
+                this->transactions.put(bLog.customer.custID, bLog);
+            }
+            else if(bLog.type == Return) {
                 if(mov->Return() == -1) {
                     std::cerr << "MOVIE STOCK IS FULL: " << line << "\n";
                     return;
-                } else {
-                    this->transactions.put(bLog.customer.custID, bLog);
                 }
+                this->transactions.put(bLog.customer.custID, bLog);
             }
         }
     }
     if(bLog.movie == nullptr) { // movie was not found; invalid command
-        std::cout << "INVALID COMMAND: " << line << "\n";
+        std::cerr << "INVALID KEY: " << line << " (" << keytom << ")" << "\n";
     }
 }
 
 void StoreInventory::printCustomers(std::ostream& out) const {
+    out << "\n-------------------------------------------------------------------------------------------------\n";
     out << "Customers List: \n";
     for(auto customer : this->customers) {
         out << customer << '\n';
     }
-    out << std::endl;
+    out.flush();
 }
 
 void StoreInventory::printInventory(std::ostream& out) const {
+    out << "\n-------------------------------------------------------------------------------------------------";
     std::vector<std::shared_ptr<Comedy>> comedys;
     std::vector<std::shared_ptr<Drama>> dramas;
     std::vector<std::shared_ptr<Classic>> classics;
@@ -292,7 +296,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
             }
         }
     }
-    std::cout << std::endl;
+    out.flush();
 
     // Define std::sort predicates
     auto sortComedys = [](std::shared_ptr<Comedy> lhs, std::shared_ptr<Comedy> rhs) { return (*lhs) < (*rhs); };
@@ -302,7 +306,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
     std::sort(comedys.begin(), comedys.end(), sortComedys); // *lhs < *rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
-    out << "Inventory Movies: \n";
+    out << "\nInventory Movies: \n";
     for(auto comedy : comedys) {
         out << *comedy << '\n';
     }
@@ -315,20 +319,26 @@ void StoreInventory::printInventory(std::ostream& out) const {
 }
 
 void StoreInventory::printTransactions(std::ostream& out, int id) const {
+    std::cout << "\n-------------------------------------------------------------------------------------------------\n";
+    std::cout << "Checking History of Customer " << id << '\n';
     if(!isValid(id)) return; // if 'id' does not exist in customer list, return
     for(const auto& log : transactions.get(id)) {
-        out << log << '\n';
+        if(log.customer.custID == id) {
+            out << log << '\n';
+        }
     }
-    out << std::endl;
+    out.flush();
 }
 
 void StoreInventory::printTransactions(std::ostream& out) const {
+    std::cout << "\n-------------------------------------------------------------------------------------------------\n";
     for(int i = 0; i < this->transactions.getSize(); ++i) {
         for(const auto& log : transactions.get(i)) {
             out << log << "\n";
         }
     }
-    out << std::endl;
+    out.flush();
+
 }
 bool StoreInventory::isValid(int id) const {
     for(auto const& cust : this->customers) {
