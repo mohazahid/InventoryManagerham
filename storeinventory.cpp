@@ -162,7 +162,7 @@ void StoreInventory::operate(std::istream& commands) {
         }
         case History: {
             int id = std::stoi(line.substr(2, 4));
-            std::cout << "Checking History of: " << id << '\n';
+            std::cout << "Checking History of customer " << id << '\n';
             if(line.size() > 6) { // invalid arguements
                 std::cout << "INVALID COMMAND " << line << "\n";
                 continue;
@@ -286,12 +286,13 @@ void StoreInventory::printInventory(std::ostream& out) const {
             }
         }
     }
+    std::cout << std::endl;
 
     // Define std::sort predicates
     auto sortComedys = [](std::shared_ptr<Comedy> lhs, std::shared_ptr<Comedy> rhs) { return (*lhs) < (*rhs); };
     auto sortDramas = [](std::shared_ptr<Drama> lhs, std::shared_ptr<Drama> rhs) { return (*lhs) < (*rhs); };
     auto sortClassics = [](std::shared_ptr<Classic> lhs, std::shared_ptr<Classic> rhs) { return (*lhs) < (*rhs); };
-    // Sort movies according to sorting behavior
+    // Sort movies acco!rding to sorting behavior
     std::sort(comedys.begin(), comedys.end(), sortComedys); // *lhs < *rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
