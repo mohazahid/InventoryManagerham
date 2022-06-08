@@ -156,15 +156,17 @@ void StoreInventory::operate(std::istream& commands) {
             break;
         }
         case Inventory: {
+            std::cout << "Checking Inventory\n"; 
             printInventory(std::cout);
             break;
         }
         case History: {
+            int id = std::stoi(line.substr(2, 4));
+            std::cout << "Checking History of: " << id << '\n';
             if(line.size() > 6) { // invalid arguements
                 std::cout << "INVALID COMMAND " << line << "\n";
                 continue;
             }
-            int id = std::stoi(line.substr(2, 4));
             if(!isValid(id)) { // invalid ID
                 std::cout << "INVALID COMMAND " << line << "\n";
                 continue;
@@ -251,7 +253,7 @@ void StoreInventory::transact(std::string line) {
 void StoreInventory::printCustomers(std::ostream& out) const {
     out << "Customers List: \n";
     for(auto customer : this->customers) {
-        out << customer;
+        out << customer << '\n';
     }
     out << std::endl;
 }
