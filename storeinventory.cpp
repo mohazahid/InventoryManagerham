@@ -144,109 +144,15 @@ void StoreInventory::operate(std::istream& commands) {
         std::string line; // set line
         std::getline(commands, line);
         line.erase(line.find_last_not_of("\r") + 1);
-        std::istringstream iss(line);
-        std::vector<std::string> tokens;
-        while(!iss.eof()) {
-            std::string temp;
-            if(iss >> temp) {
-                tokens.push_back(temp);
-            }
-        }
-        if(tokens.empty()) continue;
-        if(tokens.at(0).size() > 1) { // invalid command
-            std::cout << "INVALID COMMAND: " << line << "\n";
-            ;
-            continue;
-        }
-        char operation = tokens.at(0).at(0);
+        if(line.empty()) continue;   // empty line given
+        char operation = line.at(0); // grab command type from command
         switch(operation) {
         case Borrow: {
-            if(tokens.size() < 6) {
-                std::cout << "INVALID COMMAND: " << line << "\n";
-            }
-            Log bLog;
-            int id = stoi(tokens[1]);
-            char movTyp = tokens.at(3).at(0);
-            for(const auto& custard : customers) {
-                if(custard.custID == id) {
-                    bLog.customer = custard;
-                }
-            }
-            bLog.type = Borrow;
-            std::string keytom = "";
-            switch(movTyp) {
-            case 'F': {
-                keytom += line.substr(11, line.find(',') - 11) += line.substr(line.find(',') + 2);
-                break;
-            }
-            case 'C': {
-                for(uint i = 4; i < tokens.size(); i++) {
-                    keytom += tokens.at(i);
-                }
-                keytom.erase(std::remove(keytom.begin(), keytom.end(), ','), keytom.end());
-                break;
-            }
-            case 'D': {
-                keytom += line.substr(11, line.find(',') - 11);
-                keytom += line.substr(line.find(',') + 2, line.size() - line.find(',') - 3);
-                break;
-            }
-            default: {
-                break;
-            }
-            }
-            for(const auto& mov : inventory.get(keytom)) {
-                if(mov->getKey() == keytom) {
-                    bLog.movie = mov.get();
-                }
-            }
-            if(bLog.movie == nullptr) {
-                std::cout << "INVALID COMMAND: " << line << "\n";
-                ;
-            }
-            transact(bLog);
+            transact(line);
             break;
         }
         case Return: {
-            Log bLog;
-            int id = stoi(tokens[1]);
-            char movTyp = tokens.at(3).at(0);
-            for(const auto& c : customers) {
-                if(c.custID == id) {
-                    bLog.customer = c;
-                }
-            }
-            bLog.type = Return;
-            std::string keytom = "";
-            switch(movTyp) {
-            case 'F': {
-                keytom += line.substr(11, line.find(',') - 11) += line.substr(line.find(',') + 2);
-                break;
-            }
-            case 'C': {
-                for(uint i = 4; i < tokens.size(); i++) {
-                    keytom += tokens.at(i);
-                }
-                keytom.erase(std::remove(keytom.begin(), keytom.end(), ','), keytom.end());
-                break;
-            }
-            case 'D': {
-                keytom += line.substr(11, line.find(',') - 11);
-                keytom += line.substr(line.find(',') + 2, line.size() - line.find(',') - 3);
-                break;
-            }
-            default: {
-                break;
-            }
-            }
-            for(const auto& mov : inventory.get(keytom)) {
-                if(mov->getKey() == keytom) {
-                    bLog.movie = mov.get();
-                }
-            }
-            if(bLog.movie == nullptr) {
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
-            }
+            transact(line);
             break;
         }
         case Inventory: {
@@ -254,39 +160,92 @@ void StoreInventory::operate(std::istream& commands) {
             break;
         }
         case History: {
-            if(tokens.size() != 2) {
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            if(line.size() > 6) { // invalid arguements
+                std::cout << "INVALID COMMAND " << line << "\n";
                 continue;
-            } // invalid arguements
-            int id = std::stoi(tokens.at(1));
+            }
+            int id = std::stoi(line.substr(2, 4));
             if(!isValid(id)) { // invalid ID
-                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+                std::cout << "INVALID COMMAND " << line << "\n";
                 continue;
             }
             printTransactions(std::cout, id);
             break;
         }
         default: {
-            std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            std::cout << "INVALID COMMAND " << line << "\n";
             break;
         }
         }
     }
 }
 
-bool StoreInventory::transact(Log& l) {
-    std::string dir = l.movie->getDirector();
-    std::string title = l.movie->getTitle();
-    if(isValid(l.customer.custID) and l.type != 'B') {
-        auto movList = inventory.get(dir);
-        for(auto mov : movList) {
-            if(*mov == *l.movie) {
-                transactions.put(l.movie->getKey(), l);
-                return true;
+void StoreInventory::transact(std::string line) {
+    Log bLog;
+    int id = stoi(line.substr(2, 4)); // grab id from command
+    char movTyp = line.at(7);
+    for(const auto& customer : customers) {
+        if(customer.custID == id) {
+            bLog.customer = customer;
+        }
+    }
+    char op = line.at(0); // must be 'B' or 'R'
+    if(op == Borrow) {
+        bLog.type = Borrow;
+    } else if(op == Return) {
+        bLog.type = Return;
+    } else {
+        std::cout << "INVALID COMMAND " << line << "\n";
+    }
+    std::string keytom = "";
+    switch(movTyp) {
+    case 'F': {
+        // fetch key to movie
+        keytom += line.substr(11, line.find(',') - 11) += line.substr(line.find(',') + 2);
+        break;
+    }
+    case 'C': {
+        // fetch key to movie
+        std::istringstream iss(line.substr(12));
+        while(!iss.eof()) {
+            iss >> keytom;
+        }
+        break;
+    }
+    case 'D': {
+        // fetch key to movie
+        keytom += line.substr(11, line.find(',') - 11);
+        keytom += line.substr(line.find(',') + 2, line.size() - line.find(',') - 3);
+        break;
+    }
+    default: {
+        std::cout << "INVALID COMMAND " << line << "\n";
+        break;
+    }
+    }
+    // Find matching movie in inventory
+    for(const auto& mov : inventory.get(keytom)) {
+        if(mov->getKey() == keytom) {
+            bLog.movie = mov.get(); // movie found; make copy
+            if(bLog.type == Borrow) {
+                if(mov->Borrow() == -1) {
+                    std::cout << "MOVIE STOCK IS EMPTY: " << line << "\n";
+                }
+                else {
+                    this->transactions.put(bLog.customer.custID, bLog);
+                }
+                if(mov->Return() == -1) {
+                    std::cout << "MOVIE STOCK IS FULL: " << line << "\n";
+                }
+                else {
+                    this->transactions.put(bLog.customer.custID, bLog);
+                }
             }
         }
     }
-    return false;
+    if(bLog.movie == nullptr) { // movie was not found; invalid command
+        std::cout << "INVALID COMMAND: " << line << "\n";
+    }
 }
 
 void StoreInventory::printCustomers(std::ostream& out) const {
@@ -330,7 +289,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
     auto sortDramas = [](std::shared_ptr<Drama> lhs, std::shared_ptr<Drama> rhs) { return (*lhs) < (*rhs); };
     auto sortClassics = [](std::shared_ptr<Classic> lhs, std::shared_ptr<Classic> rhs) { return (*lhs) < (*rhs); };
     // Sort movies according to sorting behavior
-    std::sort(comedys.begin(), comedys.end(), sortComedys); // lhs < rhs
+    std::sort(comedys.begin(), comedys.end(), sortComedys); // *lhs < *rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
     for(auto comedy : comedys) {

@@ -56,7 +56,7 @@ private:
             return this->custID < rhs.custID;
         }
         friend std::ostream& operator<<(std::ostream& out, const Customer& c) {
-            return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast << '\n';
+            return out << c.custID << ' ' << c.custFirst << ' ' << c.custLast;
         }
     };
 
@@ -69,7 +69,7 @@ private:
         Movie* movie;       // Contains information about the movie
 
         friend std::ostream& operator<<(std::ostream& os, const Log& log) {
-            return os << log.type << std::endl;
+            return os << log.customer << ' ' << std::to_string(log.type) << ' ' << *log.movie;
         }
     };
 
@@ -79,14 +79,14 @@ private:
 
     /**
      * @brief Inserts a Log into transactions and modifies the corresponding stock
-     * @param transaction Transaction to insert
+     * @param command Command to transact with.
      * @pre Movie must exist in inventory
      * @pre custID must exist in transactions
      * @return true If insertion is successful.
      * @return false If 'Log.type' is 'B' and the corresponding stock is less than 1
      * @return false If 'movie' does not if exist in inventory
      */
-    bool transact(Log&);
+    void transact(std::string);
     /**
      * @brief Checks for duplicates
      * @details Modifies movie stock and inventory if a duplicate is found.
