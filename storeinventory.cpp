@@ -12,7 +12,6 @@
 
 #include <vector>
 
-
 #include "movie.h"
 #include "storeinventory.h"
 
@@ -69,7 +68,6 @@ void StoreInventory::setMovies(std::istream& movies) {
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
             }
-            std::cout << movie->getKey() << std::endl;
             break;
         }
         case 'C': {
@@ -105,7 +103,6 @@ void StoreInventory::setMovies(std::istream& movies) {
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
             }
-            std::cout << movie->getKey() << std::endl;
             break;
         }
         case 'D': {
@@ -123,7 +120,6 @@ void StoreInventory::setMovies(std::istream& movies) {
                 this->inventory.put(movie->getKey(), movie);
             } else {
             }
-            std::cout << movie->getKey() << std::endl;
             break;
         }
         default: {
@@ -147,6 +143,7 @@ void StoreInventory::operate(std::istream& commands) {
     while(!commands.eof()) {
         std::string line; // set line
         std::getline(commands, line);
+        line.erase(line.find_last_not_of("\r") + 1);
         std::istringstream iss(line);
         std::vector<std::string> tokens;
         while(!iss.eof()) {
@@ -157,76 +154,99 @@ void StoreInventory::operate(std::istream& commands) {
         }
         if(tokens.empty()) continue;
         if(tokens.at(0).size() > 1) { // invalid command
-            std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            std::cout << "INVALID COMMAND: " << line << "\n";
+            ;
             continue;
         }
         char operation = tokens.at(0).at(0);
         switch(operation) {
         case Borrow: {
+            if(tokens.size() < 6) {
+                std::cout << "INVALID COMMAND: " << line << "\n";
+            }
             Log bLog;
             int id = stoi(tokens[1]);
             char movTyp = tokens.at(3).at(0);
-            for(const auto &custard : customers){
-                if(custard.custID == id){
+            for(const auto& custard : customers) {
+                if(custard.custID == id) {
                     bLog.customer = custard;
                 }
             }
             bLog.type = Borrow;
             std::string keytom = "";
-            switch (movTyp){
-            case 'F':{
-                keytom = line.substr(11, line.find(','));
-                keytom = keytom.substr(0, keytom.size()-7);
-                keytom += line.substr(line.find(",") + 2);
-                std::cout << keytom << std::endl;
+            switch(movTyp) {
+            case 'F': {
+                keytom += line.substr(11, line.find(',') - 11) += line.substr(line.find(',') + 2);
                 break;
             }
-            case 'C':{
-                for(int i = 4; i< tokens.size(); i++){
+            case 'C': {
+                for(uint i = 4; i < tokens.size(); i++) {
                     keytom += tokens.at(i);
                 }
                 keytom.erase(std::remove(keytom.begin(), keytom.end(), ','), keytom.end());
-                std::cout << keytom << std::endl;
                 break;
             }
-            case 'D':{
-                keytom = line.substr(11, line.find(","));
-                keytom = keytom.substr(0, keytom.size()-11);
-                keytom += line.substr(line.find(",") + 2);
-                keytom = keytom.substr(0, keytom.size()-2);
-                std::cout << keytom << std::endl;
+            case 'D': {
+                keytom += line.substr(11, line.find(',') - 11);
+                keytom += line.substr(line.find(',') + 2, line.size() - line.find(',') - 3);
                 break;
             }
-            default:{
+            default: {
                 break;
             }
             }
             for(const auto& mov : inventory.get(keytom)) {
-                std::cout << mov->getKey() <<"          " << keytom << std::endl;
                 if(mov->getKey() == keytom) {
                     bLog.movie = mov.get();
-                        
                 }
             }
-            if(bLog.movie == nullptr){
-                std::cout<< "movie is nullptr" << std::endl;
-            } else {
-                transact(bLog);
-                std::cout << "IT WORKS" << std::endl;
+            if(bLog.movie == nullptr) {
+                std::cout << "INVALID COMMAND: " << line << "\n";
+                ;
             }
-            
+            transact(bLog);
+            break;
         }
         case Return: {
-
-            // Log bLog;
-            // int id = stoi(tokens[4]);
-            // for(const auto &custard : customers){
-            //     if(custard.custID == id){
-            //         bLog.customer = custard;
-            //     }
-            // }
-            // bLog.type = Borrow;
-
+            Log bLog;
+            int id = stoi(tokens[1]);
+            char movTyp = tokens.at(3).at(0);
+            for(const auto& c : customers) {
+                if(c.custID == id) {
+                    bLog.customer = c;
+                }
+            }
+            bLog.type = Return;
+            std::string keytom = "";
+            switch(movTyp) {
+            case 'F': {
+                keytom += line.substr(11, line.find(',') - 11) += line.substr(line.find(',') + 2);
+                break;
+            }
+            case 'C': {
+                for(uint i = 4; i < tokens.size(); i++) {
+                    keytom += tokens.at(i);
+                }
+                keytom.erase(std::remove(keytom.begin(), keytom.end(), ','), keytom.end());
+                break;
+            }
+            case 'D': {
+                keytom += line.substr(11, line.find(',') - 11);
+                keytom += line.substr(line.find(',') + 2, line.size() - line.find(',') - 3);
+                break;
+            }
+            default: {
+                break;
+            }
+            }
+            for(const auto& mov : inventory.get(keytom)) {
+                if(mov->getKey() == keytom) {
+                    bLog.movie = mov.get();
+                }
+            }
+            if(bLog.movie == nullptr) {
+                std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
+            }
             break;
         }
         case Inventory: {
