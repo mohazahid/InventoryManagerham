@@ -154,7 +154,7 @@ void StoreInventory::operate(std::ifstream& commands) {
             Log bLog;
             int id = stoi(tokens[1]);
             std::string typem = tokens[3];
-            char ty = tokens.at(4).at(4);
+            char ty = tokens.at(3).at(0);
             for(const auto &custard : customers){
                 if(custard.custID == id){
                     bLog.customer = custard;
@@ -171,6 +171,8 @@ void StoreInventory::operate(std::ifstream& commands) {
                         bLog.movie = mov2;
                     }
                 }
+
+                transact(bLog);
                 break;
             }
             case 'C':{
@@ -182,7 +184,8 @@ void StoreInventory::operate(std::ifstream& commands) {
                         bLog.movie = mov2; 
                     }
                 }
-
+                
+                transact(bLog);
                 break;
             }
             case 'D':{ 
@@ -194,6 +197,8 @@ void StoreInventory::operate(std::ifstream& commands) {
                         bLog.movie = mov2;
                     }
                 }
+
+                transact(bLog);
                 break;
             }
             default:{
@@ -204,14 +209,15 @@ void StoreInventory::operate(std::ifstream& commands) {
             break;
         }
         case Return: {
-            Log bLog;
-            int id = stoi(tokens[4]);
-            for(const auto &custard : customers){
-                if(custard.custID == id){
-                    bLog.customer = custard;
-                }
-            }
-            bLog.type = Borrow;
+
+            // Log bLog;
+            // int id = stoi(tokens[4]);
+            // for(const auto &custard : customers){
+            //     if(custard.custID == id){
+            //         bLog.customer = custard;
+            //     }
+            // }
+            // bLog.type = Borrow;
 
             
             break;
@@ -225,7 +231,7 @@ void StoreInventory::operate(std::ifstream& commands) {
                 std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             } // invalid arguements
-            int id = std::stoi(tokens.at(2));
+            int id = std::stoi(tokens.at(1));
             if (!isValid(id)) { // invalid ID
                 std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
