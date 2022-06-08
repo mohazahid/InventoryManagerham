@@ -151,7 +151,8 @@ void StoreInventory::operate(std::istream& commands) {
                 tokens.push_back(temp);
             }
         }
-        if(tokens.at(0).size() > 1) { // invalid movie type
+        if(tokens.empty()) continue;
+        if(tokens.at(0).size() > 1) { // invalid command
             std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
             continue;
         }
@@ -159,11 +160,11 @@ void StoreInventory::operate(std::istream& commands) {
         switch(operation) {
         case Borrow: {
             Log bLog;
-            int id = stoi(tokens[1]);
-            std::string typem = tokens[3];
+            int id = stoi(tokens.at(1));
+            std::string typem = tokens.at(3);
             char ty = tokens.at(3).at(0);
-            for(const auto &custard : customers){
-                if(custard.custID == id){
+            for(const auto& custard : customers) {
+                if(custard.custID == id) {
                     bLog.customer = custard;
                 }
             }
@@ -178,7 +179,6 @@ void StoreInventory::operate(std::istream& commands) {
                         bLog.movie = mov2;
                     }
                 }
-
                 transact(bLog);
                 break;
             }
@@ -191,7 +191,7 @@ void StoreInventory::operate(std::istream& commands) {
                         bLog.movie = mov2;
                     }
                 }
-                
+
                 transact(bLog);
                 break;
             }
@@ -209,7 +209,7 @@ void StoreInventory::operate(std::istream& commands) {
                 break;
             }
             default: {
-                std::cout << "no no. no movie for you" << std::endl;
+                std::cout << "INVALID MOVIE TYPE " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 break;
             }
             }
@@ -238,7 +238,7 @@ void StoreInventory::operate(std::istream& commands) {
                 continue;
             } // invalid arguements
             int id = std::stoi(tokens.at(1));
-            if (!isValid(id)) { // invalid ID
+            if(!isValid(id)) { // invalid ID
                 std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
