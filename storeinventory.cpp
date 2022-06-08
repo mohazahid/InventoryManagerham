@@ -290,6 +290,7 @@ bool StoreInventory::transact(Log& l) {
 }
 
 void StoreInventory::printCustomers(std::ostream& out) const {
+    out << "Customers List: \n";
     for(auto customer : this->customers) {
         out << customer;
     }
@@ -333,6 +334,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
     std::sort(comedys.begin(), comedys.end(), sortComedys); // lhs < rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
+    out<<"Inventory Movies: \n";
     for(auto comedy : comedys) {
         out << *comedy << '\n';
     }
@@ -355,9 +357,10 @@ void StoreInventory::printTransactions(std::ostream& out, int id) const {
 void StoreInventory::printTransactions(std::ostream& out) const {
     for(int i = 0; i < this->transactions.getSize(); ++i) {
         for(const auto& log : transactions.get(i)) {
-            out << log << '\n';
+            out << log << "\n";
         }
     }
+    out << std::endl;
 }
 bool StoreInventory::isValid(int id) const {
     for(auto const& cust : this->customers) {
