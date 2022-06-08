@@ -151,7 +151,8 @@ void StoreInventory::operate(std::istream& commands) {
                 tokens.push_back(temp);
             }
         }
-        if(tokens.at(0).size() > 1) { // invalid movie type
+        if(tokens.empty()) continue;
+        if(tokens.at(0).size() > 1) { // invalid command
             std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
             continue;
         }
@@ -160,60 +161,26 @@ void StoreInventory::operate(std::istream& commands) {
         case Borrow: {
             Log bLog;
             int id = stoi(tokens[1]);
-            std::string typem = tokens[3];
-            char ty = tokens.at(3).at(0);
+            char movTyp = tokens.at(3).at(0);
             for(const auto &custard : customers){
                 if(custard.custID == id){
                     bLog.customer = custard;
                 }
             }
             bLog.type = Borrow;
-            switch(ty) {
-            case 'F': {
-                std::string name = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                std::string keytom = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                for(const auto& mov : inventory.get(keytom)) {
-                    if(mov->getDirector() == name) {
-                        Movie mov2 = (*mov);
-                        bLog.movie = mov2;
-                    }
-                }
-
-                transact(bLog);
-                break;
-            }
-            case 'C': {
-                std::string name = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                std::string keytom = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
+            std::string name = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
+            std::string keytom = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
                 for(const auto& mov : inventory.get(keytom)) {
                     if(mov->getDirector() == name) {
                         Movie mov2(*mov);
                         bLog.movie = mov2;
-                    }
-                }
-                
-                transact(bLog);
-                break;
-            }
-            case 'D': {
-                std::string name = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                std::string keytom = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                for(const auto& mov : inventory.get(keytom)) {
-                    if(mov->getDirector() == name) {
-                        Movie mov2(*mov);
-                        bLog.movie = mov2;
+                        
                     }
                 }
 
                 transact(bLog);
-                break;
-            }
-            default: {
-                std::cout << "no no. no movie for you" << std::endl;
-                break;
-            }
-            }
-            break;
+                std::cout << "IT WORKS" << std::endl;
+            
         }
         case Return: {
 

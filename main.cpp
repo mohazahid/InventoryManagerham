@@ -85,8 +85,8 @@ int main() {
 
     StoreInventory inv(customers, movies);
 	inv.operate(commands);
-
-    std::cout << inv << std::endl;
+	std::cout << "IT WORKS" << std::endl;
+	std::cout << inv << std::endl;
 
 #endif
 }
