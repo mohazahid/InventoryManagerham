@@ -12,6 +12,7 @@
 
 #include <vector>
 
+
 #include "movie.h"
 #include "storeinventory.h"
 
@@ -68,6 +69,7 @@ void StoreInventory::setMovies(std::istream& movies) {
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
             }
+            std::cout << movie->getKey() << std::endl;
             break;
         }
         case 'C': {
@@ -103,6 +105,7 @@ void StoreInventory::setMovies(std::istream& movies) {
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
             }
+            std::cout << movie->getKey() << std::endl;
             break;
         }
         case 'D': {
@@ -120,6 +123,7 @@ void StoreInventory::setMovies(std::istream& movies) {
                 this->inventory.put(movie->getKey(), movie);
             } else {
             }
+            std::cout << movie->getKey() << std::endl;
             break;
         }
         default: {
@@ -168,18 +172,48 @@ void StoreInventory::operate(std::istream& commands) {
                 }
             }
             bLog.type = Borrow;
-            std::string name = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-            std::string keytom = tokens.at(tokens.size() - 1) + tokens.at(tokens.size() - 1);
-                for(const auto& mov : inventory.get(keytom)) {
-                    if(mov->getDirector() == name) {
-                        Movie mov2(*mov);
-                        bLog.movie = mov2;
-                        
-                    }
+            std::string keytom = "";
+            switch (movTyp){
+            case 'F':{
+                keytom = line.substr(11, line.find(','));
+                keytom = keytom.substr(0, keytom.size()-7);
+                keytom += line.substr(line.find(",") + 2);
+                std::cout << keytom << std::endl;
+                break;
+            }
+            case 'C':{
+                for(int i = 4; i< tokens.size(); i++){
+                    keytom += tokens.at(i);
                 }
-
+                keytom.erase(std::remove(keytom.begin(), keytom.end(), ','), keytom.end());
+                std::cout << keytom << std::endl;
+                break;
+            }
+            case 'D':{
+                keytom = line.substr(11, line.find(","));
+                keytom = keytom.substr(0, keytom.size()-11);
+                keytom += line.substr(line.find(",") + 2);
+                keytom = keytom.substr(0, keytom.size()-2);
+                std::cout << keytom << std::endl;
+                break;
+            }
+            default:{
+                break;
+            }
+            }
+            for(const auto& mov : inventory.get(keytom)) {
+                std::cout << mov->getKey() <<"          " << keytom << std::endl;
+                if(mov->getKey() == keytom) {
+                    bLog.movie = mov.get();
+                        
+                }
+            }
+            if(bLog.movie == nullptr){
+                std::cout<< "movie is nullptr" << std::endl;
+            } else {
                 transact(bLog);
                 std::cout << "IT WORKS" << std::endl;
+            }
             
         }
         case Return: {
@@ -205,7 +239,7 @@ void StoreInventory::operate(std::istream& commands) {
                 continue;
             } // invalid arguements
             int id = std::stoi(tokens.at(1));
-            if (!isValid(id)) { // invalid ID
+            if(!isValid(id)) { // invalid ID
                 std::cout << "INVALID COMMAND " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
@@ -221,13 +255,13 @@ void StoreInventory::operate(std::istream& commands) {
 }
 
 bool StoreInventory::transact(Log& l) {
-    std::string dir = l.movie.getDirector();
-    std::string title = l.movie.getTitle();
+    std::string dir = l.movie->getDirector();
+    std::string title = l.movie->getTitle();
     if(isValid(l.customer.custID) and l.type != 'B') {
         auto movList = inventory.get(dir);
         for(auto mov : movList) {
-            if(*mov == l.movie) {
-                transactions.put(l.movie.getKey(), l);
+            if(*mov == *l.movie) {
+                transactions.put(l.movie->getKey(), l);
                 return true;
             }
         }

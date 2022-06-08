@@ -61,7 +61,7 @@ public:
 
     /**
      * @brief Returns the classics's key
-     * @details Key is major actor and release date
+     * @details Key is major actor and release date and month
      * @return std::string
      */
     virtual std::string getKey() const;

@@ -66,7 +66,7 @@ private:
     struct Log {
         Operation type;    // 'B' or 'R'
         Customer customer; // Contains information about the customer
-        Movie movie;       // Contains information about the movie
+        Movie* movie;       // Contains information about the movie
 
         friend std::ostream& operator<<(std::ostream& os, const Log& log) {
             return os << log.type << std::endl;
