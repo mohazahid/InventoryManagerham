@@ -1,13 +1,13 @@
 /**
  * @file storeinventory.h
- * @author 
+ * @author
  * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for StoreInventory
  * @date 2022-05-18
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #pragma once
@@ -42,12 +42,7 @@ private:
     /**
      * @brief Operations StoreInventory can make
      */
-    enum Operation {
-        Borrow = 'B',
-        Return = 'R',
-        Inventory = 'I',
-        History = 'H'
-    };
+    enum Operation { Borrow = 'B', Return = 'R', Inventory = 'I', History = 'H' };
 
     /**
      * @brief Contains information about a customer
@@ -56,6 +51,7 @@ private:
         int custID;            // 4 digit ID
         std::string custFirst; // Customer first name
         std::string custLast;  // Customer last name
+
         bool operator<(const Customer& rhs) const {
             return this->custID < rhs.custID;
         }
@@ -82,7 +78,7 @@ private:
     HashTable<std::shared_ptr<Movie>> inventory; // key is director + title
 
     /**
-     * @brief Inserts a Log into transactions and modifies the corresponding stock  
+     * @brief Inserts a Log into transactions and modifies the corresponding stock
      * @param transaction Transaction to insert
      * @pre Movie must exist in inventory
      * @pre custID must exist in transactions
@@ -91,11 +87,11 @@ private:
      * @return false If 'movie' does not if exist in inventory
      */
     bool transact(Log&);
-    /*
+    /**
      * @brief Checks for duplicates
-     * 
-     * @return true 
-     * @return false 
+     * @details Modifies movie stock and inventory if a duplicate is found.
+     * @return true If no duplicates are found.
+     * @return false If a duplicate is found.
      */
     bool checkDuplicate(std::shared_ptr<Movie> Movie);
     /**
@@ -105,7 +101,7 @@ private:
     void printCustomers(std::ostream&) const;
     /**
      * @brief Prints a sorted inventory
-     * @details prints in the order depending on Movie's sorting attributes 
+     * @details prints in the order depending on Movie's sorting attributes
      * @param out Stream to output to.
      */
     void printInventory(std::ostream&) const;
@@ -132,12 +128,12 @@ private:
      * @brief Inputs all valid customers from a file stream.
      * @param in File stream to input from
      */
-    void setCustomers(std::ifstream&);
+    void setCustomers(std::istream&);
     /**
      * @brief Inputs all movies in stock from a file stream
      * @param in FIle stream to input from
      */
-    void setMovies(std::ifstream&);
+    void setMovies(std::istream&);
 
 public:
     /**
@@ -145,19 +141,26 @@ public:
      * @param customers std::ifstream of customers to insert into transactions
      * @param movies std::ifstream of movies to insert into inventory
      */
-    StoreInventory(std::ifstream&, std::ifstream&);
+    StoreInventory(std::istream&, std::istream&);
+    /**
+     * @brief Construct a new Store Inventory object
+     * @param customers std::istream of customers to insert into transactions
+     * @param movies std::istream of movies to insert into inventory
+     * @param commands std::istream& of commands to operate on
+     */
+    StoreInventory(std::istream&, std::istream&, std::istream&);
     /**
      * @brief Runs all the provided commands
      * @details Invalid commands will be skipped
      * @param filename std::ifstream of commands to run
      */
-    void operate(std::ifstream&);
+    void operate(std::istream&);
 
     /**
      * @brief Prints all customers, movies, and transactions
      * @param out Stream to output to
      * @param si StoreInventory to print
-     * @return out 
+     * @return out
      */
     friend std::ostream& operator<<(std::ostream&, StoreInventory&);
 };

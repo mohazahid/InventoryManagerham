@@ -6,9 +6,9 @@
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Header file for Movie
  * @date 2022-05-18
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #pragma once
@@ -22,17 +22,16 @@
 class Movie {
 
 private:
-
     /**
-     * @details 
+     * @details
      * valid movies must extend Movie
      * genre = '0' is treated as an error code
      */
-    const static char genre = '0'; 
-    
-protected:
+    const static char genre = '0';
 
-    int stock; // quanty of movie in stock
+protected:
+    int inventory;        // quantity of movie in total inventory
+    int stock;            // quantity of movie in stock
     std::string director; // director of movie
     std::string title;    // title of movie
     int year;             // year released of movie
@@ -61,37 +60,32 @@ public:
      */
     Movie(const Movie&);
     /**
-     * @brief Default constructor 
+     * @brief Default constructor
      * @details Member fields are not defined
      */
     Movie();
+    /**
+     * @brief Creates a deep copy
+     */
+    virtual Movie& operator=(const Movie&);
 
     /**
      * @brief Returns the director of the movie
-     * @return std::string 
+     * @return std::string
      */
     std::string getDirector();
     /**
      * @brief Returns the title of the movie
-     * @return std::string 
+     * @return std::string
      */
     std::string getTitle();
 
     /**
      * @brief Returns the genre of the movie
-     * @details Simulates static const virtual behavior 
+     * @details Simulates static const virtual behavior
      * @return genre
      */
     virtual char type() const { return genre; }
-
-    /**
-     * @brief Defines sort predicate
-     */
-    struct sortPredicate {
-        inline bool operator()(const Movie* v1, const Movie* v2) {
-            return ((*v1) < (*v2));
-        }
-    };
 
     /**
      * @brief Compares two movie objects
@@ -116,21 +110,19 @@ public:
     /**
      * @brief Returns the movie's key
      * @details Returns the defined sorting behavior of the movie
-     * @return HashTable key value 
+     * @return HashTable key value
      */
     virtual std::string getKey() const;
     /**
      * @brief Get the Stock object
-     * 
-     * @return int 
+     * @return stock
      */
     int getStock() const;
     /**
-     * @brief Set the Stock object
-     * 
-     * @param stockToAdd 
+     * @brief Set the stock and inventory
+     * @param stock
      */
-    void setStock(int stockToAdd); 
+    void setStock(int);
     /**
      * @brief Decrements movie's stock
      * @pre Stock must be greater than 1
@@ -139,7 +131,7 @@ public:
     int Borrow();
     /**
      * @brief Decrements movie's stock
-     * @pre Stock must 
+     * @pre Stock must
      * @return Postincrement of movie's stock
      */
     int Return();

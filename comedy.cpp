@@ -1,7 +1,7 @@
 /**
  * @file comedy.cpp
  * @author
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
+ * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Implementation for Comedy which implements Movie
@@ -18,6 +18,15 @@ Comedy::Comedy(const Comedy& c) : Movie(c.stock, c.director, c.title, c.year) {}
 
 Comedy::~Comedy() {}
 
+Comedy& Comedy::operator=(const Comedy& rhs) {
+    if(this == &rhs) return *this; // Check for self-assignment
+    this->stock = rhs.stock;
+    this->director = rhs.director;
+    this->title = rhs.title;
+    this->year = rhs.year;
+    return *this;
+}
+
 bool Comedy::operator<(const Comedy& rhs) const {
     if(this->title == rhs.title) {
         return this->year < rhs.year;
@@ -25,7 +34,9 @@ bool Comedy::operator<(const Comedy& rhs) const {
     return this->title < rhs.title;
 }
 
-std::string Comedy::getKey() const { return this->title + std::to_string(this->year); }
+std::string Comedy::getKey() const {
+    return this->title + std::to_string(this->year);
+}
 
 std::ostream& Comedy::print(std::ostream& out) const {
     out << this->stock << " of " << this->type() << ' ' << this->title << ' ' << this->year;
