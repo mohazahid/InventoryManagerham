@@ -156,7 +156,7 @@ void StoreInventory::operate(std::istream& commands) {
             break;
         }
         case Inventory: {
-            std::cout << "Checking Inventory\n"; 
+            std::cout << "Checking Inventory\n";
             printInventory(std::cout);
             break;
         }
@@ -164,18 +164,18 @@ void StoreInventory::operate(std::istream& commands) {
             int id = std::stoi(line.substr(2, 4));
             std::cout << "Checking History of customer " << id << '\n';
             if(line.size() > 6) { // invalid arguements
-                std::cout << "INVALID COMMAND " << line << "\n";
+                std::cerr << "INVALID COMMAND " << line << "\n";
                 continue;
             }
             if(!isValid(id)) { // invalid ID
-                std::cout << "INVALID COMMAND " << line << "\n";
+                std::cerr << "INVALID COMMAND " << line << "\n";
                 continue;
             }
             printTransactions(std::cout, id);
             break;
         }
         default: {
-            std::cout << "INVALID COMMAND " << line << "\n";
+            std::cerr << "INVALID COMMAND " << line << "\n";
             break;
         }
         }
@@ -184,6 +184,7 @@ void StoreInventory::operate(std::istream& commands) {
 
 void StoreInventory::transact(std::string line) {
     Log bLog;
+    bLog.customer.custID = -1;
     int id = stoi(line.substr(2, 4)); // grab id from command
     char movTyp = line.at(7);
     for(const auto& customer : customers) {
@@ -191,13 +192,18 @@ void StoreInventory::transact(std::string line) {
             bLog.customer = customer;
         }
     }
+    if(bLog.customer.custID == -1) {
+        std::cerr << "INVALID CUSTID " << line << "\n";
+        return;
+    }
     char op = line.at(0); // must be 'B' or 'R'
     if(op == Borrow) {
         bLog.type = Borrow;
     } else if(op == Return) {
         bLog.type = Return;
     } else {
-        std::cout << "INVALID COMMAND " << line << "\n";
+        std::cerr << "INVALID COMMAND " << line << "\n";
+        return;
     }
     std::string keytom = "";
     switch(movTyp) {
@@ -221,8 +227,8 @@ void StoreInventory::transact(std::string line) {
         break;
     }
     default: {
-        std::cout << "INVALID COMMAND " << line << "\n";
-        break;
+        std::cerr << "INVALID COMMAND " << line << "\n";
+        return;
     }
     }
     // Find matching movie in inventory
@@ -231,15 +237,15 @@ void StoreInventory::transact(std::string line) {
             bLog.movie = mov.get(); // movie found; make copy
             if(bLog.type == Borrow) {
                 if(mov->Borrow() == -1) {
-                    std::cout << "MOVIE STOCK IS EMPTY: " << line << "\n";
-                }
-                else {
+                    std::cerr << "MOVIE STOCK IS EMPTY: " << line << "\n";
+                    return;
+                } else {
                     this->transactions.put(bLog.customer.custID, bLog);
                 }
                 if(mov->Return() == -1) {
-                    std::cout << "MOVIE STOCK IS FULL: " << line << "\n";
-                }
-                else {
+                    std::cerr << "MOVIE STOCK IS FULL: " << line << "\n";
+                    return;
+                } else {
                     this->transactions.put(bLog.customer.custID, bLog);
                 }
             }
@@ -296,7 +302,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
     std::sort(comedys.begin(), comedys.end(), sortComedys); // *lhs < *rhs
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
-    out<<"Inventory Movies: \n";
+    out << "Inventory Movies: \n";
     for(auto comedy : comedys) {
         out << *comedy << '\n';
     }
