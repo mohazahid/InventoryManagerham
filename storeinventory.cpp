@@ -183,7 +183,7 @@ void StoreInventory::operate(std::istream& commands) {
     }
 }
 void StoreInventory::transact(std::string line) {
-    Log bLog;
+    Log bLog{};
     bLog.customer.custID = -1;
     int id = stoi(line.substr(2, 4)); // grab id from command
     char movTyp = line.at(9); // grabs movie type
