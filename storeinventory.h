@@ -78,6 +78,7 @@ private:
                 log.movie->display(os);
                 return os;
             }
+            return os;
         }
     };
 

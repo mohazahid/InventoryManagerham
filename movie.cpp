@@ -68,7 +68,7 @@ void Movie::setStock(int stock) {
     this->inventory = stock;
 }
 int Movie::Borrow() {
-    if(this->stock < 0) return -1; // All movies have been borrowed
+    if(this->stock == 0) return -1; // All movies have been borrowed
     return --this->stock;
 }
 int Movie::Return() {
