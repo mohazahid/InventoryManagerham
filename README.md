@@ -1,6 +1,7 @@
 # InventoryManagerham
-## Design
-Work in group of 3 students
+## Compilation
+run.sh and valgrind.sh will compile and run the program.
+To manually compile, compile all c++ files with g++ using c++11 or later.
 ## Implementation 
 Abhi:
 Hayden:
