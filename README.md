@@ -4,7 +4,7 @@
 - To manually compile, compile all c++ files with g++ using c++11 or later.
 ## Implementation 
 - Hayden: Constructed overall design, implemented HashTable Template and elements of StoreInventory
-- Abhi:
+- Abhi: Added functionality to elements of StoreInventory, Movie, and made sure all ostream functions are correct
 - Mohammad:
 ## Description:
 A local movie rental store wishes to automate their inventory tracking system. Currently there are 
