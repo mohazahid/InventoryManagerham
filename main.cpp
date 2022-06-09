@@ -7,7 +7,6 @@
 #include "storeinventory.h"
 
 using namespace std;
-
 int main() {
 
     /* Test HashTable */
@@ -84,7 +83,7 @@ int main() {
     }
 
     StoreInventory inv(customers, movies);
-
+    inv.operate(commands);
     std::cout << inv << std::endl;
 
 #endif

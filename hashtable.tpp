@@ -1,7 +1,7 @@
 /**
  * @file hashtable.h
  * @author 
- * Hayden Lauritzen (haydenlauritzen@gmail.com)
+ * Hayden Lauritzen (haylau@uw.edu)
  * Abhimanyu Kumar (akumar28@uw.edu)
  * Mohammad Zahid (adyanzah@uw.edu)
  * @brief Template file for HashTable
@@ -65,8 +65,7 @@ public:
      * @param value Value to insert into table
      */
     void put(int key, const T& val) {
-        int idx = hash(key);
-        table.at(idx).push_back(val);
+        table.at(hash(key)).push_back(val);
     }
     /**
      * @brief Inserts the value at the key's location

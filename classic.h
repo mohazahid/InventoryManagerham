@@ -20,10 +20,14 @@ private:
     const static char genre = 'C';
 
 protected:
-    std::string firstName;
-    std::string lastName;
-    int month;
+    std::string firstName; // first name of the major actor
+    std::string lastName;  // last name of the major actor
+    int month;             // month the movie was released
 
+    /**
+     * @brief Prints the classic
+     * @return std::ostream&
+     */
     virtual std::ostream& print(std::ostream&) const;
 
 public:
@@ -38,14 +42,49 @@ public:
      * @param month // month released of movie
      */
     Classic(int, std::string, std::string, int, std::string, std::string, int);
+    /**
+     * @brief Creates a deep copy
+     */
     Classic(const Classic&);
+    /**
+     * @brief Default deconstructor
+     */
     ~Classic();
+
+    /**
+     * @brief Creates a deep copy
+     */
+    Classic& operator=(const Classic&);
 
     // simulate virtual const static behavior
     virtual char type() const { return Classic::genre; }
 
+    /**
+     * @brief Returns the classics's key
+     * @details Key is major actor and release date and month
+     * @return std::string
+     */
     virtual std::string getKey() const;
 
+    /**
+     * @brief Compares two classic objects
+     * @details
+     * Compares by:
+     * firstName
+     * lastName
+     * year
+     * month
+     */
     bool operator<(const Classic&) const;
+    /**
+     * @brief Compares two classic objects
+     * @return true if all member fields are equal
+     * @return false any member field is not equal
+     */
     bool operator==(const Classic&) const;
+    /**
+     * @brief Prints out movie for display purposes
+     * @return std::ostream& 
+     */
+    virtual std::ostream& display(std::ostream&) const;
 };
