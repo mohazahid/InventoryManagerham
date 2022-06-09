@@ -3,9 +3,9 @@
 - run.sh and valgrind.sh will compile and run the program.
 - To manually compile, compile all c++ files with g++ using c++11 or later.
 ## Implementation 
-- Hayden: Constructed overall design, implemented HashTable Template and elements of StoreInventory, helped debug
+- Hayden: Constructed overall design, implemented HashTable Template and elements of StoreInventory
 - Abhi: Added functionality to elements of StoreInventory, Movie, helped debug, and made sure all ostream functions are correct
-- Mohammad: Implemented sort functionality and created movie subclasses, helped debug
+- Mohammad: Implemented sort functionality, created movie subclasses, and helped debug.
 ## Description:
 A local movie rental store wishes to automate their inventory tracking system. Currently there are 
 three types of movies/videos (in DVD media) to be tracked:
