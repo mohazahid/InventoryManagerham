@@ -5,7 +5,7 @@
 ## Implementation 
 - Hayden: Constructed overall design, implemented HashTable Template and elements of StoreInventory
 - Abhi: Added functionality to elements of StoreInventory, Movie, helped debug, and made sure all ostream functions are correct
-- Mohammad: Implemented sort functionality, and created some movie subclasses
+- Mohammad: Implemented sort functionality, and created movie subclasses
 ## Description:
 A local movie rental store wishes to automate their inventory tracking system. Currently there are 
 three types of movies/videos (in DVD media) to be tracked:
