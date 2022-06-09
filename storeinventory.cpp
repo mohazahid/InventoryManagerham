@@ -43,6 +43,7 @@ void StoreInventory::setMovies(std::istream& movies) {
         std::vector<std::string> tokens;
         char delim = ',';
         std::string token;
+        //Seperates tokens by commas 
         while(std::getline(iss, token, delim)) {
             token.erase(0, token.find_first_not_of(' '));
             token.erase(token.find_last_not_of("\r") + 1);
@@ -63,9 +64,10 @@ void StoreInventory::setMovies(std::istream& movies) {
                 std::cout << "INVALID COMMAND ARGUMENTS: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
+            // creating a shared pointer of movie and formating the way its saved
             std::shared_ptr<Movie> movie =
                 std::make_shared<Comedy>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-            if(checkDuplicate(movie)) {
+            if(checkDuplicate(movie)) { // if true add to our inventory
                 this->inventory.put(movie->getKey(), movie);
             }
             break;
@@ -97,10 +99,11 @@ void StoreInventory::setMovies(std::istream& movies) {
                 std::cout << "INVALID COMMAND ARGUMENTS: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
+            // creating a shared pointer of movie and formating the way its saved
             std::shared_ptr<Movie> movie =
                 std::make_shared<Classic>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(7)),
                                           tokens.at(4), tokens.at(5), std::stoi(tokens.at(6)));
-            if(checkDuplicate(movie)) {
+            if(checkDuplicate(movie)) { // if true add to our inventory
                 this->inventory.put(movie->getKey(), movie);
             }
             break;
@@ -114,9 +117,10 @@ void StoreInventory::setMovies(std::istream& movies) {
                 std::cout << "INVALID COMMAND: " << line.erase(line.find_last_not_of("\r") + 1) << "\n";
                 continue;
             }
+            // creating a shared pointer of movie and formating the way its saved
             std::shared_ptr<Movie> movie =
                 std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
-            if(checkDuplicate(movie)) {
+            if(checkDuplicate(movie)) { // if no duplicate add to our inventory
                 this->inventory.put(movie->getKey(), movie);
             }
             break;
@@ -140,12 +144,12 @@ bool StoreInventory::checkDuplicate(std::shared_ptr<Movie> movie) {
 }
 void StoreInventory::operate(std::istream& commands) {
     while(!commands.eof()) {
-        std::string line; // set line
+        std::string line;
         std::getline(commands, line);
         line.erase(line.find_last_not_of("\r") + 1);
         if(line.empty()) continue;   // empty line given
         char operation = line.at(0); // grab command type from command
-        switch(operation) {
+        switch(operation) { //checks what action is being promted
         case Borrow: {
             transact(line);
             break;
@@ -159,12 +163,12 @@ void StoreInventory::operate(std::istream& commands) {
             break;
         }
         case History: {
-            int id = std::stoi(line.substr(2, 4));
-            if(line.size() > 6) { // invalid arguments
+            int id = std::stoi(line.substr(2, 4)); //string to int for the ID
+            if(line.size() > 6) { // checks for invalid arguments
                 std::cerr << "INVALID COMMAND ARGUMENTS: " << line << "\n";
                 continue;
             }
-            if(!isValid(id)) { // invalid ID
+            if(!isValid(id)) { // checks for invalid ID
                 std::cerr << "INVALID CUSTID: " << line << "\n";
                 continue;
             }
@@ -178,12 +182,11 @@ void StoreInventory::operate(std::istream& commands) {
         }
     }
 }
-
 void StoreInventory::transact(std::string line) {
     Log bLog{};
     bLog.customer.custID = -1;
     int id = stoi(line.substr(2, 4)); // grab id from command
-    char movTyp = line.at(9);
+    char movTyp = line.at(9); // grabs movie type
     for(const auto& customer : customers) {
         if(customer.custID == id) {
             bLog.customer = customer;
@@ -202,7 +205,7 @@ void StoreInventory::transact(std::string line) {
         bLog.type = Borrow;
     } else if(op == Return) {
         bLog.type = Return;
-    } else {
+    } else { 
         std::cerr << "INVALID COMMAND: " << line << "\n";
         return;
     }
@@ -246,7 +249,7 @@ void StoreInventory::transact(std::string line) {
                 this->transactions.put(bLog.customer.custID, bLog);
             }
             else if(bLog.type == Return) {
-                if(mov->Return() == -1) {
+                if(mov->Return() == -1) { // movie found but its full
                     std::cerr << "MOVIE STOCK IS FULL: " << line << "\n";
                     return;
                 }
@@ -262,7 +265,7 @@ void StoreInventory::transact(std::string line) {
 void StoreInventory::printCustomers(std::ostream& out) const {
     out << "\n-------------------------------------------------------------------------------------------------\n";
     out << "Customers List: \n";
-    for(auto customer : this->customers) {
+    for(auto customer : this->customers) { // loops through customers
         out << customer << '\n';
     }
     out.flush();
@@ -278,6 +281,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
         for(const auto& movie : this->inventory.get(i)) {
             char type = movie->type();
             switch(type) {
+            // Cases F = Comedy, D = Drama, C = Classic
             case 'F': {
                 comedys.push_back(std::dynamic_pointer_cast<Comedy>(movie));
                 break;
@@ -308,6 +312,7 @@ void StoreInventory::printInventory(std::ostream& out) const {
     std::sort(dramas.begin(), dramas.end(), sortDramas);
     std::sort(classics.begin(), classics.end(), sortClassics);
     out << "\nInventory Movies: \n";
+    //prints movies in our inventory
     for(auto comedy : comedys) {
         out << *comedy << '\n';
     }
@@ -342,7 +347,10 @@ void StoreInventory::printTransactions(std::ostream& out) const {
 
 }
 bool StoreInventory::isValid(int id) const {
+    //loops through all customers
     for(auto const& cust : this->customers) {
+        //if the id we are searching for is equal to any of the customer id's
+        //then we return true;
         if(cust.custID == id) return true;
     }
     return false;

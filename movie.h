@@ -45,6 +45,9 @@ protected:
     virtual std::ostream& print(std::ostream&) const;
 
 public:
+    /**
+     * @brief Default deconstructor
+     */
     virtual ~Movie();
     /**
      * @brief Construct a new Movie object
@@ -114,14 +117,14 @@ public:
      */
     virtual std::string getKey() const;
     /**
+     * @brief Prints out movie for display purposes
+     * @return std::ostream& 
+     */
+    virtual std::ostream& display(std::ostream&) const;
+    /**
      * @brief Get the Stock object
      * @return stock
      */
-    virtual std::ostream& display(std::ostream&) const;
-    /*
-    * Prints the movies idk 
-    *
-    */
     int getStock() const;
     /**
      * @brief Set the stock and inventory

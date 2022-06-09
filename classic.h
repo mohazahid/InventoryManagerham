@@ -82,6 +82,9 @@ public:
      * @return false any member field is not equal
      */
     bool operator==(const Classic&) const;
-
+    /**
+     * @brief Prints out movie for display purposes
+     * @return std::ostream& 
+     */
     virtual std::ostream& display(std::ostream&) const;
 };
