@@ -47,13 +47,28 @@ public:
      * @brief Creates a deep copy
      */
     Comedy& operator=(const Comedy&);
-
-    // simulate virtual const static behavior
+    /**
+     * @brief simulate virtual const static behavio
+     * @return char 
+     */
     virtual char type() const { return Comedy::genre; }
-
+    /**
+     * @brief Returns the movie's key
+     * @details Returns the defined sorting behavior of the movie
+     * @return HashTable key value
+     */
     virtual std::string getKey() const;
-
+    /**
+     * @brief Compares two movie objects
+     * @details
+     * Compares by:
+     * Title
+     * Year
+     */
     bool operator<(const Comedy&) const;
-
+    /**
+     * @brief Prints out movie for display purposes
+     * @return std::ostream& 
+     */
     virtual std::ostream& display(std::ostream& out) const;
 };

@@ -43,7 +43,6 @@ public:
      * @brief Default deconstructor
      */
     ~Drama();
-
     /**
      * @brief Creates a deep copy
      */
@@ -51,10 +50,23 @@ public:
 
     // simulate virtual const static behavior
     virtual char type() const { return Drama::genre; }
-
+    /**
+     * @brief Prints out movie for display purposes
+     * @return std::ostream& 
+     */
     virtual std::ostream& display(std::ostream&) const;
-
+    /**
+     * @brief Returns the movie's key
+     * @details Returns the defined sorting behavior of the movie
+     * @return HashTable key value
+     */
     virtual std::string getKey() const;
-
+    /**
+     * @brief Compares two movie objects
+     * @details 
+     * Compares by:
+     * Director
+     * Year
+     */
     bool operator<(const Drama&) const;
 };
