@@ -118,7 +118,6 @@ void StoreInventory::setMovies(std::istream& movies) {
                 std::make_shared<Drama>(std::stoi(tokens.at(1)), tokens.at(2), tokens.at(3), std::stoi(tokens.at(4)));
             if(checkDuplicate(movie)) {
                 this->inventory.put(movie->getKey(), movie);
-            } else {
             }
             break;
         }
@@ -216,9 +215,11 @@ void StoreInventory::transact(std::string line) {
     }
     case 'C': {
         // fetch key to movie
-        std::istringstream iss(line.substr(12));
+        std::istringstream iss(line.substr(11));
         while(!iss.eof()) {
-            iss >> keytom;
+            std::string token;
+            iss >> token;
+            keytom += token;
         }
         break;
     }

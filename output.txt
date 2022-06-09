@@ -1,0 +1,202 @@
+INVALID MOVIE TYPE: Z, 10, Hal Ashby, Harold and Maude, Bud Cort 3 1971
+INVALID MOVIE TYPE: Z, 10, Frank Capra, It's a Wonderful Life, James Steward 11 1946
+
+-------------------------------------------------------------------------------------------------
+Inventory Movies: 
+10 of F Annie Hall 1977
+10 of F Fargo 1996
+10 of F National Lampoon's Animal House 1978
+10 of F Pirates of the Caribbean 2003
+10 of F Sleepless in Seattle 1993
+10 of F When Harry Met Sally 1989
+10 of F You've Got Mail 1998
+10 of D Barry Levinson 1988 Good Morning Vietnam
+20 of D Clint Eastwood 1992 Unforgiven
+10 of D Gus Van Sant 2000 Good Will Hunting
+10 of D Jonathan Demme 1991 Silence of the Lambs
+10 of D Nancy Savoca 1991 Dogfight
+10 of D Phillippe De Broca 1967 King of Hearts
+10 of D Steven Spielberg 1993 Schindler's List
+10 of C 9 1938 Cary Grant
+10 of C 9 1938 Katherine Hepburn
+10 of C 2 1939 Clark Gable
+10 of C 2 1939 Vivien Leigh
+10 of C 7 1939 Judy Garland
+10 of C 5 1940 Cary Grant
+10 of C 5 1940 Katherine Hepburn
+10 of C 10 1941 Humphrey Bogart
+10 of C 8 1942 Ingrid Bergman
+10 of C 8 1942 Humphrey Bogart
+10 of C 11 1946 Donna Reed
+10 of C 11 1946 James Steward
+10 of C 2 1971 Malcolm McDowell
+10 of C 3 1971 Ruth Gordon
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 1000
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 5000
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 8000
+
+-------------------------------------------------------------------------------------------------
+Inventory Movies: 
+9 of F Annie Hall 1977
+9 of F Fargo 1996
+9 of F National Lampoon's Animal House 1978
+10 of F Pirates of the Caribbean 2003
+9 of F Sleepless in Seattle 1993
+9 of F When Harry Met Sally 1989
+9 of F You've Got Mail 1998
+9 of D Barry Levinson 1988 Good Morning Vietnam
+19 of D Clint Eastwood 1992 Unforgiven
+9 of D Gus Van Sant 2000 Good Will Hunting
+9 of D Jonathan Demme 1991 Silence of the Lambs
+8 of D Nancy Savoca 1991 Dogfight
+9 of D Phillippe De Broca 1967 King of Hearts
+9 of D Steven Spielberg 1993 Schindler's List
+9 of C 9 1938 Cary Grant
+10 of C 9 1938 Katherine Hepburn
+10 of C 2 1939 Clark Gable
+10 of C 2 1939 Vivien Leigh
+10 of C 7 1939 Judy Garland
+9 of C 5 1940 Cary Grant
+9 of C 5 1940 Katherine Hepburn
+9 of C 10 1941 Humphrey Bogart
+10 of C 8 1942 Ingrid Bergman
+10 of C 8 1942 Humphrey Bogart
+10 of C 11 1946 Donna Reed
+10 of C 11 1946 James Steward
+9 of C 2 1971 Malcolm McDowell
+0 of C 3 1971 Ruth Gordon
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 1000
+1000 Minnie Mouse Borrowed D Barry Levinson 1988 Good Morning Vietnam
+1000 Minnie Mouse Borrowed C George Cukor The Philadelphia Story Katherine Hepburn 5 1940
+1000 Minnie Mouse Borrowed D Gus Van Sant 2000 Good Will Hunting
+1000 Minnie Mouse Borrowed C George Cukor The Philadelphia Story Cary Grant 5 1940
+1000 Minnie Mouse Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 1111
+1111 Mickey Mouse Borrowed C Stanley Kubrick A Clockwork Orange Malcolm McDowell 2 1971
+1111 Mickey Mouse Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+1111 Mickey Mouse Borrowed C John Huston The Maltese Falcon Humphrey Bogart 10 1941
+1111 Mickey Mouse Borrowed C George Cukor Holiday Cary Grant 9 1938
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 5000
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 8000
+8000 Wally Wacky Borrowed F Nora Ephron 1998 You've Got Mail
+8000 Wally Wacky Returned F Nora Ephron 1998 You've Got Mail
+8000 Wally Wacky Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8000 Wally Wacky Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8000 Wally Wacky Borrowed F John Landis 1978 National Lampoon's Animal House
+
+-------------------------------------------------------------------------------------------------
+Checking History of Customer 8888
+8888 Porky Pig Borrowed F Woody Allen 1977 Annie Hall
+8888 Porky Pig Borrowed F Rob Reiner 1989 When Harry Met Sally
+8888 Porky Pig Borrowed D Jonathan Demme 1991 Silence of the Lambs
+8888 Porky Pig Borrowed D Nancy Savoca 1991 Dogfight
+8888 Porky Pig Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+
+-------------------------------------------------------------------------------------------------
+Customers List: 
+1000 Minnie Mouse
+1111 Mickey Mouse
+2000 Donald Duck
+3333 Wicked Witch
+4444 Bullwinkle Moose
+5000 Freddie Frog
+6666 Darrell Donkey
+7777 Sammy Spider
+8000 Wally Wacky
+8888 Porky Pig
+9000 Larry Lizard
+9999 Daffy Duck
+
+-------------------------------------------------------------------------------------------------
+Inventory Movies: 
+9 of F Annie Hall 1977
+9 of F Fargo 1996
+9 of F National Lampoon's Animal House 1978
+10 of F Pirates of the Caribbean 2003
+9 of F Sleepless in Seattle 1993
+9 of F When Harry Met Sally 1989
+9 of F You've Got Mail 1998
+9 of D Barry Levinson 1988 Good Morning Vietnam
+19 of D Clint Eastwood 1992 Unforgiven
+9 of D Gus Van Sant 2000 Good Will Hunting
+9 of D Jonathan Demme 1991 Silence of the Lambs
+8 of D Nancy Savoca 1991 Dogfight
+9 of D Phillippe De Broca 1967 King of Hearts
+9 of D Steven Spielberg 1993 Schindler's List
+9 of C 9 1938 Cary Grant
+10 of C 9 1938 Katherine Hepburn
+10 of C 2 1939 Clark Gable
+10 of C 2 1939 Vivien Leigh
+10 of C 7 1939 Judy Garland
+9 of C 5 1940 Cary Grant
+9 of C 5 1940 Katherine Hepburn
+9 of C 10 1941 Humphrey Bogart
+10 of C 8 1942 Ingrid Bergman
+10 of C 8 1942 Humphrey Bogart
+10 of C 11 1946 Donna Reed
+10 of C 11 1946 James Steward
+9 of C 2 1971 Malcolm McDowell
+0 of C 3 1971 Ruth Gordon
+
+-------------------------------------------------------------------------------------------------
+8000 Wally Wacky Borrowed F Nora Ephron 1998 You've Got Mail
+1000 Minnie Mouse Borrowed D Barry Levinson 1988 Good Morning Vietnam
+1000 Minnie Mouse Borrowed C George Cukor The Philadelphia Story Katherine Hepburn 5 1940
+2000 Donald Duck Borrowed F Nora Ephron 1993 Sleepless in Seattle
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+1000 Minnie Mouse Borrowed D Gus Van Sant 2000 Good Will Hunting
+2000 Donald Duck Borrowed D Phillippe De Broca 1967 King of Hearts
+1000 Minnie Mouse Borrowed C George Cukor The Philadelphia Story Cary Grant 5 1940
+1000 Minnie Mouse Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8000 Wally Wacky Returned F Nora Ephron 1998 You've Got Mail
+8000 Wally Wacky Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8000 Wally Wacky Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Returned C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+5000 Freddie Frog Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8000 Wally Wacky Borrowed F John Landis 1978 National Lampoon's Animal House
+2000 Donald Duck Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+2000 Donald Duck Borrowed D Nancy Savoca 1991 Dogfight
+9000 Larry Lizard Borrowed D Clint Eastwood 1992 Unforgiven
+9000 Larry Lizard Borrowed F Joel Coen 1996 Fargo
+2000 Donald Duck Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+9000 Larry Lizard Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+1111 Mickey Mouse Borrowed C Stanley Kubrick A Clockwork Orange Malcolm McDowell 2 1971
+1111 Mickey Mouse Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+1111 Mickey Mouse Borrowed C John Huston The Maltese Falcon Humphrey Bogart 10 1941
+1111 Mickey Mouse Borrowed C George Cukor Holiday Cary Grant 9 1938
+4444 Bullwinkle Moose Borrowed C Stanley Kubrick A Clockwork Orange Malcolm McDowell 2 1971
+4444 Bullwinkle Moose Returned C Stanley Kubrick A Clockwork Orange Malcolm McDowell 2 1971
+7777 Sammy Spider Borrowed D Steven Spielberg 1993 Schindler's List
+7777 Sammy Spider Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+8888 Porky Pig Borrowed F Woody Allen 1977 Annie Hall
+8888 Porky Pig Borrowed F Rob Reiner 1989 When Harry Met Sally
+8888 Porky Pig Borrowed D Jonathan Demme 1991 Silence of the Lambs
+8888 Porky Pig Borrowed D Nancy Savoca 1991 Dogfight
+8888 Porky Pig Borrowed C Hal Ashby Harold and Maude Ruth Gordon 3 1971
+9999 Daffy Duck Borrowed F Nora Ephron 1998 You've Got Mail
+
